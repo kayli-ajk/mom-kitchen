@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>孕味餐食 · 每日餐食推荐</title>
+  <style>
+    :root {
+      --primary: #F5A962;
+      --primary-dark: #E8924A;
+      --primary-light: #FFF3E8;
+      --secondary: #7ECBC3;
+      --secondary-light: #E8F8F6;
+      --bg: #FFF9F5;
+      --card: #FFFFFF;
+      --text: #4A4A4A;
+      --text-secondary: #8C8C8C;
+      --warning: #FF6B6B;
+      --warning-light: #FFE8E8;
+      --success: #7ECBC3;
+      --border: #F0E6E0;
+      --shadow: 0 2px 12px rgba(245, 169, 98, 0.1);
+      --shadow-hover: 0 4px 20px rgba(245, 169, 98, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 428px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .identity-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--primary-light);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--primary-dark);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .identity-badge:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--bg);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* Main Content */
+    .main {
+      padding: 24px 20px 100px;
+    }
+
+    /* Welcome Screen */
+    .welcome {
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .welcome-emoji {
+      font-size: 80px;
+      margin-bottom: 24px;
+    }
+
+    .welcome h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .welcome p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    /* Step Pages */
+    .step-page {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .step-page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .step-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* Identity Cards */
+    .identity-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .identity-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .identity-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .identity-card.selected {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary-light), #FFF);
+      transform: scale(1.02);
+    }
+
+    .identity-card:active {
+      transform: scale(0.98);
+    }
+
+    .identity-icon {
+      font-size: 48px;
+      width: 72px;
+      height: 72px;
+      background: var(--bg);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .identity-info h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .identity-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Preference Section */
+    .pref-section {
+      margin-bottom: 28px;
+    }
+
+    .pref-label {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pref-label .required {
+      color: var(--warning);
+      font-size: 12px;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 8px 16px;
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--primary);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .tag:hover {
+      background: var(--primary-light);
+    }
+
+    .tag.selected {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tag.warning {
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+
+    .tag.warning.selected {
+      background: var(--warning);
+      color: white;
+    }
+
+    /* Radio Tags */
+    .radio-tags {
+      display: flex;
+      gap: 10px;
+    }
+
+    .radio-tag {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-tag:hover {
+      border-color: var(--primary);
+    }
+
+    .radio-tag.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Number Input */
+    .number-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .number-input {
+      width: 100px;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .number-input:focus {
+      border-color: var(--primary);
+    }
+
+    .number-suffix {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Date Input */
+    .date-input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .date-input {
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .date-input:focus {
+      border-color: var(--primary);
+    }
+
+    .date-hint {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Custom Input */
+    .custom-input-wrapper {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .custom-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .custom-input:focus {
+      border-color: var(--primary);
+    }
+
+    .custom-add-btn {
+      padding: 10px 16px;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .custom-add-btn:hover {
+      background: #6ab8b0;
+    }
+
+    /* Button */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 16px rgba(245, 169, 98, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 169, 98, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      background: #ddd;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-text {
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .btn-text:hover {
+      color: var(--primary);
+    }
+
+    /* Meal Recommendations */
+    .meal-tabs {
+      display: flex;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .meal-tab {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .meal-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .meal-date {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* Meal Cards */
+    .meal-card {
+      background: var(--card);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+
+    .meal-card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .meal-card-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .meal-card-header.breakfast {
+      background: linear-gradient(135deg, #FFECD2, #FCB69F);
+    }
+
+    .meal-card-header.lunch {
+      background: linear-gradient(135deg, #A8EDEA, #7ECBC3);
+    }
+
+    .meal-card-header.dinner {
+      background: linear-gradient(135deg, #D4FC79, #96E6A1);
+    }
+
+    .meal-card-header.snack {
+      background: linear-gradient(135deg, #FFE0F0, #FFB6C1);
+    }
+
+    .meal-type {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meal-time {
+      font-size: 12px;
+      color: rgba(0,0,0,0.5);
+    }
+
+    .meal-card-body {
+      padding: 16px;
+    }
+
+    .dish-name {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dish-item, .soup-item {
+      margin-bottom: 16px;
+    }
+
+    .soup-item .dish-name {
+      color: #7ECBC3;
+    }
+
+    /* 独立菜品区域 */
+    .dish-section {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .dish-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .combined-tags {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .nutrition-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .nutrition-tag {
+      padding: 4px 10px;
+      background: var(--secondary-light);
+      color: var(--secondary);
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .meal-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meal-section-title::before {
+      content: '';
+      width: 3px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .steps {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+
+    .steps li {
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .ingredients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ingredient {
+      padding: 6px 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    /* Action Bar */
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 428px;
+      background: var(--card);
+      padding: 16px 20px;
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      display: none;
+      gap: 12px;
+    }
+
+    .action-bar.show {
+      display: flex;
+    }
+
+    .action-bar .btn {
+      flex: 1;
+      margin: 0;
+    }
+
+    /* Regenerate Button */
+    .regenerate-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .regenerate-bar .btn {
+      flex: 1;
+      margin: 0;
+    }
+
+    /* Preferences Edit */
+    .pref-summary {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .pref-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pref-summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .pref-summary-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .pref-summary-value {
+      font-size: 13px;
+      font-weight: 500;
+      max-width: 200px;
+      text-align: right;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-state-emoji {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Loading */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading p {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--card);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 360px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--bg);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-size: 14px;
+      z-index: 1100;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🍽️</div>
+        <span>孕味餐食</span>
+      </div>
+      <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
+        <span id="identityIcon">👶</span>
+        <span id="identityName">请选择</span>
+        <span>▼</span>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="showPreferenceModal()">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Welcome Page -->
+      <section class="welcome step-page active" id="welcomePage">
+        <div class="welcome-emoji">🤰</div>
+        <h1>欢迎使用孕味餐食</h1>
+        <p>为准妈妈和宝宝准备的<br>每日营养餐食推荐</p>
+        <button class="btn btn-primary" onclick="goToStep('identity')" style="max-width: 280px; margin: 0 auto;">
+          开始使用
+        </button>
+      </section>
+
+      <!-- Identity Selection -->
+      <section class="step-page" id="identityPage">
+        <h2 class="step-title">选择您的身份</h2>
+        <p class="step-subtitle">我们将为不同阶段提供专属营养建议</p>
+
+        <div class="identity-grid">
+          <div class="identity-card" data-identity="pregnant" onclick="selectIdentity(this)">
+            <div class="identity-icon">🤰</div>
+            <div class="identity-info">
+              <h3>孕妈</h3>
+              <p>正在怀孕的你，需要特别关注营养摄入</p>
+            </div>
+          </div>
+
+          <div class="identity-card" data-identity="postpartum" onclick="selectIdentity(this)">
+            <div class="identity-icon">👩</div>
+            <div class="identity-info">
+              <h3>宝妈</h3>
+              <p>正在坐月子或哺乳期，需要滋补调理</p>
+            </div>
+          </div>
+
+          <div class="identity-card" data-identity="baby" onclick="selectIdentity(this)">
+            <div class="identity-icon">👶</div>
+            <div class="identity-info">
+              <h3>宝宝家长</h3>
+              <p>为宝宝准备安全健康的辅食</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="identityNextBtn" disabled onclick="goToStep('preference')">
+          下一步
+        </button>
+      </section>
+
+      <!-- Preference Settings -->
+      <section class="step-page" id="preferencePage">
+        <h2 class="step-title">设置您的偏好</h2>
+        <p class="step-subtitle">根据您的口味和需求定制推荐</p>
+
+        <!-- Common: Avoid Foods -->
+        <div class="pref-section">
+          <div class="pref-label">
+            忌口食物
+            <span class="required">（可多选）</span>
+          </div>
+          <div class="tags" id="avoidTags">
+            <button class="tag" data-value="spicy">🌶️ 辛辣</button>
+            <button class="tag" data-value="seafood">🦐 海鲜</button>
+            <button class="tag" data-value="raw">❄️ 生冷</button>
+            <button class="tag" data-value="oily">🍳 油腻</button>
+            <button class="tag" data-value="caffeine">☕ 咖啡因</button>
+            <button class="tag" data-value="allergy_risk">⚠️ 易过敏</button>
+          </div>
+          <div class="custom-input-wrapper">
+            <input type="text" class="custom-input" id="customAvoidInput" placeholder="添加其他忌口...">
+            <button class="custom-add-btn" onclick="addCustomAvoid()">添加</button>
+          </div>
+        </div>
+
+        <!-- Taste Preference -->
+        <div class="pref-section" id="tasteSection">
+          <div class="pref-label">口味偏好</div>
+          <div class="radio-tags" id="tasteTags">
+            <button class="radio-tag selected" data-value="light">🌿 清淡</button>
+            <button class="radio-tag" data-value="mild">🌶️ 微辣</button>
+            <button class="radio-tag" data-value="balanced">⚖️ 营养均衡</button>
+          </div>
+        </div>
+
+        <!-- Cuisine Preferences -->
+        <div class="pref-section" id="cuisineSection">
+          <div class="pref-label">菜系偏好</div>
+          <div class="tags" id="cuisineTags">
+            <button class="tag" data-value="sichuan">🥡 川菜</button>
+            <button class="tag" data-value="cantonese">🍜 粤菜</button>
+            <button class="tag" data-value="home">🏠 家常</button>
+            <button class="tag" data-value="soup">🍲 汤品</button>
+            <button class="tag" data-value="noodles">🍝 面食</button>
+          </div>
+        </div>
+
+        <!-- Special Needs (Pregnant/Postpartum) -->
+        <div class="pref-section" id="specialNeedsSection">
+          <div class="pref-label">特殊需求</div>
+          <div class="tags" id="specialNeedsTags">
+            <button class="tag" data-value="blood">🩸 补血</button>
+            <button class="tag" data-value="calcium">🦴 补钙</button>
+            <button class="tag" data-value="sugar_control">🍬 控糖</button>
+            <button class="tag" data-value="low_fat">🥗 低脂</button>
+            <button class="tag postpartum-only" data-value="milk">🍼 下奶</button>
+          </div>
+        </div>
+
+        <!-- Nausea Level (Pregnant only) -->
+        <div class="pref-section" id="nauseaSection">
+          <div class="pref-label">孕吐情况</div>
+          <div class="radio-tags" id="nauseaTags">
+            <button class="radio-tag selected" data-value="none">😊 无孕吐</button>
+            <button class="radio-tag" data-value="mild">🤢 轻微孕吐</button>
+            <button class="radio-tag" data-value="severe">😫 严重孕吐</button>
+          </div>
+        </div>
+
+        <!-- Delivery Type (Postpartum only) -->
+        <div class="pref-section" id="deliveryTypeSection" style="display: none;">
+          <div class="pref-label">生产方式</div>
+          <div class="radio-tags" id="deliveryTypeTags">
+            <button class="radio-tag selected" data-value="natural">👶 顺产</button>
+            <button class="radio-tag" data-value="c-section">🔪 剖宫产</button>
+          </div>
+        </div>
+
+        <!-- Delivery Date (Postpartum only) -->
+        <div class="pref-section" id="deliveryDateSection" style="display: none;">
+          <div class="pref-label">生产日期</div>
+          <div class="date-input-wrapper">
+            <input type="date" class="date-input" id="deliveryDateInput">
+            <p class="date-hint">根据生产时间，智能调整饮食方案</p>
+          </div>
+        </div>
+
+        <!-- Baby Specific -->
+        <div class="pref-section" id="babyAgeSection" style="display: none;">
+          <div class="pref-label">宝宝月龄</div>
+          <div class="number-input-wrapper">
+            <input type="number" class="number-input" id="babyAgeInput" value="8" min="6" max="36">
+            <span class="number-suffix">个月</span>
+          </div>
+        </div>
+
+        <!-- Baby Meals Per Day -->
+        <div class="pref-section" id="babyMealsSection" style="display: none;">
+          <div class="pref-label">每日辅食顿数</div>
+          <div class="radio-tags" id="babyMealsTags">
+            <button class="radio-tag selected" data-value="1">🍚 1顿</button>
+            <button class="radio-tag" data-value="2">🍚🍚 2顿</button>
+            <button class="radio-tag" data-value="3">🍚🍚🍚 3顿</button>
+          </div>
+        </div>
+
+        <div class="pref-section" id="allergySection" style="display: none;">
+          <div class="pref-label">
+            过敏食物
+            <span class="required">（非常重要）</span>
+          </div>
+          <div class="tags" id="allergyTags">
+            <button class="tag warning" data-value="egg">🥚 鸡蛋</button>
+            <button class="tag warning" data-value="seafood">🦐 海鲜</button>
+            <button class="tag warning" data-value="peanut">🥜 花生</button>
+            <button class="tag warning" data-value="milk">🥛 牛奶</button>
+            <button class="tag warning" data-value="soy">🫘 大豆</button>
+            <button class="tag warning" data-value="wheat">🌾 小麦</button>
+          </div>
+          <div class="custom-input-wrapper">
+            <input type="text" class="custom-input" id="customAllergyInput" placeholder="添加其他过敏食物...">
+            <button class="custom-add-btn" onclick="addCustomAllergy()">添加</button>
+          </div>
+        </div>
+
+        <div class="pref-section" id="foodTypeSection" style="display: none;">
+          <div class="pref-label">辅食类型</div>
+          <div class="tags" id="foodTypeTags">
+            <button class="tag" data-value="puree">🥣 泥糊状</button>
+            <button class="tag" data-value="diced">🧈 碎末状</button>
+            <button class="tag" data-value="solid">🍖 软固体</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="savePreferences()">
+          生成餐食推荐
+        </button>
+        <button class="btn btn-text" onclick="skipPreferences()">
+          跳过，直接生成推荐
+        </button>
+      </section>
+
+      <!-- Meal Recommendations -->
+      <section class="step-page" id="mealPage">
+        <div class="meal-tabs">
+          <button class="meal-tab active" data-day="today" onclick="switchDay('today')">今日推荐</button>
+          <button class="meal-tab" data-day="tomorrow" onclick="switchDay('tomorrow')">明日推荐</button>
+        </div>
+
+        <p class="meal-date" id="mealDate"></p>
+
+        <div class="regenerate-bar">
+          <button class="btn btn-secondary" onclick="regenerateMeals()">
+            🔄 换一批
+          </button>
+          <button class="btn btn-primary" onclick="goToStep('preference')">
+            ⚙️ 修改偏好
+          </button>
+        </div>
+
+        <div id="mealList"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ==================== Data ====================
+    const RECIPES = {
+      pregnant: [
+        // 早餐 12道
+        { id: 'p1', name: '红枣枸杞小米粥', mealType: 'breakfast', ingredients: ['红枣 6颗', '枸杞 10g', '小米 50g', '红糖 适量'], steps: ['小米洗净浸泡30分钟', '红枣去核，枸杞洗净', '锅中加水烧开放入小米', '转小火加入红枣枸杞', '煮至粥稠加入红糖'], nutritionTags: ['补血', '养胃'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p2', name: '紫薯燕麦粥', mealType: 'breakfast', ingredients: ['紫薯 100g', '燕麦 30g', '牛奶 100ml'], steps: ['紫薯去皮切块蒸熟', '燕麦加水煮软', '加入紫薯泥混合', '倒入牛奶搅拌'], nutritionTags: ['补膳食纤维', '控糖'], cuisineTags: ['home'], tasteTags: ['light', 'balanced'], nauseaRisk: 0 },
+        { id: 'p3', name: '菠菜鸡蛋饼', mealType: 'breakfast', ingredients: ['菠菜 100g', '鸡蛋 2个', '面粉 50g', '盐 少许'], steps: ['菠菜焯水切碎', '鸡蛋打散加面粉', '加入菠菜搅拌均匀', '平底锅小火煎至两面金黄'], nutritionTags: ['补铁', '优质蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p4', name: '山药红枣豆浆', mealType: 'breakfast', ingredients: ['黄豆 50g', '山药 30g', '红枣 3颗'], steps: ['黄豆提前浸泡6小时', '山药去皮切块', '红枣去核', '一起放入豆浆机打成豆浆'], nutritionTags: ['补植物蛋白', '健脾'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p5', name: '番茄鸡蛋面', mealType: 'breakfast', ingredients: ['番茄 1个', '鸡蛋 1个', '宝宝面 50g'], steps: ['番茄去皮切块', '鸡蛋炒散盛出', '番茄加水煮开下面条', '加入鸡蛋调味'], nutritionTags: ['维生素C', '能量'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p6', name: '红豆薏米粥', mealType: 'breakfast', ingredients: ['红豆 30g', '薏米 20g', '红糖 适量'], steps: ['红豆薏米提前浸泡4小时', '加水煮沸后转小火', '煮至软糯', '加入红糖调味'], nutritionTags: ['祛湿', '补铁'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p7', name: '玉米胡萝卜粥', mealType: 'breakfast', ingredients: ['玉米粒 50g', '胡萝卜 30g', '大米 50g'], steps: ['胡萝卜切小丁', '玉米粒洗净', '大米煮粥至半熟', '加入玉米和胡萝卜', '煮至软烂'], nutritionTags: ['补维生素A', '护眼'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p8', name: '核桃芝麻糊', mealType: 'breakfast', ingredients: ['核桃 30g', '黑芝麻 20g', '糯米粉 30g', '红糖 适量'], steps: ['核桃芝麻炒香', '加入糯米粉和水调匀', '小火煮至粘稠', '加入红糖'], nutritionTags: ['补脑', '补钙'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 0 },
+        { id: 'p9', name: '香蕉燕麦松饼', mealType: 'breakfast', ingredients: ['香蕉 1根', '燕麦 50g', '鸡蛋 1个', '牛奶 50ml'], steps: ['香蕉压成泥', '加入燕麦鸡蛋牛奶搅拌', '平底锅小火煎', '两面金黄即可'], nutritionTags: ['能量', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 0 },
+        { id: 'p10', name: '虾仁蒸蛋', mealType: 'breakfast', ingredients: ['虾仁 5只', '鸡蛋 2个', '葱花 少许'], steps: ['鸡蛋打散加温水', '虾仁去虾线洗净', '蛋液过筛倒入碗中', '放入虾仁蒸10分钟', '撒葱花淋香油'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p11', name: '三鲜馄饨', mealType: 'breakfast', ingredients: ['馄饨皮 适量', '猪肉 100g', '虾仁 50g', '青菜 50g'], steps: ['猪肉虾仁剁馅', '加入青菜碎调味', '包成馄饨', '水开下馄饨', '碗中放紫菜虾皮待用', '馄饨煮熟盛入碗中'], nutritionTags: ['蛋白质', '暖胃'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p12', name: '山药苹果饼', mealType: 'breakfast', ingredients: ['山药 100g', '苹果 半个', '面粉 30g'], steps: ['山药蒸熟压泥', '苹果擦丝', '混合加面粉', '做成小饼煎熟'], nutritionTags: ['健脾', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        // 午餐 15道
+        { id: 'p13', name: '清蒸鲈鱼', mealType: 'lunch', ingredients: ['鲈鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鲈鱼处理干净划花刀', '鱼身抹料酒放葱姜', '水开蒸10-12分钟', '倒掉蒸汁淋豉油', '撒葱花淋热油'], nutritionTags: ['优质蛋白', '补DHA'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p14', name: '菠菜猪肝汤', mealType: 'lunch', ingredients: ['猪肝 100g', '菠菜 200g', '姜片 3片', '枸杞 少许'], steps: ['猪肝浸泡30分钟去血水', '菠菜洗净切段', '猪肝焯水', '加水姜片煮开', '放入菠菜枸杞'], nutritionTags: ['补铁', '补维生素A'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p15', name: '番茄牛腩煲', mealType: 'lunch', ingredients: ['牛腩 200g', '番茄 2个', '土豆 1个', '洋葱 半个'], steps: ['牛腩切块焯水', '番茄土豆切块', '热油炒香洋葱', '放入牛腩番茄翻炒', '加水炖1.5小时', '加土豆再炖20分钟'], nutritionTags: ['补铁', '优质蛋白'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'p16', name: '虾仁西兰花', mealType: 'lunch', ingredients: ['虾仁 150g', '西兰花 300g', '蒜末 适量', '蚝油 1勺'], steps: ['西兰花切小朵焯水', '虾仁料酒腌制10分钟', '炒香蒜末', '虾仁翻炒变色', '加入西兰花蚝油'], nutritionTags: ['补钙', '高蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p17', name: '山药排骨汤', mealType: 'lunch', ingredients: ['排骨 300g', '山药 200g', '枸杞 10g', '姜片 3片'], steps: ['排骨焯水去血沫', '山药去皮切块泡盐水', '砂锅加水排骨姜片', '大火烧开小火炖40分钟', '加山药枸杞再炖20分钟'], nutritionTags: ['补钙', '健脾'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p18', name: '红烧鸡翅', mealType: 'lunch', ingredients: ['鸡翅中 8个', '生抽 2勺', '老抽 1勺', '冰糖 10g'], steps: ['鸡翅划两刀方便入味', '冷水下锅焯水', '热油煎至金黄', '加调料和水焖煮', '收汁即可'], nutritionTags: ['优质蛋白'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'p19', name: '豆腐鲫鱼汤', mealType: 'lunch', ingredients: ['鲫鱼 1条', '嫩豆腐 200g', '葱姜 适量', '盐 少许'], steps: ['鲫鱼处理干净擦干', '豆腐切块焯水', '鲫鱼煎至两面金黄', '加沸水葱姜大火煮白', '加豆腐中火煮10分钟'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p20', name: '蒜蓉粉丝蒸扇贝', mealType: 'lunch', ingredients: ['扇贝 6个', '粉丝 50g', '蒜蓉 适量', '蒸鱼豉油 1勺'], steps: ['扇贝洗净去内脏', '粉丝泡软铺底', '铺上扇贝和蒜蓉', '蒸8分钟', '淋热油和豉油'], nutritionTags: ['补锌', '高蛋白'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p21', name: '冬瓜排骨汤', mealType: 'lunch', ingredients: ['冬瓜 300g', '排骨 300g', '薏米 20g', '姜片 3片'], steps: ['排骨焯水', '冬瓜去皮切块', '薏米提前泡', '加水炖1小时', '加冬瓜再煮15分钟'], nutritionTags: ['利尿消肿', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p22', name: '清炒荷兰豆', mealType: 'lunch', ingredients: ['荷兰豆 200g', '胡萝卜 1根', '蒜末 适量'], steps: ['荷兰豆去头尾', '胡萝卜切片', '热油爆香蒜末', '荷兰豆胡萝卜翻炒', '加盐调味'], nutritionTags: ['维生素C', '膳食纤维'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p23', name: '虾皮蒸蛋', mealType: 'lunch', ingredients: ['鸡蛋 3个', '虾皮 10g', '葱花 少许', '生抽 半勺'], steps: ['鸡蛋打散加温水', '蛋液过筛', '撒上虾皮', '蒸10分钟', '淋生抽香油'], nutritionTags: ['补钙', '优质蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p24', name: '木耳炒肉片', mealType: 'lunch', ingredients: ['木耳 50g', '里脊肉 100g', '青椒 1个', '姜丝 适量'], steps: ['木耳泡发撕小朵', '里脊肉切片', '肉片腌制10分钟', '热油爆香姜丝', '肉片木耳青椒翻炒'], nutritionTags: ['补铁', '补蛋白质'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p25', name: '番茄炒鸡蛋', mealType: 'lunch', ingredients: ['番茄 2个', '鸡蛋 3个', '葱花 适量'], steps: ['番茄去皮切块', '鸡蛋打散', '鸡蛋炒散盛出', '番茄炒出汁', '加入鸡蛋翻炒'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p26', name: '清蒸鳕鱼', mealType: 'lunch', ingredients: ['鳕鱼 200g', '葱姜 适量', '蒸鱼豉油 1勺', '柠檬 2片'], steps: ['鳕鱼洗净放柠檬去腥', '铺葱姜', '蒸10分钟', '倒掉蒸汁', '淋豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p27', name: '香菇炒青菜', mealType: 'lunch', ingredients: ['香菇 100g', '青菜 200g', '蒜末 适量'], steps: ['香菇切片', '青菜洗净', '热油爆香蒜末', '香菇青菜依次下锅', '翻炒调味'], nutritionTags: ['维生素', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p51', name: '菌菇鸡汤', mealType: 'lunch', ingredients: ['土鸡 200g', '香菇 50g', '杏鲍菇 50g', '枸杞 10g', '姜片 3片'], steps: ['鸡肉切块焯水', '菌菇洗净切片', '砂锅加水鸡肉姜片', '炖30分钟后加菌菇', '再炖20分钟加枸杞'], nutritionTags: ['补气', '增强免疫'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p52', name: '番茄龙利鱼', mealType: 'lunch', ingredients: ['龙利鱼 150g', '番茄 2个', '金针菇 50g', '葱姜 适量'], steps: ['龙利鱼切块腌制', '番茄去皮切块', '番茄煮出汁', '加入鱼块金针菇', '煮至鱼肉熟透'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p53', name: '丝瓜毛豆', mealType: 'lunch', ingredients: ['丝瓜 1根', '毛豆 100g', '蒜末 适量'], steps: ['丝瓜去皮切块', '毛豆煮熟', '热油爆香蒜末', '丝瓜翻炒', '加入毛豆'], nutritionTags: ['维生素B', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p54', name: '娃娃菜豆腐汤', mealType: 'lunch', ingredients: ['娃娃菜 200g', '嫩豆腐 100g', '虾皮 5g', '盐 少许'], steps: ['娃娃菜洗净切段', '豆腐切块', '水开下娃娃菜', '加豆腐虾皮', '调味即可'], nutritionTags: ['补钙', '清淡'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p55', name: '清蒸桂鱼', mealType: 'lunch', ingredients: ['桂鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鱼处理干净划花刀', '铺葱姜', '蒸12分钟', '倒汁铺新葱丝', '淋热油豉油'], nutritionTags: ['优质蛋白', '补脑'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p56', name: '荷兰豆炒藕片', mealType: 'lunch', ingredients: ['荷兰豆 150g', '莲藕 100g', '胡萝卜 50g', '蒜末 适量'], steps: ['荷兰豆去头尾', '莲藕胡萝卜切片', '焯水备用', '热油爆香蒜末', '全部食材翻炒'], nutritionTags: ['维生素C', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p57', name: '海带排骨汤', mealType: 'lunch', ingredients: ['海带 100g', '排骨 200g', '姜片 3片', '盐 少许'], steps: ['海带泡发切块', '排骨焯水', '加水炖1小时', '加海带再煮20分钟'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p58', name: '蚝油生菜', mealType: 'lunch', ingredients: ['生菜 300g', '蚝油 1勺', '蒜末 适量'], steps: ['生菜洗净', '水开焯烫10秒', '捞出沥水', '淋上蚝油蒜末'], nutritionTags: ['维生素', '清热'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p59', name: '银耳莲子汤', mealType: 'lunch', ingredients: ['银耳 20g', '莲子 30g', '百合 10g', '冰糖 适量'], steps: ['银耳泡发撕小朵', '莲子百合洗净', '加水煮30分钟', '加冰糖'], nutritionTags: ['润肺', '安神'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p60', name: '虾仁蒸豆腐', mealType: 'lunch', ingredients: ['嫩豆腐 150g', '虾仁 50g', '葱花 适量', '蒸鱼豉油 半勺'], steps: ['豆腐切块摆盘', '虾仁摆在豆腐上', '蒸8分钟', '淋豉油撒葱花'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p61', name: '番茄菜花', mealType: 'lunch', ingredients: ['番茄 1个', '菜花 200g', '蒜末 适量'], steps: ['菜花切小朵焯水', '番茄去皮切块', '热油炒番茄', '加菜花翻炒'], nutritionTags: ['维生素C', '抗癌'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p62', name: '玉米排骨汤', mealType: 'lunch', ingredients: ['玉米 1根', '排骨 200g', '胡萝卜 1根', '姜片 3片'], steps: ['排骨焯水', '玉米胡萝卜切块', '加水炖1小时', '加玉米胡萝卜', '再炖30分钟'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p63', name: '清蒸基围虾', mealType: 'lunch', ingredients: ['基围虾 200g', '葱姜 适量', '生抽 1勺', '醋 半勺'], steps: ['虾洗净', '葱姜铺底放虾', '蒸8分钟', '蘸料食用'], nutritionTags: ['高蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p64', name: '山药炒木耳', mealType: 'lunch', ingredients: ['山药 200g', '木耳 50g', '胡萝卜 1根', '葱段 适量'], steps: ['山药胡萝卜切片', '木耳泡发', '分别焯水', '热油翻炒调味'], nutritionTags: ['补铁', '健脾'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p65', name: '鱼头豆腐汤', mealType: 'lunch', ingredients: ['鱼头 1个', '嫩豆腐 200g', '葱姜 适量', '盐 少许'], steps: ['鱼头煎至金黄', '加沸水葱姜', '大火煮白', '加豆腐中火煮10分钟'], nutritionTags: ['优质蛋白', '补脑'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        // 晚餐 25道（清淡为主）
+        { id: 'p28', name: '虾仁豆腐煲', mealType: 'dinner', ingredients: ['虾仁 100g', '嫩豆腐 200g', '鸡蛋 1个', '葱花 适量'], steps: ['豆腐切块', '虾仁去虾线', '鸡蛋摊成蛋皮切丝', '豆腐虾仁煮汤', '撒蛋皮丝葱花'], nutritionTags: ['补钙', '优质蛋白'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p29', name: '红烧狮子头', mealType: 'dinner', ingredients: ['猪肉馅 300g', '马蹄 50g', '鸡蛋 1个', '青菜 100g'], steps: ['肉馅加马蹄鸡蛋搅拌上劲', '做成大丸子', '煎至金黄', '加水酱油炖30分钟', '青菜焯水铺底'], nutritionTags: ['补铁', '蛋白质'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'p30', name: '莲藕炒肉片', mealType: 'dinner', ingredients: ['莲藕 200g', '里脊肉 100g', '木耳 30g', '姜丝 适量'], steps: ['莲藕切片焯水', '肉片腌制', '热油爆香姜丝', '肉片翻炒', '加入莲藕木耳'], nutritionTags: ['补铁', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p31', name: '紫菜蛋花汤', mealType: 'dinner', ingredients: ['紫菜 10g', '鸡蛋 2个', '虾皮 5g', '葱花 适量'], steps: ['紫菜洗净', '鸡蛋打散', '水开淋蛋花', '放入紫菜虾皮', '调味撒葱花'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p32', name: '西葫芦炒鸡蛋', mealType: 'dinner', ingredients: ['西葫芦 1根', '鸡蛋 2个', '蒜末 适量'], steps: ['西葫芦切片', '鸡蛋炒散', '热油爆香蒜末', '西葫芦炒软', '加入鸡蛋'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p33', name: '山药炖鸡汤', mealType: 'dinner', ingredients: ['土鸡 半只', '山药 200g', '枸杞 10g', '红枣 5颗'], steps: ['鸡块焯水', '山药去皮切块', '一起放入砂锅', '加水炖1.5小时', '加枸杞红枣再炖10分钟'], nutritionTags: ['补气血', '滋补'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p34', name: '清蒸桂花鱼', mealType: 'dinner', ingredients: ['桂花鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鱼处理干净', '葱姜铺底放鱼', '蒸12分钟', '倒汁铺新葱丝', '淋热油豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p35', name: '丝瓜炒毛豆', mealType: 'dinner', ingredients: ['丝瓜 1根', '毛豆 100g', '蒜末 适量'], steps: ['丝瓜去皮切块', '毛豆煮熟', '热油爆香蒜末', '丝瓜翻炒', '加入毛豆'], nutritionTags: ['维生素B', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p36', name: '萝卜丝鲫鱼汤', mealType: 'dinner', ingredients: ['白萝卜 200g', '鲫鱼 1条', '姜片 3片', '葱花 适量'], steps: ['萝卜切丝', '鲫鱼煎至金黄', '加沸水姜片', '大火煮白', '加萝卜丝煮软'], nutritionTags: ['利尿', '通乳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p37', name: '西兰花炒虾仁', mealType: 'dinner', ingredients: ['西兰花 200g', '虾仁 100g', '蒜末 适量'], steps: ['西兰花切小朵焯水', '虾仁去虾线', '热油爆香蒜末', '虾仁翻炒', '加入西兰花'], nutritionTags: ['补钙', '高蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p38', name: '土豆烧牛肉', mealType: 'dinner', ingredients: ['土豆 2个', '牛肉 200g', '胡萝卜 1根', '八角 2个'], steps: ['土豆牛肉切块', '牛肉焯水', '热油炒香八角', '牛肉土豆胡萝卜下锅', '加水炖1小时'], nutritionTags: ['补铁', '能量'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'p39', name: '冬瓜汆肉丸', mealType: 'dinner', ingredients: ['冬瓜 300g', '猪肉馅 150g', '蛋清 1个', '葱姜水 适量'], steps: ['肉馅加蛋清葱姜水搅拌', '冬瓜切块', '水开下肉丸', '肉丸浮起加冬瓜', '煮至冬瓜透明'], nutritionTags: ['清淡', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p40', name: '清炒油麦菜', mealType: 'dinner', ingredients: ['油麦菜 300g', '蒜末 适量'], steps: ['油麦菜洗净切段', '热油爆香蒜末', '油麦菜大火快炒', '加盐调味'], nutritionTags: ['维生素', '清热'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p41', name: '番茄肉丸汤', mealType: 'dinner', ingredients: ['番茄 2个', '猪肉丸 10个', '金针菇 50g', '葱花 适量'], steps: ['番茄去皮切块', '水开下肉丸', '肉丸浮起加番茄', '加金针菇', '调味撒葱花'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p42', name: '木须肉', mealType: 'dinner', ingredients: ['里脊肉 100g', '鸡蛋 2个', '黄瓜 1根', '木耳 30g'], steps: ['肉片腌制', '鸡蛋炒散', '肉片木耳黄瓜', '加鸡蛋翻炒'], nutritionTags: ['蛋白质', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p66', name: '肉末蒸蛋', mealType: 'dinner', ingredients: ['鸡蛋 2个', '猪肉馅 50g', '葱花 少许', '生抽 半勺'], steps: ['鸡蛋打散加温水', '肉末炒散', '蛋液过筛蒸', '放肉末再蒸5分钟'], nutritionTags: ['优质蛋白', '补铁'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p67', name: '口蘑炒青菜', mealType: 'dinner', ingredients: ['口蘑 100g', '青菜 200g', '蒜末 适量'], steps: ['口蘑切片', '青菜洗净', '口蘑先炒', '加青菜翻炒'], nutritionTags: ['维生素', '增强免疫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p68', name: '翡翠白玉羹', mealType: 'dinner', ingredients: ['豆腐 100g', '豌豆 50g', '鸡蛋 1个', '水淀粉 适量'], steps: ['豆腐切小丁', '豌豆煮熟', '加水煮开', '淋蛋花水淀粉', '调味'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p69', name: '清蒸鳕鱼', mealType: 'dinner', ingredients: ['鳕鱼 200g', '葱姜 适量', '蒸鱼豉油 1勺', '柠檬 2片'], steps: ['鳕鱼放柠檬去腥', '铺葱姜', '蒸10分钟', '倒汁淋豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p70', name: '蒜蓉西兰花', mealType: 'dinner', ingredients: ['西兰花 300g', '蒜末 适量', '蚝油 1勺'], steps: ['西兰花切小朵焯水', '热油爆香蒜末', '西兰花回锅', '加蚝油翻炒'], nutritionTags: ['维生素C', '防癌'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p71', name: '蛤蜊冬瓜汤', mealType: 'dinner', ingredients: ['蛤蜊 100g', '冬瓜 200g', '姜丝 适量', '盐 少许'], steps: ['蛤蜊吐沙洗净', '冬瓜切块', '水开下冬瓜', '加蛤蜊煮至开口'], nutritionTags: ['利尿', '清热'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p72', name: '腐竹炒木耳', mealType: 'dinner', ingredients: ['腐竹 50g', '木耳 50g', '胡萝卜 1根', '蒜末 适量'], steps: ['腐竹木耳泡发', '胡萝卜切片', '分别焯水', '热油翻炒'], nutritionTags: ['补铁', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p73', name: '芙蓉鲜蔬汤', mealType: 'dinner', ingredients: ['鸡蛋 2个', '青菜 100g', '胡萝卜 50g', '蘑菇 50g'], steps: ['蔬菜切碎', '水开下蔬菜', '淋蛋花', '调味即可'], nutritionTags: ['维生素', '清淡'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p74', name: '盐水虾', mealType: 'dinner', ingredients: ['鲜虾 200g', '姜片 3片', '葱段 适量', '盐 少许'], steps: ['虾洗净', '水开加葱姜', '下虾煮至变色', '捞出即可'], nutritionTags: ['高蛋白', '低脂'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p75', name: '百合炒西芹', mealType: 'dinner', ingredients: ['百合 50g', '西芹 200g', '胡萝卜 50g', '蒜末 适量'], steps: ['百合西芹胡萝卜切片', '分别焯水', '热油爆香蒜末', '全部翻炒'], nutritionTags: ['清心安神', '降血压'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p76', name: '虾皮紫菜汤', mealType: 'dinner', ingredients: ['虾皮 10g', '紫菜 10g', '鸡蛋 1个', '葱花 适量'], steps: ['紫菜洗净', '水开下虾皮紫菜', '淋蛋花', '撒葱花调味'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p77', name: '蒜蓉粉丝蒸娃娃菜', mealType: 'dinner', ingredients: ['娃娃菜 300g', '粉丝 50g', '蒜蓉 适量', '蒸鱼豉油 1勺'], steps: ['娃娃菜切开铺盘', '粉丝泡软铺底', '铺蒜蓉', '蒸10分钟淋豉油'], nutritionTags: ['维生素', '纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p78', name: '西红柿鸡蛋汤', mealType: 'dinner', ingredients: ['番茄 2个', '鸡蛋 2个', '葱花 适量'], steps: ['番茄去皮切块', '水开下番茄', '淋蛋花', '调味撒葱花'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p79', name: '清炒莴笋', mealType: 'dinner', ingredients: ['莴笋 300g', '蒜末 适量', '盐 少许'], steps: ['莴笋去皮切片', '热油爆香蒜末', '莴笋翻炒', '加盐调味'], nutritionTags: ['维生素', '清热'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p80', name: '虾仁炒荷兰豆', mealType: 'dinner', ingredients: ['虾仁 100g', '荷兰豆 150g', '胡萝卜 50g', '蒜末 适量'], steps: ['荷兰豆去头尾', '胡萝卜切片', '虾仁荷兰豆焯水', '热油翻炒'], nutritionTags: ['高蛋白', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        // 汤品类（50道，作为午餐汤或晚餐）
+        { id: 'p81', name: '莲子百合粥', mealType: 'snack', ingredients: ['莲子 30g', '百合 20g', '大米 50g', '冰糖 适量'], steps: ['莲子百合洗净', '大米煮粥', '加莲子百合', '煮至软烂加冰糖'], nutritionTags: ['安神', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p82', name: '红豆汤', mealType: 'snack', ingredients: ['红豆 50g', '冰糖 适量'], steps: ['红豆浸泡4小时', '加水煮至软烂', '加冰糖'], nutritionTags: ['补铁', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p83', name: '红枣桂圆茶', mealType: 'snack', ingredients: ['红枣 5颗', '桂圆 10g', '红糖 15g'], steps: ['红枣桂圆洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['补气血', '暖身'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p84', name: '雪梨银耳羹', mealType: 'snack', ingredients: ['雪梨 1个', '银耳 20g', '冰糖 适量'], steps: ['雪梨去皮切块', '银耳泡发撕小朵', '加水煮30分钟', '加冰糖'], nutritionTags: ['润肺', '止咳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p85', name: '黑豆红枣汤', mealType: 'snack', ingredients: ['黑豆 50g', '红枣 5颗', '红糖 适量'], steps: ['黑豆浸泡4小时', '加水煮1小时', '加红枣红糖'], nutritionTags: ['补肾', '补血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p86', name: '黄豆猪蹄汤', mealType: 'snack', ingredients: ['黄豆 50g', '猪蹄 1只', '姜片 3片', '盐 少许'], steps: ['黄豆浸泡2小时', '猪蹄焯水', '加水炖2小时'], nutritionTags: ['胶原蛋白', '下奶'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p87', name: '排骨玉米汤', mealType: 'snack', ingredients: ['排骨 200g', '玉米 1根', '胡萝卜 1根', '姜片 3片'], steps: ['排骨焯水', '玉米胡萝卜切块', '加水炖1小时'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p88', name: '竹笋老鸭汤', mealType: 'snack', ingredients: ['鸭肉 200g', '竹笋 100g', '姜片 3片', '料酒 1勺'], steps: ['鸭肉切块焯水', '竹笋切片', '加水炖1.5小时'], nutritionTags: ['清热', '滋阴'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p89', name: '红豆薏米汤', mealType: 'snack', ingredients: ['红豆 30g', '薏米 30g', '冰糖 适量'], steps: ['红豆薏米浸泡4小时', '加水煮1小时', '加冰糖'], nutritionTags: ['祛湿', '健脾'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p90', name: '红枣枸杞茶', mealType: 'snack', ingredients: ['红枣 5颗', '枸杞 10g', '桂圆 5g'], steps: ['所有材料洗净', '加热水冲泡', '焖10分钟'], nutritionTags: ['补气血', '明目'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p91', name: '山药薏米汤', mealType: 'snack', ingredients: ['山药 100g', '薏米 30g', '冰糖 适量'], steps: ['薏米浸泡2小时', '山药去皮切块', '加水煮40分钟', '加冰糖'], nutritionTags: ['健脾', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p92', name: '党参鸡汤', mealType: 'snack', ingredients: ['党参 10g', '黄芪 10g', '鸡肉 200g', '红枣 3颗'], steps: ['药材洗净', '鸡肉切块焯水', '加水炖1.5小时'], nutritionTags: ['补气', '增强免疫'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p93', name: '花生红枣汤', mealType: 'snack', ingredients: ['花生 50g', '红枣 5颗', '红糖 适量'], steps: ['花生浸泡1小时', '加水煮30分钟', '加红枣红糖'], nutritionTags: ['补血', '催乳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p94', name: '银耳红枣羹', mealType: 'snack', ingredients: ['银耳 20g', '红枣 8颗', '枸杞 10g', '冰糖 适量'], steps: ['银耳泡发撕小朵', '红枣去核', '加水煮30分钟', '加枸杞冰糖'], nutritionTags: ['美容养颜', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p95', name: '木瓜牛奶', mealType: 'snack', ingredients: ['木瓜 半个', '牛奶 200ml', '冰糖 适量'], steps: ['木瓜去皮切块', '加水煮软', '加牛奶冰糖', '煮开即可'], nutritionTags: ['下奶', '美容'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p96', name: '核桃芝麻糊', mealType: 'snack', ingredients: ['核桃 30g', '黑芝麻 30g', '糯米粉 20g', '红糖 适量'], steps: ['核桃芝麻炒香', '加水打成糊', '加糯米粉煮', '加红糖'], nutritionTags: ['补钙', '补脑'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p97', name: '桂圆红枣茶', mealType: 'snack', ingredients: ['桂圆 15g', '红枣 5颗', '红糖 10g'], steps: ['材料洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['补气血', '暖宫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p98', name: '紫薯银耳羹', mealType: 'snack', ingredients: ['紫薯 100g', '银耳 20g', '冰糖 适量'], steps: ['银耳泡发撕小朵', '紫薯去皮切块', '加水煮30分钟', '加冰糖'], nutritionTags: ['抗氧化', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p99', name: '红糖姜枣茶', mealType: 'snack', ingredients: ['红糖 20g', '生姜 10g', '红枣 3颗'], steps: ['生姜切片', '红枣去核', '加水煮10分钟', '加红糖'], nutritionTags: ['暖宫', '驱寒'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'p100', name: '黑木耳红枣汤', mealType: 'snack', ingredients: ['黑木耳 30g', '红枣 5颗', '红糖 适量'], steps: ['木耳泡发撕小朵', '红枣去核', '加水煮30分钟', '加红糖'], nutritionTags: ['补铁', '养血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 }
+      ],
+
+      postpartum: [
+        // 早餐 12道
+        { id: 'm1', name: '红豆紫米粥', mealType: 'breakfast', ingredients: ['红豆 30g', '紫米 30g', '红枣 5颗', '红糖 适量'], steps: ['红豆紫米浸泡4小时', '红枣去核', '加水煮沸', '小火慢炖1小时', '加红糖'], nutritionTags: ['补气血', '祛湿'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm2', name: '红糖鸡蛋醪糟', mealType: 'breakfast', ingredients: ['醪糟 3勺', '鸡蛋 1个', '红糖 20g', '枸杞 少许'], steps: ['锅中加水烧开', '打入鸡蛋', '加入醪糟红糖', '煮沸撒枸杞'], nutritionTags: ['暖宫', '下奶'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm3', name: '小米红枣粥', mealType: 'breakfast', ingredients: ['小米 50g', '红枣 5颗', '红糖 适量', '枸杞 少许'], steps: ['小米洗净浸泡', '红枣去核', '加水煮沸转小火', '加红枣枸杞', '红糖调味'], nutritionTags: ['补气血', '养胃'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm4', name: '黑芝麻糊', mealType: 'breakfast', ingredients: ['黑芝麻 50g', '糯米 30g', '红糖 20g', '核桃 20g'], steps: ['黑芝麻糯米浸泡', '核桃烤香', '加水打成糊', '煮沸加红糖'], nutritionTags: ['补钙', '补肾'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 0 },
+        { id: 'm5', name: '山药南瓜粥', mealType: 'breakfast', ingredients: ['山药 50g', '南瓜 50g', '大米 50g'], steps: ['山药南瓜去皮切块', '大米煮粥', '加入山药南瓜', '煮至软烂'], nutritionTags: ['健脾', '易消化'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm6', name: '红枣桂圆茶', mealType: 'breakfast', ingredients: ['红枣 5颗', '桂圆 10g', '红糖 15g'], steps: ['红枣桂圆洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['补气血', '暖身'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm7', name: '鸡蛋葱油饼', mealType: 'breakfast', ingredients: ['面粉 100g', '鸡蛋 2个', '葱花 适量', '盐 少许'], steps: ['面粉加水和成面团', '擀成薄饼', '刷油撒葱花盐', '卷起压扁', '煎至两面金黄'], nutritionTags: ['能量', '蛋白质'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'm8', name: '花生红枣豆浆', mealType: 'breakfast', ingredients: ['黄豆 40g', '花生 20g', '红枣 3颗'], steps: ['黄豆花生浸泡6小时', '红枣去核', '一起打豆浆', '煮沸'], nutritionTags: ['补气血', '植物蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm9', name: '红糖糍粑', mealType: 'breakfast', ingredients: ['糯米 200g', '红糖 30g', '黄豆粉 20g'], steps: ['糯米蒸熟捣成泥', '搓成小条', '裹黄豆粉', '淋红糖浆'], nutritionTags: ['能量', '暖胃'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 0 },
+        { id: 'm10', name: '山药小米粥', mealType: 'breakfast', ingredients: ['山药 50g', '小米 50g', '枸杞 少许'], steps: ['山药去皮切块', '小米洗净', '加水煮粥', '加山药枸杞'], nutritionTags: ['健脾', '养胃'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm11', name: '红豆汤圆', mealType: 'breakfast', ingredients: ['红豆 50g', '小汤圆 10个', '红糖 适量'], steps: ['红豆浸泡4小时', '煮至软烂', '下汤圆', '汤圆浮起加红糖'], nutritionTags: ['补铁', '能量'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm12', name: '核桃粥', mealType: 'breakfast', ingredients: ['核桃 30g', '大米 50g', '红糖 适量'], steps: ['核桃切碎', '大米煮粥', '加核桃煮熟', '红糖调味'], nutritionTags: ['补脑', '补肾'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 0 },
+        // 午餐 15道
+        { id: 'm13', name: '黄豆炖猪蹄', mealType: 'lunch', ingredients: ['猪蹄 1只', '黄豆 50g', '花生 30g', '姜片 5片'], steps: ['猪蹄切块焯水', '黄豆花生浸泡2小时', '砂锅加水猪蹄姜片', '大火烧开小火炖1小时', '加黄豆花生再炖1小时'], nutritionTags: ['下奶', '胶原蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm14', name: '麻油鸡', mealType: 'lunch', ingredients: ['鸡腿肉 300g', '老姜 50g', '黑麻油 2勺', '米酒 100ml'], steps: ['鸡肉切块', '老姜切片', '麻油煸香姜片', '加鸡肉翻炒', '加米酒水烧开', '小火焖20分钟'], nutritionTags: ['暖宫', '下奶'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'm15', name: '鲫鱼豆腐汤', mealType: 'lunch', ingredients: ['鲫鱼 1条', '嫩豆腐 200g', '葱姜 适量', '盐 少许'], steps: ['鲫鱼处理干净', '豆腐切块焯水', '鲫鱼煎至金黄', '加沸水葱姜', '大火煮白加豆腐'], nutritionTags: ['优质蛋白', '下奶'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm16', name: '莲藕排骨汤', mealType: 'lunch', ingredients: ['莲藕 300g', '排骨 300g', '花生 30g', '姜片 3片'], steps: ['莲藕去皮切块', '排骨焯水', '一起入砂锅', '加水炖1.5小时'], nutritionTags: ['补铁', '通乳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm17', name: '红烧牛腩', mealType: 'lunch', ingredients: ['牛腩 300g', '番茄 2个', '土豆 1个', '八角桂皮 适量'], steps: ['牛腩切块焯水', '番茄土豆切块', '炒香香料', '加牛腩番茄翻炒', '加水炖1.5小时'], nutritionTags: ['补铁', '恢复体力'], cuisineTags: ['home'], tasteTags: ['balanced'], nauseaRisk: 1 },
+        { id: 'm18', name: '生化汤', mealType: 'lunch', ingredients: ['当归 10g', '川芎 6g', '桃仁 3g', '炙甘草 3g', '红糖 适量'], steps: ['所有药材洗净', '加水1000ml', '煮沸转小火30分钟', '加红糖'], nutritionTags: ['排恶露', '暖宫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm19', name: '清蒸鳜鱼', mealType: 'lunch', ingredients: ['鳜鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鱼处理干净划花刀', '铺葱姜', '蒸12分钟', '倒汁铺新葱丝', '淋热油豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm20', name: '花生猪蹄汤', mealType: 'lunch', ingredients: ['猪蹄 1只', '花生 50g', '红枣 5颗', '枸杞 少许'], steps: ['猪蹄焯水', '花生浸泡30分钟', '一起入砂锅', '加水炖2小时', '加红枣枸杞'], nutritionTags: ['下奶', '补气血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm21', name: '木瓜炖牛奶', mealType: 'lunch', ingredients: ['木瓜 半个', '牛奶 200ml', '冰糖 适量'], steps: ['木瓜去皮切块', '加水煮软', '加牛奶冰糖', '煮开即可'], nutritionTags: ['下奶', '美容'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm22', name: '当归炖鸡汤', mealType: 'lunch', ingredients: ['土鸡 半只', '当归 5g', '黄芪 10g', '红枣 5颗'], steps: ['鸡块焯水', '药材洗净', '一起入砂锅', '加水炖1.5小时'], nutritionTags: ['补气血', '暖宫'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm23', name: '番茄鸡蛋面', mealType: 'lunch', ingredients: ['番茄 2个', '鸡蛋 2个', '面条 100g', '葱花 适量'], steps: ['番茄去皮切块', '鸡蛋炒散', '番茄加水下面', '加鸡蛋调味'], nutritionTags: ['维生素C', '能量'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm24', name: '虾仁蒸蛋', mealType: 'lunch', ingredients: ['虾仁 5只', '鸡蛋 2个', '葱花 少许', '生抽 半勺'], steps: ['鸡蛋打散加温水', '虾仁去虾线', '蛋液过筛蒸', '放虾仁再蒸5分钟', '淋生抽香油'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm25', name: '冬瓜排骨汤', mealType: 'lunch', ingredients: ['冬瓜 300g', '排骨 200g', '薏米 20g'], steps: ['排骨焯水', '冬瓜切块', '薏米浸泡', '一起炖1小时'], nutritionTags: ['利尿', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm26', name: '豆腐鲈鱼汤', mealType: 'lunch', ingredients: ['鲈鱼 1条', '豆腐 150g', '姜片 3片', '葱花 适量'], steps: ['鲈鱼煎金黄', '加水煮白', '加豆腐姜片', '煮10分钟撒葱花'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm27', name: '山药乌鸡汤', mealType: 'lunch', ingredients: ['乌鸡 半只', '山药 200g', '枸杞 10g', '姜片 3片'], steps: ['乌鸡焯水', '山药去皮切块', '一起入砂锅', '炖1.5小时'], nutritionTags: ['补气血', '滋补'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm51', name: '清蒸鲈鱼', mealType: 'lunch', ingredients: ['鲈鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鲈鱼处理干净划花刀', '鱼身抹料酒放葱姜', '水开蒸10-12分钟', '倒掉蒸汁淋豉油'], nutritionTags: ['优质蛋白', '补DHA'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm52', name: '番茄龙利鱼', mealType: 'lunch', ingredients: ['龙利鱼 150g', '番茄 2个', '金针菇 50g', '葱姜 适量'], steps: ['龙利鱼切块腌制', '番茄去皮切块', '番茄煮出汁', '加入鱼块金针菇'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm53', name: '虾仁西兰花', mealType: 'lunch', ingredients: ['虾仁 150g', '西兰花 300g', '蒜末 适量', '蚝油 1勺'], steps: ['西兰花切小朵焯水', '虾仁料酒腌制', '炒香蒜末', '虾仁西兰花翻炒'], nutritionTags: ['补钙', '高蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm54', name: '豆腐鲫鱼汤', mealType: 'lunch', ingredients: ['鲫鱼 1条', '嫩豆腐 200g', '葱姜 适量', '盐 少许'], steps: ['鲫鱼处理干净', '豆腐切块焯水', '鲫鱼煎至金黄', '加沸水葱姜大火煮白', '加豆腐中火煮10分钟'], nutritionTags: ['优质蛋白', '下奶'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm55', name: '荷兰豆炒藕片', mealType: 'lunch', ingredients: ['荷兰豆 150g', '莲藕 100g', '胡萝卜 50g', '蒜末 适量'], steps: ['荷兰豆去头尾', '莲藕胡萝卜切片', '焯水备用', '热油爆香蒜末翻炒'], nutritionTags: ['维生素C', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm56', name: '海带排骨汤', mealType: 'lunch', ingredients: ['海带 100g', '排骨 200g', '姜片 3片', '盐 少许'], steps: ['海带泡发切块', '排骨焯水', '加水炖1小时', '加海带再煮20分钟'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm57', name: '丝瓜毛豆', mealType: 'lunch', ingredients: ['丝瓜 1根', '毛豆 100g', '蒜末 适量'], steps: ['丝瓜去皮切块', '毛豆煮熟', '热油爆香蒜末', '丝瓜翻炒', '加入毛豆'], nutritionTags: ['维生素B', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm58', name: '虾仁蒸豆腐', mealType: 'lunch', ingredients: ['嫩豆腐 150g', '虾仁 50g', '葱花 适量', '蒸鱼豉油 半勺'], steps: ['豆腐切块摆盘', '虾仁摆在豆腐上', '蒸8分钟', '淋豉油撒葱花'], nutritionTags: ['优质蛋白', '补钙'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm59', name: '清蒸鳜鱼', mealType: 'lunch', ingredients: ['鳜鱼 1条', '葱姜 适量', '蒸鱼豉油 2勺'], steps: ['鱼处理干净划花刀', '铺葱姜', '蒸12分钟', '倒汁铺新葱丝', '淋热油豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm60', name: '番茄菜花', mealType: 'lunch', ingredients: ['番茄 1个', '菜花 200g', '蒜末 适量'], steps: ['菜花切小朵焯水', '番茄去皮切块', '热油炒番茄', '加菜花翻炒'], nutritionTags: ['维生素C', '抗癌'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm61', name: '玉米排骨汤', mealType: 'lunch', ingredients: ['玉米 1根', '排骨 200g', '胡萝卜 1根', '姜片 3片'], steps: ['排骨焯水', '玉米胡萝卜切块', '加水炖1小时', '加玉米胡萝卜再炖30分钟'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm62', name: '清蒸基围虾', mealType: 'lunch', ingredients: ['基围虾 200g', '葱姜 适量', '生抽 1勺', '醋 半勺'], steps: ['虾洗净', '葱姜铺底放虾', '蒸8分钟', '蘸料食用'], nutritionTags: ['高蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm63', name: '山药炒木耳', mealType: 'lunch', ingredients: ['山药 200g', '木耳 50g', '胡萝卜 1根', '葱段 适量'], steps: ['山药胡萝卜切片', '木耳泡发', '分别焯水', '热油翻炒调味'], nutritionTags: ['补铁', '健脾'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm64', name: '鱼头豆腐汤', mealType: 'lunch', ingredients: ['鱼头 1个', '嫩豆腐 200g', '葱姜 适量', '盐 少许'], steps: ['鱼头煎至金黄', '加沸水葱姜', '大火煮白', '加豆腐中火煮10分钟'], nutritionTags: ['优质蛋白', '补脑'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        // 晚餐 25道（清淡为主，产后14天内适用）
+        // 晚餐 15道
+        { id: 'm28', name: '红枣桂圆鸡汤', mealType: 'dinner', ingredients: ['土鸡 半只', '红枣 8颗', '桂圆 10g', '枸杞 10g'], steps: ['鸡块焯水', '红枣桂圆枸杞', '一起入砂锅', '加水炖1.5小时'], nutritionTags: ['补气血', '养血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm29', name: '清炒菠菜', mealType: 'dinner', ingredients: ['菠菜 300g', '蒜末 适量', '盐 少许'], steps: ['菠菜洗净', '热油爆香蒜末', '菠菜大火快炒', '加盐'], nutritionTags: ['补铁', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm30', name: '萝卜丝鲫鱼汤', mealType: 'dinner', ingredients: ['白萝卜 200g', '鲫鱼 1条', '姜丝 适量', '葱花 少许'], steps: ['萝卜切丝', '鲫鱼煎金黄', '加水煮白', '加萝卜丝', '调味撒葱花'], nutritionTags: ['通乳', '利尿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm31', name: '西红柿炒菜花', mealType: 'dinner', ingredients: ['番茄 1个', '菜花 200g', '蒜末 适量'], steps: ['菜花切小朵焯水', '番茄去皮切块', '热油炒番茄', '加菜花翻炒'], nutritionTags: ['维生素C', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm32', name: '猪肝菠菜汤', mealType: 'dinner', ingredients: ['猪肝 100g', '菠菜 150g', '姜丝 适量'], steps: ['猪肝浸泡切片', '菠菜洗净', '水开下猪肝', '加菠菜姜丝'], nutritionTags: ['补铁', '补维生素A'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm33', name: '虾仁炒西兰花', mealType: 'dinner', ingredients: ['虾仁 100g', '西兰花 200g', '蒜末 适量'], steps: ['西兰花切小朵焯水', '虾仁去虾线', '热油爆香蒜末', '虾仁西兰花翻炒'], nutritionTags: ['补钙', '高蛋白'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm34', name: '紫菜虾皮汤', mealType: 'dinner', ingredients: ['紫菜 10g', '虾皮 5g', '鸡蛋 1个', '葱花 适量'], steps: ['紫菜洗净', '水开淋蛋花', '加紫菜虾皮', '调味撒葱花'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm35', name: '香菇炒青菜', mealType: 'dinner', ingredients: ['香菇 100g', '青菜 200g', '蒜末 适量'], steps: ['香菇切片', '青菜洗净', '热油爆香蒜末', '香菇青菜翻炒'], nutritionTags: ['维生素', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm36', name: '木耳炒山药', mealType: 'dinner', ingredients: ['木耳 50g', '山药 200g', '胡萝卜 1根', '葱段 适量'], steps: ['木耳泡发', '山药胡萝卜切片', '热油翻炒', '调味'], nutritionTags: ['补铁', '健脾'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm37', name: '冬瓜汆丸子', mealType: 'dinner', ingredients: ['冬瓜 300g', '猪肉馅 150g', '蛋清 1个', '姜末 适量'], steps: ['肉馅加蛋清姜末搅拌上劲', '冬瓜切块', '水开下丸子', '加冬瓜煮至透明'], nutritionTags: ['清淡', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm38', name: '番茄蛋花汤', mealType: 'dinner', ingredients: ['番茄 2个', '鸡蛋 2个', '葱花 适量'], steps: ['番茄去皮切块', '水开下番茄', '淋蛋花', '调味撒葱花'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm39', name: '清炒油麦菜', mealType: 'dinner', ingredients: ['油麦菜 300g', '蒜末 适量'], steps: ['油麦菜切段', '热油爆香蒜末', '油麦菜大火快炒'], nutritionTags: ['维生素', '清热'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm40', name: '山药炒木耳', mealType: 'dinner', ingredients: ['山药 200g', '木耳 50g', '胡萝卜 1根'], steps: ['山药胡萝卜切片', '木耳泡发', '热油翻炒', '调味'], nutritionTags: ['补铁', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm41', name: '丝瓜鸡蛋汤', mealType: 'dinner', ingredients: ['丝瓜 1根', '鸡蛋 2个', '姜丝 适量'], steps: ['丝瓜去皮切块', '水开下丝瓜', '淋蛋花', '加姜丝调味'], nutritionTags: ['清热', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm42', name: '虾皮炒青菜', mealType: 'dinner', ingredients: ['青菜 300g', '虾皮 10g', '蒜末 适量'], steps: ['青菜洗净切段', '热油爆香蒜末虾皮', '青菜翻炒'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm65', name: '肉末蒸蛋', mealType: 'dinner', ingredients: ['鸡蛋 2个', '猪肉馅 50g', '葱花 少许', '生抽 半勺'], steps: ['鸡蛋打散加温水', '肉末炒散', '蛋液过筛蒸', '放肉末再蒸5分钟'], nutritionTags: ['优质蛋白', '补铁'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm66', name: '口蘑炒青菜', mealType: 'dinner', ingredients: ['口蘑 100g', '青菜 200g', '蒜末 适量'], steps: ['口蘑切片', '青菜洗净', '口蘑先炒', '加青菜翻炒'], nutritionTags: ['维生素', '增强免疫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm67', name: '翡翠白玉羹', mealType: 'dinner', ingredients: ['豆腐 100g', '豌豆 50g', '鸡蛋 1个', '水淀粉 适量'], steps: ['豆腐切小丁', '豌豆煮熟', '加水煮开', '淋蛋花水淀粉', '调味'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm68', name: '清蒸鳕鱼', mealType: 'dinner', ingredients: ['鳕鱼 200g', '葱姜 适量', '蒸鱼豉油 1勺', '柠檬 2片'], steps: ['鳕鱼放柠檬去腥', '铺葱姜', '蒸10分钟', '倒汁淋豉油'], nutritionTags: ['优质蛋白', '低脂'], cuisineTags: ['cantonese'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm69', name: '蒜蓉西兰花', mealType: 'dinner', ingredients: ['西兰花 300g', '蒜末 适量', '蚝油 1勺'], steps: ['西兰花切小朵焯水', '热油爆香蒜末', '西兰花回锅', '加蚝油翻炒'], nutritionTags: ['维生素C', '防癌'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm70', name: '蛤蜊冬瓜汤', mealType: 'dinner', ingredients: ['蛤蜊 100g', '冬瓜 200g', '姜丝 适量', '盐 少许'], steps: ['蛤蜊吐沙洗净', '冬瓜切块', '水开下冬瓜', '加蛤蜊煮至开口'], nutritionTags: ['利尿', '清热'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm71', name: '腐竹炒木耳', mealType: 'dinner', ingredients: ['腐竹 50g', '木耳 50g', '胡萝卜 1根', '蒜末 适量'], steps: ['腐竹木耳泡发', '胡萝卜切片', '分别焯水', '热油翻炒'], nutritionTags: ['补铁', '膳食纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm72', name: '芙蓉鲜蔬汤', mealType: 'dinner', ingredients: ['鸡蛋 2个', '青菜 100g', '胡萝卜 50g', '蘑菇 50g'], steps: ['蔬菜切碎', '水开下蔬菜', '淋蛋花', '调味即可'], nutritionTags: ['维生素', '清淡'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm73', name: '盐水虾', mealType: 'dinner', ingredients: ['鲜虾 200g', '姜片 3片', '葱段 适量', '盐 少许'], steps: ['虾洗净', '水开加葱姜', '下虾煮至变色', '捞出即可'], nutritionTags: ['高蛋白', '低脂'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm74', name: '百合炒西芹', mealType: 'dinner', ingredients: ['百合 50g', '西芹 200g', '胡萝卜 50g', '蒜末 适量'], steps: ['百合西芹胡萝卜切片', '分别焯水', '热油爆香蒜末', '全部翻炒'], nutritionTags: ['清心安神', '降血压'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm75', name: '虾皮紫菜汤', mealType: 'dinner', ingredients: ['虾皮 10g', '紫菜 10g', '鸡蛋 1个', '葱花 适量'], steps: ['紫菜洗净', '水开下虾皮紫菜', '淋蛋花', '撒葱花调味'], nutritionTags: ['补碘', '补钙'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm76', name: '蒜蓉粉丝蒸娃娃菜', mealType: 'dinner', ingredients: ['娃娃菜 300g', '粉丝 50g', '蒜蓉 适量', '蒸鱼豉油 1勺'], steps: ['娃娃菜切开铺盘', '粉丝泡软铺底', '铺蒜蓉', '蒸10分钟淋豉油'], nutritionTags: ['维生素', '纤维'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm77', name: '西红柿鸡蛋汤', mealType: 'dinner', ingredients: ['番茄 2个', '鸡蛋 2个', '葱花 适量'], steps: ['番茄去皮切块', '水开下番茄', '淋蛋花', '调味撒葱花'], nutritionTags: ['维生素C', '蛋白质'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm78', name: '清炒莴笋', mealType: 'dinner', ingredients: ['莴笋 300g', '蒜末 适量', '盐 少许'], steps: ['莴笋去皮切片', '热油爆香蒜末', '莴笋翻炒', '加盐调味'], nutritionTags: ['维生素', '清热'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm79', name: '虾仁炒荷兰豆', mealType: 'dinner', ingredients: ['虾仁 100g', '荷兰豆 150g', '胡萝卜 50g', '蒜末 适量'], steps: ['荷兰豆去头尾', '胡萝卜切片', '虾仁荷兰豆焯水', '热油翻炒'], nutritionTags: ['高蛋白', '维生素'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        // 汤品类（50道，清淡为主）
+        { id: 'm80', name: '莲子百合粥', mealType: 'snack', ingredients: ['莲子 30g', '百合 20g', '大米 50g', '冰糖 适量'], steps: ['莲子百合洗净', '大米煮粥', '加莲子百合', '煮至软烂加冰糖'], nutritionTags: ['安神', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm81', name: '红豆汤', mealType: 'snack', ingredients: ['红豆 50g', '冰糖 适量'], steps: ['红豆浸泡4小时', '加水煮至软烂', '加冰糖'], nutritionTags: ['补铁', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm82', name: '红枣桂圆茶', mealType: 'snack', ingredients: ['红枣 5颗', '桂圆 10g', '红糖 15g'], steps: ['红枣桂圆洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['补气血', '暖身'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm83', name: '雪梨银耳羹', mealType: 'snack', ingredients: ['雪梨 1个', '银耳 20g', '冰糖 适量'], steps: ['雪梨去皮切块', '银耳泡发撕小朵', '加水煮30分钟', '加冰糖'], nutritionTags: ['润肺', '止咳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm84', name: '黑豆红枣汤', mealType: 'snack', ingredients: ['黑豆 50g', '红枣 5颗', '红糖 适量'], steps: ['黑豆浸泡4小时', '加水煮1小时', '加红枣红糖'], nutritionTags: ['补肾', '补血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm85', name: '排骨玉米汤', mealType: 'snack', ingredients: ['排骨 200g', '玉米 1根', '胡萝卜 1根', '姜片 3片'], steps: ['排骨焯水', '玉米胡萝卜切块', '加水炖1小时'], nutritionTags: ['补钙', '维生素'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm86', name: '红豆薏米汤', mealType: 'snack', ingredients: ['红豆 30g', '薏米 30g', '冰糖 适量'], steps: ['红豆薏米浸泡4小时', '加水煮1小时', '加冰糖'], nutritionTags: ['祛湿', '健脾'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm87', name: '红枣枸杞茶', mealType: 'snack', ingredients: ['红枣 5颗', '枸杞 10g', '桂圆 5g'], steps: ['所有材料洗净', '加热水冲泡', '焖10分钟'], nutritionTags: ['补气血', '明目'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm88', name: '山药薏米汤', mealType: 'snack', ingredients: ['山药 100g', '薏米 30g', '冰糖 适量'], steps: ['薏米浸泡2小时', '山药去皮切块', '加水煮40分钟', '加冰糖'], nutritionTags: ['健脾', '祛湿'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm89', name: '党参鸡汤', mealType: 'snack', ingredients: ['党参 10g', '黄芪 10g', '鸡肉 200g', '红枣 3颗'], steps: ['药材洗净', '鸡肉切块焯水', '加水炖1.5小时'], nutritionTags: ['补气', '增强免疫'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm90', name: '花生红枣汤', mealType: 'snack', ingredients: ['花生 50g', '红枣 5颗', '红糖 适量'], steps: ['花生浸泡1小时', '加水煮30分钟', '加红枣红糖'], nutritionTags: ['补血', '催乳'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm91', name: '银耳红枣羹', mealType: 'snack', ingredients: ['银耳 20g', '红枣 8颗', '枸杞 10g', '冰糖 适量'], steps: ['银耳泡发撕小朵', '红枣去核', '加水煮30分钟', '加枸杞冰糖'], nutritionTags: ['美容养颜', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm92', name: '木瓜牛奶', mealType: 'snack', ingredients: ['木瓜 半个', '牛奶 200ml', '冰糖 适量'], steps: ['木瓜去皮切块', '加水煮软', '加牛奶冰糖', '煮开即可'], nutritionTags: ['下奶', '美容'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm93', name: '核桃芝麻糊', mealType: 'snack', ingredients: ['核桃 30g', '黑芝麻 30g', '糯米粉 20g', '红糖 适量'], steps: ['核桃芝麻炒香', '加水打成糊', '加糯米粉煮', '加红糖'], nutritionTags: ['补钙', '补脑'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm94', name: '桂圆红枣茶', mealType: 'snack', ingredients: ['桂圆 15g', '红枣 5颗', '红糖 10g'], steps: ['材料洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['补气血', '暖宫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm95', name: '紫薯银耳羹', mealType: 'snack', ingredients: ['紫薯 100g', '银耳 20g', '冰糖 适量'], steps: ['银耳泡发撕小朵', '紫薯去皮切块', '加水煮30分钟', '加冰糖'], nutritionTags: ['抗氧化', '润肺'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm96', name: '红糖姜枣茶', mealType: 'snack', ingredients: ['红糖 20g', '生姜 10g', '红枣 3颗'], steps: ['生姜切片', '红枣去核', '加水煮10分钟', '加红糖'], nutritionTags: ['暖宫', '驱寒'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm97', name: '黑木耳红枣汤', mealType: 'snack', ingredients: ['黑木耳 30g', '红枣 5颗', '红糖 适量'], steps: ['木耳泡发撕小朵', '红枣去核', '加水煮30分钟', '加红糖'], nutritionTags: ['补铁', '养血'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm98', name: '生化汤', mealType: 'snack', ingredients: ['当归 10g', '川芎 6g', '桃仁 3g', '炙甘草 3g', '红糖 适量'], steps: ['所有药材洗净', '加水1000ml', '煮沸转小火30分钟', '加红糖'], nutritionTags: ['排恶露', '暖宫'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm99', name: '五红汤', mealType: 'snack', ingredients: ['红枣 5颗', '红豆 30g', '红皮花生 30g', '枸杞 10g', '红糖 适量'], steps: ['红豆花生浸泡4小时', '加水煮1小时', '加红枣枸杞红糖'], nutritionTags: ['补气血', '下奶'], cuisineTags: ['soup'], tasteTags: ['light'], nauseaRisk: 0 },
+        { id: 'm100', name: '桂枝红枣汤', mealType: 'snack', ingredients: ['桂枝 5g', '红枣 5颗', '生姜 3片', '红糖 适量'], steps: ['所有材料洗净', '加水煮15分钟', '加红糖'], nutritionTags: ['暖宫', '驱寒'], cuisineTags: ['home'], tasteTags: ['light'], nauseaRisk: 0 }
+      ],
+
+      baby: [
+        // 6-7月龄 15道（泥糊状为主）
+        { id: 'b1', name: '胡萝卜土豆泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['胡萝卜 30g', '土豆 30g', '母乳/配方奶 适量'], steps: ['胡萝卜土豆去皮切块蒸15分钟', '趁热压成细腻泥', '加温热的奶调稀'], nutritionTags: ['维A丰富', '易消化'], foodTypeTags: ['puree'] },
+        { id: 'b2', name: '苹果红薯泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['苹果 30g', '红薯 30g', '温水 适量'], steps: ['苹果红薯去皮蒸15分钟', '趁热压成泥', '加温水调稠度'], nutritionTags: ['通便', '甜口感'], foodTypeTags: ['puree'] },
+        { id: 'b3', name: '香蕉牛油果泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['香蕉 30g', '牛油果 20g'], steps: ['香蕉牛油果去皮', '一起压成泥即可'], nutritionTags: ['钾丰富', '健康脂肪'], foodTypeTags: ['puree'] },
+        { id: 'b4', name: '南瓜小米粥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['南瓜 30g', '小米 15g'], steps: ['小米煮成稀粥', '南瓜蒸熟压泥', '混合'], nutritionTags: ['维A', '能量'], foodTypeTags: ['puree'] },
+        { id: 'b5', name: '西兰花泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['西兰花 50g', '母乳/配方奶 适量'], steps: ['西兰花洗净切小朵蒸10分钟', '压成细腻泥', '加奶调稀'], nutritionTags: ['维C', '膳食纤维'], foodTypeTags: ['puree'] },
+        { id: 'b6', name: '梨泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['雪梨 50g'], steps: ['梨去皮去核蒸10分钟', '压成泥'], nutritionTags: ['润肺', '清热'], foodTypeTags: ['puree'] },
+        { id: 'b7', name: '山药苹果泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['山药 30g', '苹果 30g'], steps: ['山药苹果去皮蒸15分钟', '趁热压泥'], nutritionTags: ['健脾', '维生素'], foodTypeTags: ['puree'] },
+        { id: 'b8', name: '胡萝卜小米粥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['胡萝卜 20g', '小米 15g'], steps: ['小米煮稀粥', '胡萝卜蒸熟压泥', '混合'], nutritionTags: ['维A', '能量'], foodTypeTags: ['puree'] },
+        { id: 'b9', name: '土豆泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['土豆 50g', '母乳/配方奶 适量'], steps: ['土豆去皮蒸15分钟', '压成泥加奶'], nutritionTags: ['能量', '易消化'], foodTypeTags: ['puree'] },
+        { id: 'b10', name: '南瓜苹果粥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['南瓜 25g', '苹果 25g', '婴儿米粉 15g'], steps: ['南瓜苹果蒸熟压泥', '米粉调成糊', '混合'], nutritionTags: ['维A', '甜口感'], foodTypeTags: ['puree'] },
+        { id: 'b11', name: '胡萝卜梨泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['胡萝卜 30g', '梨 30g'], steps: ['胡萝卜蒸熟', '梨蒸软', '一起压泥'], nutritionTags: ['维A', '润肺'], foodTypeTags: ['puree'] },
+        { id: 'b12', name: '红薯苹果泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['红薯 30g', '苹果 30g'], steps: ['红薯苹果去皮蒸15分钟', '趁热压泥'], nutritionTags: ['膳食纤维', '甜口感'], foodTypeTags: ['puree'] },
+        { id: 'b13', name: '西葫芦泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['西葫芦 50g'], steps: ['西葫芦去皮蒸10分钟', '压成泥'], nutritionTags: ['水分多', '清淡'], foodTypeTags: ['puree'] },
+        { id: 'b14', name: '菠菜土豆泥', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['菠菜 20g', '土豆 30g'], steps: ['菠菜焯水去草酸', '土豆蒸熟', '一起压泥'], nutritionTags: ['铁', '能量'], foodTypeTags: ['puree'] },
+        { id: 'b15', name: '玉米糊', mealType: 'snack', babyMinAge: 6, babyMaxAge: 7, ingredients: ['新鲜玉米粒 30g', '婴儿米粉 15g'], steps: ['玉米粒蒸熟打泥', '过滤掉皮', '加米粉调稠'], nutritionTags: ['能量', 'B族维生素'], foodTypeTags: ['puree'] },
+        // 8-9月龄 15道（碎末状）
+        { id: 'b16', name: '鳕鱼西兰花泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['鳕鱼 30g', '西兰花 30g', '柠檬 2片'], steps: ['鳕鱼用柠檬去腥蒸10分钟', '西兰花蒸熟', '压成碎末状混合'], nutritionTags: ['DHA', '高蛋白'], foodTypeTags: ['diced'] },
+        { id: 'b17', name: '鸡肉土豆泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['鸡胸肉 30g', '土豆 40g'], steps: ['鸡肉煮熟撕碎', '土豆蒸熟压碎', '混合'], nutritionTags: ['蛋白质', '能量'], foodTypeTags: ['diced'] },
+        { id: 'b18', name: '番茄猪肝泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['番茄 30g', '猪肝 20g'], steps: ['猪肝浸泡去血水煮熟切碎', '番茄去皮切碎', '混合'], nutritionTags: ['补铁', '维C促吸收'], foodTypeTags: ['diced'] },
+        { id: 'b19', name: '虾仁蔬菜粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['虾仁 20g', '青菜叶 20g', '宝宝粥米 20g'], steps: ['虾仁煮熟切碎', '青菜切碎', '粥煮软后加入'], nutritionTags: ['补锌', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b20', name: '胡萝卜肉末粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['胡萝卜 30g', '猪肉 20g', '宝宝粥米 20g'], steps: ['胡萝卜蒸熟切碎', '猪肉煮熟切末', '粥煮软后加入'], nutritionTags: ['维A', '铁'], foodTypeTags: ['diced'] },
+        { id: 'b21', name: '三文鱼土豆泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['三文鱼 30g', '土豆 40g', '柠檬 2片'], steps: ['三文鱼柠檬去腥蒸熟', '土豆蒸熟', '压碎混合'], nutritionTags: ['DHA', '补脑'], foodTypeTags: ['diced'] },
+        { id: 'b22', name: '南瓜鸡肉粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['南瓜 30g', '鸡胸肉 25g', '宝宝粥米 20g'], steps: ['南瓜蒸熟压碎', '鸡肉煮熟撕碎', '加入粥中'], nutritionTags: ['维A', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b23', name: '菠菜鸡蛋羹', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['菠菜叶 20g', '鸡蛋 1个'], steps: ['菠菜焯水切碎', '鸡蛋打散加温水', '菠菜放入蛋液蒸10分钟'], nutritionTags: ['铁', '卵磷脂'], foodTypeTags: ['diced'] },
+        { id: 'b24', name: '苹果燕麦粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['苹果 30g', '燕麦 15g', '母乳/配方奶 适量'], steps: ['燕麦煮软', '苹果去皮切碎', '混合'], nutritionTags: ['膳食纤维', '能量'], foodTypeTags: ['diced'] },
+        { id: 'b25', name: '牛肉土豆泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['牛肉 30g', '土豆 40g'], steps: ['牛肉煮熟切碎', '土豆蒸熟压碎', '混合'], nutritionTags: ['补铁', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b26', name: '胡萝卜鳕鱼粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['胡萝卜 25g', '鳕鱼 25g', '宝宝粥米 20g'], steps: ['胡萝卜蒸熟切碎', '鳕鱼煮熟切碎', '加入粥中'], nutritionTags: ['DHA', '维A'], foodTypeTags: ['diced'] },
+        { id: 'b27', name: '紫菜虾皮汤', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['紫菜 5g', '虾皮 3g', '鸡蛋 1个'], steps: ['紫菜虾皮煮汤', '淋蛋花', '过滤后喂食'], nutritionTags: ['补碘', '补钙'], foodTypeTags: ['diced'] },
+        { id: 'b28', name: '丝瓜鸡蛋粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['丝瓜 30g', '鸡蛋 1个', '宝宝粥米 20g'], steps: ['丝瓜去皮切碎', '鸡蛋炒散', '加入粥中'], nutritionTags: ['清热', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b29', name: '山药肉末羹', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['山药 40g', '猪肉 25g'], steps: ['山药蒸熟压碎', '猪肉煮熟切末', '加水煮成羹'], nutritionTags: ['健脾', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b30', name: '番茄鸡肉泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['番茄 30g', '鸡胸肉 30g'], steps: ['鸡肉煮熟撕碎', '番茄去皮切碎', '混合'], nutritionTags: ['维C', '蛋白质'], foodTypeTags: ['diced'] },
+        // 10-11月龄 12道（软固体/碎末）
+        { id: 'b31', name: '番茄牛肉碎面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '牛肉 30g', '宝宝碎面 30g'], steps: ['番茄去皮切碎', '牛肉煮熟切碎', '碎面煮软', '一起煮成糊'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['diced'] },
+        { id: 'b32', name: '虾仁青菜馄饨', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['馄饨皮 适量', '虾仁 30g', '青菜叶 20g'], steps: ['虾仁青菜剁碎', '包成小馄饨', '煮熟'], nutritionTags: ['蛋白质', '蔬菜纤维'], foodTypeTags: ['solid'] },
+        { id: 'b33', name: '南瓜鸡肉软饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 30g', '鸡胸肉 30g', '面粉 20g', '鸡蛋 1个'], steps: ['南瓜鸡肉蒸熟压碎', '加面粉鸡蛋搅拌', '做成小饼煎熟'], nutritionTags: ['能量', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b34', name: '胡萝卜牛肉粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['胡萝卜 30g', '牛肉 30g', '宝宝粥米 25g'], steps: ['胡萝卜牛肉切碎', '粥煮软后加入', '煮至软烂'], nutritionTags: ['补铁', '维A'], foodTypeTags: ['diced'] },
+        { id: 'b35', name: '番茄鳕鱼面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鳕鱼 30g', '宝宝碎面 30g'], steps: ['鳕鱼蒸熟压碎', '番茄去皮切碎', '下面条煮软', '混合'], nutritionTags: ['DHA', '维C'], foodTypeTags: ['diced'] },
+        { id: 'b36', name: '山药手指条', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['山药 50g', '面粉 20g'], steps: ['山药蒸熟压泥', '加面粉揉成团', '搓成手指条蒸熟'], nutritionTags: ['健脾', '锻炼抓握'], foodTypeTags: ['solid'] },
+        { id: 'b37', name: '西兰花三文鱼饭', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['西兰花 30g', '三文鱼 30g', '软米饭 50g'], steps: ['西兰花三文鱼蒸熟切碎', '软米饭加热', '混合'], nutritionTags: ['DHA', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b38', name: '虾仁蔬菜小包子', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['面粉 50g', '虾仁 30g', '青菜 20g'], steps: ['青菜虾仁剁碎调味', '面粉揉成面团', '包成小包子蒸熟'], nutritionTags: ['蛋白质', '蔬菜纤维'], foodTypeTags: ['solid'] },
+        { id: 'b39', name: '土豆牛肉小饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['土豆 40g', '牛肉 30g', '面粉 15g'], steps: ['土豆牛肉蒸熟压碎', '加面粉做成小饼', '煎熟'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b40', name: '番茄鸡蛋烩饭', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鸡蛋 1个', '软米饭 50g'], steps: ['番茄去皮切碎', '鸡蛋炒散', '加米饭烩软'], nutritionTags: ['维C', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b41', name: '冬瓜虾皮粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['冬瓜 40g', '虾皮 5g', '宝宝粥米 25g'], steps: ['冬瓜切碎', '虾皮浸泡去盐', '加入粥中煮软'], nutritionTags: ['利尿', '补钙'], foodTypeTags: ['diced'] },
+        { id: 'b42', name: '南瓜发糕', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 50g', '面粉 50g', '酵母 2g', '鸡蛋 1个'], steps: ['南瓜蒸熟压泥', '加面粉酵母鸡蛋', '发酵后蒸熟切块'], nutritionTags: ['能量', '锻炼咀嚼'], foodTypeTags: ['solid'] },
+        // 12月+ 8道（与家人同餐，可加间食）
+        { id: 'b43', name: '番茄肉丸面', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['番茄 1个', '猪肉 50g', '面条 50g'], steps: ['猪肉做小肉丸煮熟', '番茄去皮切块', '下面条煮软', '混合'], nutritionTags: ['蛋白质', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b44', name: '鲜虾馄饨', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['馄饨皮 适量', '虾仁 50g', '猪肉 20g'], steps: ['虾仁猪肉剁馅', '包成馄饨', '煮熟'], nutritionTags: ['蛋白质', '锌'], foodTypeTags: ['solid'] },
+        { id: 'b45', name: '蔬菜鸡蛋饼', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['鸡蛋 2个', '西葫芦 30g', '胡萝卜 20g', '面粉 30g'], steps: ['蔬菜切碎', '鸡蛋打散加面粉', '煎成小饼'], nutritionTags: ['维生素', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b46', name: '虾仁炒饭', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['虾仁 30g', '鸡蛋 1个', '软米饭 80g', '青菜 30g'], steps: ['虾仁鸡蛋炒散', '加入米饭翻炒', '加青菜碎'], nutritionTags: ['能量', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b47', name: '红烧狮子头', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['猪肉 80g', '马蹄 20g', '鸡蛋 1个'], steps: ['肉馅加马蹄鸡蛋搅拌', '做成小丸子', '红烧汁煮熟'], nutritionTags: ['蛋白质', '铁'], foodTypeTags: ['solid'] },
+        { id: 'b48', name: '蔬菜肉末面', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['面条 60g', '猪肉 40g', '青菜叶 30g'], steps: ['肉末青菜切碎', '下面条煮软', '混合'], nutritionTags: ['蛋白质', '纤维'], foodTypeTags: ['solid'] },
+        { id: 'b49', name: '小米南瓜粥', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['小米 30g', '南瓜 40g', '红枣 3颗'], steps: ['小米南瓜红枣煮粥', '煮至软烂'], nutritionTags: ['能量', '维A'], foodTypeTags: ['diced'] },
+        { id: 'b50', name: '水果酸奶', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['香蕉 半根', '草莓 3颗', '酸奶 100g'], steps: ['水果切小块', '倒入酸奶', '搅拌'], nutritionTags: ['益生菌', '维生素'], foodTypeTags: ['diced'] }
+      ]
+    };
+
+    const MEAL_TYPE_NAMES = {
+      breakfast: '早餐',
+      lunch: '午餐',
+      dinner: '晚餐',
+      snack: '加餐'
+    };
+
+    const MEAL_TYPE_ICONS = {
+      breakfast: '🌅',
+      lunch: '☀️',
+      dinner: '🌙',
+      snack: '🍪'
+    };
+
+    const MEAL_TYPE_TIMES = {
+      breakfast: '07:00 - 09:00',
+      lunch: '11:30 - 13:00',
+      dinner: '18:00 - 19:30',
+      snack: '15:00 / 21:00'
+    };
+
+    const IDENTITY_NAMES = {
+      pregnant: '孕妈',
+      postpartum: '宝妈',
+      baby: '宝宝家长'
+    };
+
+    const IDENTITY_ICONS = {
+      pregnant: '🤰',
+      postpartum: '👩',
+      baby: '👶'
+    };
+
+    // ==================== State ====================
+    let state = {
+      currentStep: 'welcome',
+      identity: null,
+      preferences: {
+        avoidFoods: [],
+        tastePreference: 'light',
+        cuisinePreferences: [],
+        specialNeeds: [],
+        nauseaLevel: 'none',  // 孕吐程度：none/mild/severe
+        babyAgeMonths: 8,
+        babyMealsPerDay: 1,    // 宝宝每日辅食顿数
+        allergies: [],
+        foodTypes: [],
+        deliveryType: 'natural',  // 生产方式：natural/c-section
+        deliveryDate: ''          // 生产日期
+      },
+      currentDay: 'today',
+      currentMeals: null,
+      todayMeals: null,
+      tomorrowMeals: null,
+      todayUsedRecipeIds: null
+    };
+
+    // ==================== Init ====================
+    function init() {
+      loadState();
+      updateUI();
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem('pregnant_meal_state');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        state.identity = parsed.identity;
+        state.preferences = { ...state.preferences, ...parsed.preferences };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('pregnant_meal_state', JSON.stringify({
+        identity: state.identity,
+        preferences: state.preferences
+      }));
+    }
+
+    function updateUI() {
+      // Update header badge
+      if (state.identity) {
+        document.getElementById('identityIcon').textContent = IDENTITY_ICONS[state.identity];
+        document.getElementById('identityName').textContent = IDENTITY_NAMES[state.identity];
+      }
+
+      // Update identity cards
+      document.querySelectorAll('.identity-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.identity === state.identity);
+      });
+
+      // Update button state
+      const nextBtn = document.getElementById('identityNextBtn');
+      if (nextBtn) {
+        nextBtn.disabled = !state.identity;
+      }
+
+      // Update preference tags
+      updatePreferenceTags();
+    }
+
+    function updatePreferenceTags() {
+      // Avoid foods
+      document.querySelectorAll('#avoidTags .tag').forEach(tag => {
+        tag.classList.toggle('selected', state.preferences.avoidFoods.includes(tag.dataset.value));
+      });
+
+      // Taste
+      document.querySelectorAll('#tasteTags .radio-tag').forEach(tag => {
+        tag.classList.toggle('selected', tag.dataset.value === state.preferences.tastePreference);
+      });
+
+      // Cuisine
+      document.querySelectorAll('#cuisineTags .tag').forEach(tag => {
+        tag.classList.toggle('selected', state.preferences.cuisinePreferences.includes(tag.dataset.value));
+      });
+
+      // Special needs
+      document.querySelectorAll('#specialNeedsTags .tag').forEach(tag => {
+        tag.classList.toggle('selected', state.preferences.specialNeeds.includes(tag.dataset.value));
+      });
+
+      // Baby age
+      document.getElementById('babyAgeInput').value = state.preferences.babyAgeMonths;
+
+      // Allergies
+      document.querySelectorAll('#allergyTags .tag').forEach(tag => {
+        tag.classList.toggle('selected', state.preferences.allergies.includes(tag.dataset.value));
+      });
+
+      // Food types
+      document.querySelectorAll('#foodTypeTags .tag').forEach(tag => {
+        tag.classList.toggle('selected', state.preferences.foodTypes.includes(tag.dataset.value));
+      });
+
+      // Nausea level
+      document.querySelectorAll('#nauseaTags .radio-tag').forEach(tag => {
+        tag.classList.toggle('selected', tag.dataset.value === state.preferences.nauseaLevel);
+      });
+
+      // Baby meals per day
+      document.querySelectorAll('#babyMealsTags .radio-tag').forEach(tag => {
+        tag.classList.toggle('selected', tag.dataset.value === String(state.preferences.babyMealsPerDay));
+      });
+
+      // Delivery type
+      document.querySelectorAll('#deliveryTypeTags .radio-tag').forEach(tag => {
+        tag.classList.toggle('selected', tag.dataset.value === state.preferences.deliveryType);
+      });
+
+      // Delivery date
+      if (state.preferences.deliveryDate) {
+        document.getElementById('deliveryDateInput').value = state.preferences.deliveryDate;
+      }
+
+      // Postpartum-only tag visibility
+      document.querySelectorAll('.postpartum-only').forEach(tag => {
+        tag.style.display = state.identity === 'postpartum' ? 'inline-block' : 'none';
+      });
+    }
+
+    // ==================== Navigation ====================
+    function goToStep(step) {
+      // Hide all steps
+      document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+
+      // Show target step
+      const targetPage = document.getElementById(step + 'Page');
+      if (targetPage) {
+        targetPage.classList.add('active');
+        state.currentStep = step;
+      }
+
+      // Handle step-specific logic
+      if (step === 'meal') {
+        generateMeals();
+      }
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    // ==================== Identity Selection ====================
+    function selectIdentity(card) {
+      state.identity = card.dataset.identity;
+      updateUI();
+      saveState();
+    }
+
+    // ==================== Preferences ====================
+    function setupTagListeners(containerId, stateKey, isArray = true) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.querySelectorAll('.tag, .radio-tag').forEach(tag => {
+        tag.addEventListener('click', () => {
+          if (isArray) {
+            const value = tag.dataset.value;
+            const index = state.preferences[stateKey].indexOf(value);
+            if (index > -1) {
+              state.preferences[stateKey].splice(index, 1);
+            } else {
+              state.preferences[stateKey].push(value);
+            }
+          } else {
+            state.preferences[stateKey] = tag.dataset.value;
+          }
+          updatePreferenceTags();
+          saveState();
+        });
+      });
+    }
+
+    function addCustomAvoid() {
+      const input = document.getElementById('customAvoidInput');
+      const value = input.value.trim();
+      if (value && !state.preferences.avoidFoods.includes(value)) {
+        state.preferences.avoidFoods.push(value);
+        // Add new tag dynamically
+        const tags = document.getElementById('avoidTags');
+        const newTag = document.createElement('button');
+        newTag.className = 'tag';
+        newTag.dataset.value = value;
+        newTag.textContent = value;
+        newTag.onclick = () => {
+          const index = state.preferences.avoidFoods.indexOf(value);
+          if (index > -1) state.preferences.avoidFoods.splice(index, 1);
+          newTag.classList.remove('selected');
+          saveState();
+        };
+        tags.appendChild(newTag);
+        newTag.classList.add('selected');
+        input.value = '';
+        saveState();
+      }
+    }
+
+    function addCustomAllergy() {
+      const input = document.getElementById('customAllergyInput');
+      const value = input.value.trim();
+      if (value && !state.preferences.allergies.includes(value)) {
+        state.preferences.allergies.push(value);
+        const tags = document.getElementById('allergyTags');
+        const newTag = document.createElement('button');
+        newTag.className = 'tag warning';
+        newTag.dataset.value = value;
+        newTag.textContent = value;
+        newTag.onclick = () => {
+          const index = state.preferences.allergies.indexOf(value);
+          if (index > -1) state.preferences.allergies.splice(index, 1);
+          newTag.classList.remove('selected');
+          saveState();
+        };
+        tags.appendChild(newTag);
+        newTag.classList.add('selected');
+        input.value = '';
+        saveState();
+      }
+    }
+
+    function savePreferences() {
+      saveState();
+      goToStep('meal');
+    }
+
+    function skipPreferences() {
+      goToStep('meal');
+    }
+
+    // ==================== Meal Generation ====================
+    
+    // 判断宝妈是否处于产后恢复期（需要清淡饮食）
+    function isPostpartumRecovery() {
+      if (state.identity !== 'postpartum' || !state.preferences.deliveryDate) {
+        return false;
+      }
+      const deliveryDate = new Date(state.preferences.deliveryDate);
+      const today = new Date();
+      const daysSinceDelivery = Math.floor((today - deliveryDate) / (1000 * 60 * 60 * 24));
+      // 产后14天内需要清淡饮食
+      return daysSinceDelivery >= 0 && daysSinceDelivery < 14;
+    }
+
+    function generateMeals(forceRegenerate = false) {
+      if (!state.identity) {
+        showToast('请先选择您的身份');
+        goToStep('identity');
+        return;
+      }
+
+      const recipes = RECIPES[state.identity];
+
+      // Initialize used recipes if needed
+      if (!state.usedRecipeIds || forceRegenerate) {
+        state.usedRecipeIds = [];
+      }
+
+      // Filter based on preferences
+      let filtered = recipes.filter(r => {
+        // Filter by nausea level (for pregnant women)
+        if (state.identity === 'pregnant' && state.preferences.nauseaLevel === 'severe') {
+          if (r.nauseaRisk && r.nauseaRisk > 0) {
+            return false;
+          }
+        }
+
+        // Filter baby recipes by age
+        if (state.identity === 'baby') {
+          const babyAge = state.preferences.babyAgeMonths;
+          if (r.babyMinAge && babyAge < r.babyMinAge) {
+            return false;
+          }
+          if (r.babyMaxAge && babyAge > r.babyMaxAge) {
+            return false;
+          }
+        }
+
+        // Filter by postpartum recovery (剖宫产/顺产后14天内清淡为主)
+        if (state.identity === 'postpartum' && isPostpartumRecovery()) {
+          // 产后恢复期避免高脂肪、发奶食物、重口味
+          if (r.nutritionTags && r.nutritionTags.some(t =>
+            t.includes('下奶') || t.includes('高脂') || t.includes('大荤') || t.includes('油腻') || t.includes('重口味')
+          )) {
+            return false;
+          }
+          // 避免重口味菜名（红烧、麻辣、辛辣等）
+          if (r.name && (r.name.includes('红烧') || r.name.includes('麻辣') || r.name.includes('辣') || 
+            r.name.includes('油炸') || r.name.includes('香煎') || r.name.includes('炸') ||
+            r.name.includes('猪蹄') || r.name.includes('肥肠') || r.name.includes('猪肚'))) {
+            return false;
+          }
+          // 避免高脂肪的肉类
+          if (r.ingredients && r.ingredients.some(i => i.includes('肥肉') || i.includes('猪油'))) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      // Initialize used recipe IDs for this generation
+      const newUsedIds = [...state.usedRecipeIds];
+
+      // Helper function to extract main ingredient type from recipe
+      function getMainIngredientType(recipe) {
+        const name = recipe.name;
+        // 定义主要食材类型关键词
+        const types = [
+          '鱼', '鲈鱼', '鳜鱼', '鲫鱼', '鳕鱼', '三文鱼', '龙利鱼', '基围虾', '虾仁', '虾',
+          '猪肉', '排骨', '猪蹄', '猪肝', '牛腩', '牛肉', '鸡肉', '鸡腿', '鸡翅', '乌鸡',
+          '豆腐', '鸡蛋', '番茄', '菠菜', '西兰花', '胡萝卜', '山药', '南瓜', '冬瓜', '丝瓜',
+          '香菇', '木耳', '紫菜', '莲藕', '土豆', '玉米', '红薯'
+        ];
+        for (const type of types) {
+          if (name.includes(type)) {
+            return type;
+          }
+        }
+        return null;
+      }
+
+      // Helper function to pick random recipes, avoiding recently used ones and same main ingredient
+      function pickRecipes(count, candidates, avoidSameMainType = false) {
+        const results = [];
+        let pool = [...candidates];
+        for (let i = 0; i < count && pool.length > 0; i++) {
+          let available = pool.filter(c => !newUsedIds.includes(c.id));
+          if (available.length === 0) {
+            available = pool; // 用完一轮后重置
+            newUsedIds.length = 0;
+          }
+          // 如果需要避免同类主材，进一步过滤
+          if (avoidSameMainType && results.length > 0) {
+            const usedTypes = results.map(r => getMainIngredientType(r)).filter(t => t);
+            if (usedTypes.length > 0) {
+              available = available.filter(c => {
+                const type = getMainIngredientType(c);
+                return !type || !usedTypes.includes(type);
+              });
+              // 如果过滤后没有可用的，放宽限制
+              if (available.length === 0) {
+                available = pool.filter(c => !newUsedIds.includes(c.id));
+                if (available.length === 0) {
+                  available = pool;
+                  newUsedIds.length = 0;
+                }
+              }
+            }
+          }
+          const idx = Math.floor(Math.random() * available.length);
+          results.push(available[idx]);
+          pool = pool.filter(c => c.id !== available[idx].id);
+          newUsedIds.push(available[idx].id);
+        }
+        return results;
+      }
+
+      const meals = {};
+
+      if (state.identity === 'baby') {
+        // 宝宝辅食：严格按用户选择的顿数，每餐丰富搭配
+        const mealsCount = parseInt(state.preferences.babyMealsPerDay) || 1;
+        
+        if (mealsCount === 1) {
+          // 1顿只有间食
+          const snackRecipes = filtered.filter(r => r.mealType === 'snack');
+          const selected = pickRecipes(1, snackRecipes);
+          meals.snack = { main: selected, sides: [] };
+        } else if (mealsCount === 2) {
+          // 2顿：午餐 + 间食
+          const lunchRecipes = filtered.filter(r => r.mealType === 'lunch');
+          const selected = pickRecipes(1, lunchRecipes);
+          meals.lunch = { main: selected, sides: [] };
+          
+          const snackRecipes = filtered.filter(r => r.mealType === 'snack');
+          const snackSelected = pickRecipes(1, snackRecipes);
+          meals.snack = { main: snackSelected, sides: [] };
+        } else {
+          // 3餐：早餐 + 午餐 + 晚餐
+          // 早餐：从snack/lunch类型中选1道（作为粥/糊类）
+          const breakfastRecipes = filtered.filter(r => r.mealType === 'snack' || r.mealType === 'lunch');
+          const breakfastSelected = pickRecipes(1, breakfastRecipes);
+          meals.breakfast = { main: breakfastSelected, sides: [] };
+          
+          // 午餐：从lunch类型中选2道（主菜+配菜/主食）
+          const lunchRecipes = filtered.filter(r => r.mealType === 'lunch');
+          const lunchSelected = pickRecipes(2, lunchRecipes);
+          meals.lunch = { 
+            main: [lunchSelected[0]], 
+            sides: lunchSelected[1] ? [lunchSelected[1]] : [] 
+          };
+          
+          // 晚餐：从lunch/snack类型中选2道
+          const dinnerRecipes = filtered.filter(r => r.mealType === 'lunch' || r.mealType === 'snack');
+          const dinnerSelected = pickRecipes(2, dinnerRecipes);
+          meals.dinner = { 
+            main: [dinnerSelected[0]], 
+            sides: dinnerSelected[1] ? [dinnerSelected[1]] : [] 
+          };
+        }
+      } else {
+        // 成人：早餐1个、午餐2菜+1汤、晚餐2个菜
+        // 早餐：1个
+        const breakfastRecipes = filtered.filter(r => r.mealType === 'breakfast');
+        const breakfastSelected = pickRecipes(1, breakfastRecipes);
+        meals.breakfast = { main: breakfastSelected, sides: [] };
+
+        // 午餐：2个主菜 + 1个汤（主菜必须不是汤，且避免同类主材重复）
+        const lunchRecipes = filtered.filter(r => r.mealType === 'lunch');
+        // 筛选午餐主菜池：排除汤类
+        const lunchMainPool = lunchRecipes.filter(r =>
+          !r.nutritionTags.some(t => t.includes('汤') || t.includes('煲'))
+        );
+        const lunchMains = pickRecipes(2, lunchMainPool, true); // 启用主材去重
+        // 严格筛选汤：从lunch类型中筛选
+        const lunchSoupPool = lunchRecipes.filter(r =>
+          r.nutritionTags.some(t => t.includes('汤') || t.includes('煲')) &&
+          !r.nutritionTags.some(t => t.includes('下奶') || t.includes('大荤'))
+        );
+        const lunchSoups = pickRecipes(1, lunchSoupPool.length > 0 ? lunchSoupPool : lunchRecipes);
+        meals.lunch = { main: lunchMains, soup: lunchSoups[0] || null };
+
+        // 晚餐：2个主菜（不加汤，晚上清淡，避免同类主材重复）
+        const dinnerRecipes = filtered.filter(r => r.mealType === 'dinner');
+        const dinnerMains = pickRecipes(2, dinnerRecipes, true); // 启用主材去重
+        meals.dinner = { main: dinnerMains };
+
+        // 加餐：1份
+        const snackRecipes = filtered.filter(r => r.mealType === 'snack');
+        const snacks = pickRecipes(1, snackRecipes);
+        meals.snack = snacks[0] || null;
+      }
+
+      state.usedRecipeIds = newUsedIds;
+      state.currentMeals = meals;
+      renderMeals();
+      updateDate();
+    }
+
+    function renderMeals() {
+      const container = document.getElementById('mealList');
+      container.innerHTML = '';
+
+      // 添加产后恢复期提示
+      if (state.identity === 'postpartum' && isPostpartumRecovery()) {
+        const tipCard = document.createElement('div');
+        tipCard.className = 'meal-card';
+        tipCard.innerHTML = `
+          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #FFE0B2, #FFCC80);">
+            <span class="meal-type">💡 营养师建议</span>
+          </div>
+          <div class="meal-card-body">
+            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+              产后14天内以清淡易消化为主，帮助身体恢复。<br>
+              避免油腻汤品和高脂肪食物，有利于伤口愈合和肠胃恢复。
+            </p>
+          </div>
+        `;
+        container.appendChild(tipCard);
+      }
+
+      if (state.identity === 'baby') {
+        // 宝宝辅食：严格按顿数显示
+        const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
+        mealTypes.forEach(type => {
+          const mealData = state.currentMeals[type];
+          if (!mealData) return;
+          
+          const card = document.createElement('div');
+          card.className = 'meal-card';
+          
+          let dishesHtml = '';
+          
+          // 主菜
+          if (mealData.main && mealData.main.length > 0) {
+            mealData.main.forEach((dish, idx) => {
+              dishesHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+            });
+          }
+          
+          // 配菜
+          if (mealData.sides && mealData.sides.length > 0) {
+            mealData.sides.forEach(dish => {
+              dishesHtml += createDishHtml(dish, '🥦');
+            });
+          }
+
+          card.innerHTML = `
+            <div class="meal-card-header ${type}">
+              <span class="meal-type">
+                ${MEAL_TYPE_ICONS[type]} ${MEAL_TYPE_NAMES[type]}
+              </span>
+              <span class="meal-time">${MEAL_TYPE_TIMES[type]}</span>
+            </div>
+            <div class="meal-card-body">
+              ${dishesHtml}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } else {
+        // 成人餐食：每道菜独立显示
+        // 早餐
+        const breakfastCard = document.createElement('div');
+        breakfastCard.className = 'meal-card';
+        let breakfastHtml = '';
+        if (state.currentMeals.breakfast) {
+          if (state.currentMeals.breakfast.main) {
+            state.currentMeals.breakfast.main.forEach((dish, idx) => {
+              breakfastHtml += createDishHtml(dish, idx === 0 ? '🍚' : '🍽️');
+            });
+          }
+          if (state.currentMeals.breakfast.sides) {
+            state.currentMeals.breakfast.sides.forEach(dish => {
+              breakfastHtml += createDishHtml(dish, '🥢');
+            });
+          }
+        }
+        breakfastCard.innerHTML = `
+          <div class="meal-card-header breakfast">
+            <span class="meal-type">${MEAL_TYPE_ICONS.breakfast} ${MEAL_TYPE_NAMES.breakfast}</span>
+            <span class="meal-time">${MEAL_TYPE_TIMES.breakfast}</span>
+          </div>
+          <div class="meal-card-body">
+            ${breakfastHtml}
+          </div>
+        `;
+        container.appendChild(breakfastCard);
+
+        // 午餐：2菜+汤
+        const lunchCard = document.createElement('div');
+        lunchCard.className = 'meal-card';
+        let lunchHtml = '';
+        if (state.currentMeals.lunch) {
+          if (state.currentMeals.lunch.main) {
+            state.currentMeals.lunch.main.forEach((dish, idx) => {
+              lunchHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+            });
+          }
+          if (state.currentMeals.lunch.soup) {
+            lunchHtml += createDishHtml(state.currentMeals.lunch.soup, '🍲');
+          }
+        }
+        lunchCard.innerHTML = `
+          <div class="meal-card-header lunch">
+            <span class="meal-type">${MEAL_TYPE_ICONS.lunch} ${MEAL_TYPE_NAMES.lunch}</span>
+            <span class="meal-time">${MEAL_TYPE_TIMES.lunch}</span>
+          </div>
+          <div class="meal-card-body">
+            ${lunchHtml}
+          </div>
+        `;
+        container.appendChild(lunchCard);
+
+        // 晚餐：2菜
+        const dinnerCard = document.createElement('div');
+        dinnerCard.className = 'meal-card';
+        let dinnerHtml = '';
+        if (state.currentMeals.dinner && state.currentMeals.dinner.main) {
+          state.currentMeals.dinner.main.forEach((dish, idx) => {
+            dinnerHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+          });
+        }
+        dinnerCard.innerHTML = `
+          <div class="meal-card-header dinner">
+            <span class="meal-type">${MEAL_TYPE_ICONS.dinner} ${MEAL_TYPE_NAMES.dinner}</span>
+            <span class="meal-time">${MEAL_TYPE_TIMES.dinner}</span>
+          </div>
+          <div class="meal-card-body">
+            ${dinnerHtml}
+          </div>
+        `;
+        container.appendChild(dinnerCard);
+
+        // 加餐
+        if (state.currentMeals.snack) {
+          const snackCard = document.createElement('div');
+          snackCard.className = 'meal-card';
+          snackCard.innerHTML = `
+            <div class="meal-card-header snack">
+              <span class="meal-type">${MEAL_TYPE_ICONS.snack} ${MEAL_TYPE_NAMES.snack}</span>
+              <span class="meal-time">${MEAL_TYPE_TIMES.snack}</span>
+            </div>
+            <div class="meal-card-body">
+              ${createDishHtml(state.currentMeals.snack, '🍪')}
+            </div>
+          `;
+          container.appendChild(snackCard);
+        }
+      }
+    }
+
+    // 创建单个菜品的HTML（包含独立制作方法和备菜清单）
+    function createDishHtml(dish, icon = '🍽️') {
+      return `
+        <div class="dish-section">
+          <div class="dish-name">
+            ${icon} ${dish.name}
+          </div>
+          <div class="nutrition-tags">
+            ${dish.nutritionTags.map(t => `<span class="nutrition-tag">${t}</span>`).join('')}
+          </div>
+          <div class="meal-section-title">制作方法</div>
+          <ol class="steps">
+            ${dish.steps.map(s => `<li>${s}</li>`).join('')}
+          </ol>
+          <div class="meal-section-title">备菜清单</div>
+          <div class="ingredients">
+            ${dish.ingredients.map(i => `<span class="ingredient">${i}</span>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function updateDate() {
+      const dateEl = document.getElementById('mealDate');
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const formatDate = (d) => `${d.getMonth() + 1}月${d.getDate()}日 ${['周日','周一','周二','周三','周四','周五','周六'][d.getDay()]}`;
+
+      if (state.currentDay === 'today') {
+        dateEl.textContent = formatDate(today);
+      } else {
+        dateEl.textContent = formatDate(tomorrow) + ' · 明日推荐';
+      }
+    }
+
+    function switchDay(day) {
+      state.currentDay = day;
+      document.querySelectorAll('.meal-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.day === day);
+      });
+      updateDate();
+
+      if (day === 'tomorrow') {
+        // 切换到明日：先保存今日菜谱和usedRecipeIds，再生成明日菜谱
+        if (!state.todayMeals) {
+          state.todayMeals = JSON.parse(JSON.stringify(state.currentMeals));
+          state.todayUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
+        }
+        if (!state.tomorrowMeals) {
+          // 保存当前usedRecipeIds
+          const savedUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
+          generateMeals(true);
+          state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
+          // 恢复今日菜谱和usedRecipeIds
+          state.currentMeals = state.todayMeals;
+          state.usedRecipeIds = savedUsedRecipeIds;
+        } else {
+          state.currentMeals = state.tomorrowMeals;
+        }
+        renderMeals();
+      } else {
+        // 切换回今日：恢复之前保存的今日菜谱和usedRecipeIds
+        if (state.todayMeals) {
+          state.currentMeals = state.todayMeals;
+          if (state.todayUsedRecipeIds) {
+            state.usedRecipeIds = [...state.todayUsedRecipeIds];
+          }
+          renderMeals();
+        }
+      }
+    }
+
+    function regenerateMeals() {
+      showToast('正在为您换一批~');
+      generateMeals(true); // Force use new recipes
+    }
+
+    // ==================== Modals ====================
+    function showIdentityModal() {
+      // For simplicity, just navigate to identity step
+      goToStep('identity');
+    }
+
+    function showPreferenceModal() {
+      // Navigate to preference step
+      goToStep('preference');
+    }
+
+    // ==================== Toast ====================
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // ==================== Setup ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      // Setup tag listeners
+      setupTagListeners('avoidTags', 'avoidFoods');
+      setupTagListeners('tasteTags', 'tastePreference', false);
+      setupTagListeners('cuisineTags', 'cuisinePreferences');
+      setupTagListeners('specialNeedsTags', 'specialNeeds');
+      setupTagListeners('allergyTags', 'allergies');
+      setupTagListeners('foodTypeTags', 'foodTypes');
+      setupTagListeners('nauseaTags', 'nauseaLevel', false);  // 单选
+      setupTagListeners('babyMealsTags', 'babyMealsPerDay', false);  // 单选
+      setupTagListeners('deliveryTypeTags', 'deliveryType', false);  // 单选
+
+      // Delivery date input
+      document.getElementById('deliveryDateInput').addEventListener('change', (e) => {
+        state.preferences.deliveryDate = e.target.value;
+        saveState();
+      });
+
+      // Baby age input
+      document.getElementById('babyAgeInput').addEventListener('change', (e) => {
+        state.preferences.babyAgeMonths = parseInt(e.target.value) || 8;
+        // 根据月龄自动更新建议的辅食顿数
+        const months = state.preferences.babyAgeMonths;
+        if (months >= 6 && months <= 7) {
+          state.preferences.babyMealsPerDay = 1;
+        } else if (months >= 8 && months <= 11) {
+          state.preferences.babyMealsPerDay = 2;
+        } else if (months >= 12) {
+          state.preferences.babyMealsPerDay = 3;
+        }
+        saveState();
+        updatePreferenceTags();
+      });
+
+      // Auto show preference sections based on identity
+      const identityObserver = {
+        pregnant: () => {
+          document.getElementById('tasteSection').style.display = 'block';
+          document.getElementById('cuisineSection').style.display = 'block';
+          document.getElementById('specialNeedsSection').style.display = 'block';
+          document.getElementById('nauseaSection').style.display = 'block';
+          document.getElementById('babyAgeSection').style.display = 'none';
+          document.getElementById('babyMealsSection').style.display = 'none';
+          document.getElementById('allergySection').style.display = 'none';
+          document.getElementById('foodTypeSection').style.display = 'none';
+          document.getElementById('deliveryTypeSection').style.display = 'none';
+          document.getElementById('deliveryDateSection').style.display = 'none';
+        },
+        postpartum: () => {
+          document.getElementById('tasteSection').style.display = 'block';
+          document.getElementById('cuisineSection').style.display = 'block';
+          document.getElementById('specialNeedsSection').style.display = 'block';
+          document.getElementById('nauseaSection').style.display = 'none';
+          document.getElementById('babyAgeSection').style.display = 'none';
+          document.getElementById('babyMealsSection').style.display = 'none';
+          document.getElementById('allergySection').style.display = 'none';
+          document.getElementById('foodTypeSection').style.display = 'none';
+          document.getElementById('deliveryTypeSection').style.display = 'block';
+          document.getElementById('deliveryDateSection').style.display = 'block';
+        },
+        baby: () => {
+          document.getElementById('tasteSection').style.display = 'none';
+          document.getElementById('cuisineSection').style.display = 'none';
+          document.getElementById('specialNeedsSection').style.display = 'none';
+          document.getElementById('nauseaSection').style.display = 'none';
+          document.getElementById('babyAgeSection').style.display = 'block';
+          document.getElementById('babyMealsSection').style.display = 'block';
+          document.getElementById('allergySection').style.display = 'block';
+          document.getElementById('foodTypeSection').style.display = 'block';
+          document.getElementById('deliveryTypeSection').style.display = 'none';
+          document.getElementById('deliveryDateSection').style.display = 'none';
+        }
+      };
+
+      // Watch identity changes
+      const originalSelectIdentity = selectIdentity;
+      window.selectIdentity = function(card) {
+        originalSelectIdentity(card);
+        if (state.identity && identityObserver[state.identity]) {
+          identityObserver[state.identity]();
+        }
+      };
+
+      // Initialize
+      init();
+
+      // If user has saved identity, go to meal page
+      if (state.identity) {
+        goToStep('meal');
+      }
+
+      // If baby identity, show correct sections
+      if (state.identity && identityObserver[state.identity]) {
+        identityObserver[state.identity]();
+      }
+    });
+  </script>
+</body>
+</html>
