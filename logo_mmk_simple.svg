@@ -1,0 +1,20 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5A962"/>
+      <stop offset="100%" style="stop-color:#E8924A"/>
+    </linearGradient>
+  </defs>
+  <!-- 背景圆 -->
+  <circle cx="40" cy="40" r="38" fill="url(#grad4)"/>
+  <!-- 叉子 -->
+  <path d="M25 25 L25 45 M22 25 L22 35 M28 25 L28 35" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 45 Q22 52 30 52 Q38 52 38 45" stroke="white" stroke-width="3" fill="none"/>
+  <!-- 刀子 -->
+  <path d="M50 25 L50 45" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 25 Q58 30 58 40 L50 45" stroke="white" stroke-width="3" fill="none"/>
+  <!-- 底部装饰线 -->
+  <path d="M28 58 Q40 62 52 58" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- 爱心 -->
+  <path d="M40 48 C40 44 36 42 34 45 C32 42 28 44 28 48 C28 52 34 56 34 56 C34 56 40 52 40 48" fill="#FF6B6B"/>
+</svg>

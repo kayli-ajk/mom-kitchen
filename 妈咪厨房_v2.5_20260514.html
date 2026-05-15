@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>孕味餐食 · 每日餐食推荐</title>
+  <title>妈咪厨房 · 每日餐食推荐</title>
   <style>
     :root {
       --primary: #F5A962;
@@ -865,7 +865,7 @@
     <header class="header">
       <div class="logo">
         <div class="logo-icon">🍽️</div>
-        <span>孕味餐食</span>
+        <span>妈咪厨房</span>
       </div>
       <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
         <span id="identityIcon">👶</span>
@@ -1406,7 +1406,8 @@
       currentDay: 'today',
       currentMeals: null,
       todayMeals: null,
-      tomorrowMeals: null
+      tomorrowMeals: null,
+      todayUsedRecipeIds: null
     };
 
     // ==================== Init ====================
@@ -2029,23 +2030,30 @@
       updateDate();
 
       if (day === 'tomorrow') {
-        // 切换到明日：先保存今日菜谱，再生成明日菜谱
+        // 切换到明日：先保存今日菜谱和usedRecipeIds，再生成明日菜谱
         if (!state.todayMeals) {
           state.todayMeals = JSON.parse(JSON.stringify(state.currentMeals));
+          state.todayUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
         }
         if (!state.tomorrowMeals) {
+          // 保存当前usedRecipeIds
+          const savedUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
           generateMeals(true);
           state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          // 恢复今日菜谱显示
+          // 恢复今日菜谱和usedRecipeIds
           state.currentMeals = state.todayMeals;
+          state.usedRecipeIds = savedUsedRecipeIds;
         } else {
           state.currentMeals = state.tomorrowMeals;
         }
         renderMeals();
       } else {
-        // 切换回今日：恢复之前保存的今日菜谱
+        // 切换回今日：恢复之前保存的今日菜谱和usedRecipeIds
         if (state.todayMeals) {
           state.currentMeals = state.todayMeals;
+          if (state.todayUsedRecipeIds) {
+            state.usedRecipeIds = [...state.todayUsedRecipeIds];
+          }
           renderMeals();
         }
       }

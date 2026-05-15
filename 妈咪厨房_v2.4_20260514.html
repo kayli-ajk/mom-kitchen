@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>孕味餐食 · 每日餐食推荐</title>
+  <title>妈咪厨房 · 每日餐食推荐</title>
   <style>
     :root {
       --primary: #F5A962;
@@ -865,7 +865,7 @@
     <header class="header">
       <div class="logo">
         <div class="logo-icon">🍽️</div>
-        <span>孕味餐食</span>
+        <span>妈咪厨房</span>
       </div>
       <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
         <span id="identityIcon">👶</span>
@@ -1328,71 +1328,28 @@
         { id: 'b28', name: '丝瓜鸡蛋粥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['丝瓜 30g', '鸡蛋 1个', '宝宝粥米 20g'], steps: ['丝瓜去皮切碎', '鸡蛋炒散', '加入粥中'], nutritionTags: ['清热', '蛋白质'], foodTypeTags: ['diced'] },
         { id: 'b29', name: '山药肉末羹', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['山药 40g', '猪肉 25g'], steps: ['山药蒸熟压碎', '猪肉煮熟切末', '加水煮成羹'], nutritionTags: ['健脾', '蛋白质'], foodTypeTags: ['diced'] },
         { id: 'b30', name: '番茄鸡肉泥', mealType: 'snack', babyMinAge: 8, babyMaxAge: 9, ingredients: ['番茄 30g', '鸡胸肉 30g'], steps: ['鸡肉煮熟撕碎', '番茄去皮切碎', '混合'], nutritionTags: ['维C', '蛋白质'], foodTypeTags: ['diced'] },
-        // 8-9月龄 午餐食谱 15道
-        { id: 'b51', name: '鳕鱼番茄粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['鳕鱼 30g', '番茄 30g', '宝宝粥米 25g'], steps: ['鳕鱼蒸熟压碎', '番茄去皮切碎', '加入粥中煮软'], nutritionTags: ['DHA', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b52', name: '鸡肉青菜碎面', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['鸡胸肉 30g', '青菜叶 20g', '宝宝碎面 30g'], steps: ['鸡肉煮熟撕碎', '青菜切碎', '碎面煮软混合'], nutritionTags: ['蛋白质', '纤维'], foodTypeTags: ['diced'] },
-        { id: 'b53', name: '猪肝菠菜粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['猪肝 20g', '菠菜 15g', '宝宝粥米 25g'], steps: ['猪肝浸泡煮熟切碎', '菠菜焯水切碎', '加入粥中'], nutritionTags: ['补铁', '维A'], foodTypeTags: ['diced'] },
-        { id: 'b54', name: '三文鱼西兰花饭', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['三文鱼 30g', '西兰花 30g', '软米饭 30g'], steps: ['三文鱼蒸熟压碎', '西兰花蒸熟切碎', '软米饭加热混合'], nutritionTags: ['DHA', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b55', name: '牛肉土豆粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['牛肉 30g', '土豆 30g', '宝宝粥米 25g'], steps: ['牛肉煮熟切碎', '土豆蒸熟压碎', '加入粥中'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['diced'] },
-        { id: 'b56', name: '虾仁番茄面', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['虾仁 25g', '番茄 30g', '宝宝碎面 30g'], steps: ['虾仁煮熟切碎', '番茄去皮切碎', '下面条煮软'], nutritionTags: ['补锌', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b57', name: '鸡肉土豆泥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['鸡胸肉 35g', '土豆 40g'], steps: ['鸡肉煮熟撕碎', '土豆蒸熟压泥', '混合'], nutritionTags: ['蛋白质', '能量'], foodTypeTags: ['diced'] },
-        { id: 'b58', name: '番茄鸡蛋羹', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['番茄 30g', '鸡蛋 1个'], steps: ['番茄去皮切碎', '鸡蛋打散加温水', '蒸10分钟'], nutritionTags: ['蛋白质', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b59', name: '胡萝卜肉末粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['胡萝卜 30g', '猪肉 25g', '宝宝粥米 25g'], steps: ['胡萝卜蒸熟切碎', '猪肉煮熟切末', '加入粥中'], nutritionTags: ['维A', '铁'], foodTypeTags: ['diced'] },
-        { id: 'b60', name: '南瓜鸡肉粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['南瓜 35g', '鸡胸肉 30g', '宝宝粥米 20g'], steps: ['南瓜蒸熟压碎', '鸡肉煮熟撕碎', '加入粥中'], nutritionTags: ['维A', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b61', name: '紫菜蛋花汤', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['紫菜 5g', '鸡蛋 1个'], steps: ['紫菜煮软', '淋入蛋花', '过滤后喂食'], nutritionTags: ['补碘', '蛋白质'], foodTypeTags: ['liquid'] },
-        { id: 'b62', name: '山药肉末羹', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['山药 40g', '猪肉 25g'], steps: ['山药蒸熟压泥', '猪肉煮熟切末', '加水煮成羹'], nutritionTags: ['健脾', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b63', name: '青菜豆腐粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['青菜叶 20g', '嫩豆腐 30g', '宝宝粥米 25g'], steps: ['青菜切碎', '豆腐压碎', '加入粥中煮软'], nutritionTags: ['钙', '植物蛋白'], foodTypeTags: ['diced'] },
-        { id: 'b64', name: '丝瓜鸡蛋粥', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['丝瓜 30g', '鸡蛋 1个', '宝宝粥米 25g'], steps: ['丝瓜去皮切碎', '鸡蛋炒散', '加入粥中'], nutritionTags: ['清热', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b65', name: '冬瓜肉末汤', mealType: 'lunch', babyMinAge: 8, babyMaxAge: 9, ingredients: ['冬瓜 40g', '猪肉 20g'], steps: ['冬瓜切小块煮软', '猪肉煮熟切末', '混合'], nutritionTags: ['利尿', '蛋白质'], foodTypeTags: ['liquid'] },
-        // 10-11月龄 加餐食谱 8道
-        { id: 'b66', name: '苹果燕麦粥', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['苹果 40g', '燕麦 20g', '母乳/配方奶 适量'], steps: ['燕麦煮软', '苹果去皮切小块', '混合'], nutritionTags: ['纤维', '能量'], foodTypeTags: ['diced'] },
-        { id: 'b67', name: '香蕉酸奶', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['香蕉 40g', '酸奶 50g'], steps: ['香蕉压成泥', '加入酸奶搅拌'], nutritionTags: ['益生菌', '钾'], foodTypeTags: ['diced'] },
-        { id: 'b68', name: '红薯布丁', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['红薯 50g', '鸡蛋 1个', '牛奶 30ml'], steps: ['红薯蒸熟压泥', '鸡蛋打散加牛奶', '混合蒸熟'], nutritionTags: ['能量', '钙'], foodTypeTags: ['solid'] },
-        { id: 'b69', name: '南瓜小米糊', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 40g', '小米 20g'], steps: ['小米煮成糊', '南瓜蒸熟压泥', '混合'], nutritionTags: ['维A', '能量'], foodTypeTags: ['diced'] },
-        { id: 'b70', name: '水果溶豆', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['草莓 30g', '酸奶 30g', '婴儿米粉 20g'], steps: ['水果压泥', '加酸奶米粉搅拌', '烤箱烤干'], nutritionTags: ['维C', '零食替代'], foodTypeTags: ['solid'] },
-        { id: 'b71', name: '鸡蛋小溶豆', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['鸡蛋 1个', '淀粉 10g'], steps: ['鸡蛋打发', '加淀粉搅拌', '挤成小粒烤熟'], nutritionTags: ['蛋白质', '锻炼手指'], foodTypeTags: ['solid'] },
-        { id: 'b72', name: '蔬菜小馒头', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['面粉 40g', '南瓜泥 30g', '酵母 2g'], steps: ['南瓜泥加面粉酵母', '发酵后蒸熟', '切成小块'], nutritionTags: ['能量', '锻炼抓握'], foodTypeTags: ['solid'] },
-        { id: 'b73', name: '苹果小饼', mealType: 'snack', babyMinAge: 10, babyMaxAge: 11, ingredients: ['苹果 50g', '面粉 30g', '鸡蛋 1个'], steps: ['苹果擦丝', '加面粉鸡蛋搅拌', '煎成小饼'], nutritionTags: ['维C', '能量'], foodTypeTags: ['solid'] },
-        // 10-11月龄 午餐食谱 继续补充 8道
-        { id: 'b74', name: '虾仁蔬菜粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['虾仁 30g', '青菜 25g', '宝宝粥米 30g'], steps: ['虾仁煮熟切碎', '青菜切碎', '加入粥中煮软'], nutritionTags: ['补锌', '纤维'], foodTypeTags: ['diced'] },
-        { id: 'b75', name: '番茄鳕鱼面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鳕鱼 35g', '宝宝碎面 35g'], steps: ['鳕鱼蒸熟压碎', '番茄去皮切碎', '下面条煮软混合'], nutritionTags: ['DHA', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b76', name: '三文鱼土豆饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['三文鱼 35g', '土豆 40g', '面粉 15g'], steps: ['三文鱼蒸熟压碎', '土豆蒸熟压泥', '加面粉做成小饼煎熟'], nutritionTags: ['DHA', '能量'], foodTypeTags: ['solid'] },
-        { id: 'b77', name: '牛肉西兰花粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['牛肉 35g', '西兰花 25g', '宝宝粥米 30g'], steps: ['牛肉煮熟切碎', '西兰花切碎', '加入粥中煮软'], nutritionTags: ['补铁', '维C'], foodTypeTags: ['diced'] },
-        { id: 'b78', name: '猪肉小馄饨', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['馄饨皮 适量', '猪肉 40g', '青菜 20g'], steps: ['猪肉青菜剁碎', '包成小馄饨', '煮熟'], nutritionTags: ['蛋白质', '纤维'], foodTypeTags: ['solid'] },
-        { id: 'b79', name: '山药手指条', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['山药 50g', '面粉 25g'], steps: ['山药蒸熟压泥', '加面粉揉成团', '搓成手指条蒸熟'], nutritionTags: ['健脾', '锻炼抓握'], foodTypeTags: ['solid'] },
-        { id: 'b80', name: '鸡蛋蔬菜饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['鸡蛋 1个', '胡萝卜 20g', '西葫芦 20g', '面粉 25g'], steps: ['蔬菜切碎', '鸡蛋打散加面粉', '煎成小饼'], nutritionTags: ['蛋白质', '维生素'], foodTypeTags: ['solid'] },
-        { id: 'b81', name: '紫菜虾皮汤面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['紫菜 5g', '虾皮 3g', '碎面 30g', '鸡蛋 1个'], steps: ['紫菜虾皮煮汤', '下面条', '淋入蛋花'], nutritionTags: ['补碘', '钙'], foodTypeTags: ['liquid'] },
-        // 12月+ 补充食谱 10道
-        { id: 'b82', name: '虾仁炒饭', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['虾仁 40g', '鸡蛋 1个', '软米饭 80g', '青菜 30g'], steps: ['虾仁鸡蛋炒散', '加入米饭翻炒', '加青菜碎'], nutritionTags: ['能量', '蛋白质'], foodTypeTags: ['solid'] },
-        { id: 'b83', name: '番茄肉丸面', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['番茄 1个', '猪肉 50g', '面条 60g'], steps: ['猪肉做小肉丸煮熟', '番茄去皮切块', '下面条煮软混合'], nutritionTags: ['蛋白质', '维C'], foodTypeTags: ['solid'] },
-        { id: 'b84', name: '红烧狮子头', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['猪肉 80g', '马蹄 20g', '鸡蛋 1个'], steps: ['肉馅加马蹄鸡蛋搅拌', '做成小丸子', '红烧汁煮熟'], nutritionTags: ['蛋白质', '铁'], foodTypeTags: ['solid'] },
-        { id: 'b85', name: '蔬菜肉末面', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['面条 60g', '猪肉 40g', '青菜叶 30g'], steps: ['肉末青菜切碎', '下面条煮软', '混合'], nutritionTags: ['蛋白质', '纤维'], foodTypeTags: ['solid'] },
-        { id: 'b86', name: '虾仁蔬菜粥', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['虾仁 35g', '青菜 25g', '软米饭 60g'], steps: ['虾仁煮熟切碎', '青菜切碎', '加入粥中'], nutritionTags: ['补锌', '纤维'], foodTypeTags: ['diced'] },
-        { id: 'b87', name: '番茄牛肉烩饭', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['番茄 1个', '牛肉 40g', '软米饭 70g'], steps: ['牛肉煮熟切碎', '番茄去皮切碎', '加米饭烩软'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['solid'] },
-        { id: 'b88', name: '鲜虾小馄饨', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['馄饨皮 适量', '虾仁 50g', '猪肉 20g'], steps: ['虾仁猪肉剁馅', '包成馄饨', '煮熟'], nutritionTags: ['蛋白质', '锌'], foodTypeTags: ['solid'] },
-        { id: 'b89', name: '蔬菜鸡蛋饼', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['鸡蛋 2个', '西葫芦 30g', '胡萝卜 20g', '面粉 30g'], steps: ['蔬菜切碎', '鸡蛋打散加面粉', '煎成小饼'], nutritionTags: ['维生素', '蛋白质'], foodTypeTags: ['solid'] },
-        { id: 'b90', name: '水果酸奶杯', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['香蕉 30g', '草莓 30g', '酸奶 80g'], steps: ['水果切小块', '倒入酸奶', '搅拌'], nutritionTags: ['益生菌', '维生素'], foodTypeTags: ['diced'] },
-        { id: 'b91', name: '小饼干', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['面粉 50g', '黄油 20g', '鸡蛋 1个'], steps: ['黄油软化加面粉鸡蛋', '揉成面团', '切成小块烤熟'], nutritionTags: ['能量', '锻炼咀嚼'], foodTypeTags: ['solid'] },
-        { id: 'b92', name: '小米红枣粥', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['小米 30g', '红枣 3颗'], steps: ['小米红枣煮粥', '煮至软烂'], nutritionTags: ['能量', '铁'], foodTypeTags: ['diced'] },
-        { id: 'b93', name: '蔬菜小米饼', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['小米 30g', '青菜叶 20g', '面粉 20g'], steps: ['小米煮成糊', '青菜切碎加面粉', '煎成小饼'], nutritionTags: ['能量', '纤维'], foodTypeTags: ['solid'] },
-        // 10-11月龄 晚餐食谱 8道
-        { id: 'b94', name: '山药鸡肉粥', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['山药 40g', '鸡胸肉 30g', '宝宝粥米 25g'], steps: ['山药蒸熟压泥', '鸡肉煮熟撕碎', '加入粥中'], nutritionTags: ['健脾', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b95', name: '番茄鸡蛋面', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鸡蛋 1个', '宝宝碎面 35g'], steps: ['番茄去皮切碎', '鸡蛋炒散', '下面条煮软混合'], nutritionTags: ['维C', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b96', name: '南瓜三文鱼粥', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 35g', '三文鱼 30g', '宝宝粥米 25g'], steps: ['三文鱼蒸熟压碎', '南瓜蒸熟压泥', '加入粥中'], nutritionTags: ['DHA', '维A'], foodTypeTags: ['diced'] },
-        { id: 'b97', name: '蔬菜肉末粥', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['青菜叶 25g', '猪肉 30g', '宝宝粥米 30g'], steps: ['青菜切碎', '猪肉煮熟切末', '加入粥中煮软'], nutritionTags: ['纤维', '蛋白质'], foodTypeTags: ['diced'] },
-        { id: 'b98', name: '土豆牛肉粥', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['土豆 40g', '牛肉 35g', '宝宝粥米 25g'], steps: ['土豆蒸熟压泥', '牛肉煮熟切碎', '加入粥中'], nutritionTags: ['能量', '补铁'], foodTypeTags: ['diced'] },
-        { id: 'b99', name: '冬瓜虾皮汤', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['冬瓜 50g', '虾皮 5g'], steps: ['冬瓜切小块煮软', '虾皮浸泡去盐', '加入煮汤'], nutritionTags: ['利尿', '补钙'], foodTypeTags: ['liquid'] },
-        { id: 'b100', name: '菠菜猪肝粥', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['菠菜 20g', '猪肝 20g', '宝宝粥米 25g'], steps: ['菠菜焯水切碎', '猪肝煮熟切碎', '加入粥中'], nutritionTags: ['补铁', '维A'], foodTypeTags: ['diced'] },
-        { id: 'b101', name: '丝瓜肉末面', mealType: 'dinner', babyMinAge: 10, babyMaxAge: 11, ingredients: ['丝瓜 40g', '猪肉 25g', '碎面 30g'], steps: ['丝瓜去皮切碎', '猪肉煮熟切末', '下面条煮软混合'], nutritionTags: ['清热', '蛋白质'], foodTypeTags: ['diced'] },
-        // 6-7月龄 午餐食谱 8道（可作为过渡尝试）
-        { id: 'b102', name: '胡萝卜泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['胡萝卜 50g'], steps: ['胡萝卜去皮切块蒸15分钟', '压成细腻泥'], nutritionTags: ['维A', '易消化'], foodTypeTags: ['puree'] },
-        { id: 'b103', name: '土豆泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['土豆 60g', '母乳/配方奶 适量'], steps: ['土豆去皮蒸15分钟', '压成泥加奶调稀'], nutritionTags: ['能量', '易消化'], foodTypeTags: ['puree'] },
-        { id: 'b104', name: '南瓜泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['南瓜 60g'], steps: ['南瓜去皮去籽蒸15分钟', '压成泥'], nutritionTags: ['维A', '甜口感'], foodTypeTags: ['puree'] },
-        { id: 'b105', name: '西兰花泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['西兰花 50g', '母乳/配方奶 适量'], steps: ['西兰花洗净蒸10分钟', '压成细腻泥', '加奶调稀'], nutritionTags: ['维C', '纤维'], foodTypeTags: ['puree'] },
-        { id: 'b106', name: '苹果泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['苹果 60g'], steps: ['苹果去皮去核蒸10分钟', '压成泥'], nutritionTags: ['维C', '通便'], foodTypeTags: ['puree'] },
-        { id: 'b107', name: '香蕉泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['香蕉 50g'], steps: ['香蕉去皮直接压成泥'], nutritionTags: ['钾', '甜口感'], foodTypeTags: ['puree'] },
-        { id: 'b108', name: '红薯泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['红薯 60g'], steps: ['红薯去皮蒸15分钟', '压成泥'], nutritionTags: ['纤维', '能量'], foodTypeTags: ['puree'] },
-        { id: 'b109', name: '山药泥', mealType: 'lunch', babyMinAge: 6, babyMaxAge: 7, ingredients: ['山药 50g', '母乳/配方奶 适量'], steps: ['山药去皮蒸15分钟', '压成泥加奶'], nutritionTags: ['健脾', '易消化'], foodTypeTags: ['puree'] }
+        // 10-11月龄 12道（软固体/碎末）
+        { id: 'b31', name: '番茄牛肉碎面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '牛肉 30g', '宝宝碎面 30g'], steps: ['番茄去皮切碎', '牛肉煮熟切碎', '碎面煮软', '一起煮成糊'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['diced'] },
+        { id: 'b32', name: '虾仁青菜馄饨', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['馄饨皮 适量', '虾仁 30g', '青菜叶 20g'], steps: ['虾仁青菜剁碎', '包成小馄饨', '煮熟'], nutritionTags: ['蛋白质', '蔬菜纤维'], foodTypeTags: ['solid'] },
+        { id: 'b33', name: '南瓜鸡肉软饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 30g', '鸡胸肉 30g', '面粉 20g', '鸡蛋 1个'], steps: ['南瓜鸡肉蒸熟压碎', '加面粉鸡蛋搅拌', '做成小饼煎熟'], nutritionTags: ['能量', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b34', name: '胡萝卜牛肉粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['胡萝卜 30g', '牛肉 30g', '宝宝粥米 25g'], steps: ['胡萝卜牛肉切碎', '粥煮软后加入', '煮至软烂'], nutritionTags: ['补铁', '维A'], foodTypeTags: ['diced'] },
+        { id: 'b35', name: '番茄鳕鱼面', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鳕鱼 30g', '宝宝碎面 30g'], steps: ['鳕鱼蒸熟压碎', '番茄去皮切碎', '下面条煮软', '混合'], nutritionTags: ['DHA', '维C'], foodTypeTags: ['diced'] },
+        { id: 'b36', name: '山药手指条', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['山药 50g', '面粉 20g'], steps: ['山药蒸熟压泥', '加面粉揉成团', '搓成手指条蒸熟'], nutritionTags: ['健脾', '锻炼抓握'], foodTypeTags: ['solid'] },
+        { id: 'b37', name: '西兰花三文鱼饭', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['西兰花 30g', '三文鱼 30g', '软米饭 50g'], steps: ['西兰花三文鱼蒸熟切碎', '软米饭加热', '混合'], nutritionTags: ['DHA', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b38', name: '虾仁蔬菜小包子', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['面粉 50g', '虾仁 30g', '青菜 20g'], steps: ['青菜虾仁剁碎调味', '面粉揉成面团', '包成小包子蒸熟'], nutritionTags: ['蛋白质', '蔬菜纤维'], foodTypeTags: ['solid'] },
+        { id: 'b39', name: '土豆牛肉小饼', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['土豆 40g', '牛肉 30g', '面粉 15g'], steps: ['土豆牛肉蒸熟压碎', '加面粉做成小饼', '煎熟'], nutritionTags: ['补铁', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b40', name: '番茄鸡蛋烩饭', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['番茄 1个', '鸡蛋 1个', '软米饭 50g'], steps: ['番茄去皮切碎', '鸡蛋炒散', '加米饭烩软'], nutritionTags: ['维C', '蛋白质'], foodTypeTags: ['diced'] },
+        { id: 'b41', name: '冬瓜虾皮粥', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['冬瓜 40g', '虾皮 5g', '宝宝粥米 25g'], steps: ['冬瓜切碎', '虾皮浸泡去盐', '加入粥中煮软'], nutritionTags: ['利尿', '补钙'], foodTypeTags: ['diced'] },
+        { id: 'b42', name: '南瓜发糕', mealType: 'lunch', babyMinAge: 10, babyMaxAge: 11, ingredients: ['南瓜 50g', '面粉 50g', '酵母 2g', '鸡蛋 1个'], steps: ['南瓜蒸熟压泥', '加面粉酵母鸡蛋', '发酵后蒸熟切块'], nutritionTags: ['能量', '锻炼咀嚼'], foodTypeTags: ['solid'] },
+        // 12月+ 8道（与家人同餐，可加间食）
+        { id: 'b43', name: '番茄肉丸面', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['番茄 1个', '猪肉 50g', '面条 50g'], steps: ['猪肉做小肉丸煮熟', '番茄去皮切块', '下面条煮软', '混合'], nutritionTags: ['蛋白质', '能量'], foodTypeTags: ['solid'] },
+        { id: 'b44', name: '鲜虾馄饨', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['馄饨皮 适量', '虾仁 50g', '猪肉 20g'], steps: ['虾仁猪肉剁馅', '包成馄饨', '煮熟'], nutritionTags: ['蛋白质', '锌'], foodTypeTags: ['solid'] },
+        { id: 'b45', name: '蔬菜鸡蛋饼', mealType: 'breakfast', babyMinAge: 12, babyMaxAge: 36, ingredients: ['鸡蛋 2个', '西葫芦 30g', '胡萝卜 20g', '面粉 30g'], steps: ['蔬菜切碎', '鸡蛋打散加面粉', '煎成小饼'], nutritionTags: ['维生素', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b46', name: '虾仁炒饭', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['虾仁 30g', '鸡蛋 1个', '软米饭 80g', '青菜 30g'], steps: ['虾仁鸡蛋炒散', '加入米饭翻炒', '加青菜碎'], nutritionTags: ['能量', '蛋白质'], foodTypeTags: ['solid'] },
+        { id: 'b47', name: '红烧狮子头', mealType: 'lunch', babyMinAge: 12, babyMaxAge: 36, ingredients: ['猪肉 80g', '马蹄 20g', '鸡蛋 1个'], steps: ['肉馅加马蹄鸡蛋搅拌', '做成小丸子', '红烧汁煮熟'], nutritionTags: ['蛋白质', '铁'], foodTypeTags: ['solid'] },
+        { id: 'b48', name: '蔬菜肉末面', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['面条 60g', '猪肉 40g', '青菜叶 30g'], steps: ['肉末青菜切碎', '下面条煮软', '混合'], nutritionTags: ['蛋白质', '纤维'], foodTypeTags: ['solid'] },
+        { id: 'b49', name: '小米南瓜粥', mealType: 'dinner', babyMinAge: 12, babyMaxAge: 36, ingredients: ['小米 30g', '南瓜 40g', '红枣 3颗'], steps: ['小米南瓜红枣煮粥', '煮至软烂'], nutritionTags: ['能量', '维A'], foodTypeTags: ['diced'] },
+        { id: 'b50', name: '水果酸奶', mealType: 'snack', babyMinAge: 12, babyMaxAge: 36, ingredients: ['香蕉 半根', '草莓 3颗', '酸奶 100g'], steps: ['水果切小块', '倒入酸奶', '搅拌'], nutritionTags: ['益生菌', '维生素'], foodTypeTags: ['diced'] }
       ]
     };
 
@@ -1449,8 +1406,7 @@
       currentDay: 'today',
       currentMeals: null,
       todayMeals: null,
-      tomorrowMeals: null,
-      todayUsedRecipeIds: null
+      tomorrowMeals: null
     };
 
     // ==================== Init ====================
@@ -1785,8 +1741,6 @@
               }
             }
           }
-          // 确保有可用的菜谱
-          if (available.length === 0) break;
           const idx = Math.floor(Math.random() * available.length);
           results.push(available[idx]);
           pool = pool.filter(c => c.id !== available[idx].id);
@@ -1804,9 +1758,7 @@
         if (mealsCount === 1) {
           // 1顿只有间食
           const snackRecipes = filtered.filter(r => r.mealType === 'snack');
-          console.log('[generateMeals] snackRecipes count:', snackRecipes.length);
           const selected = pickRecipes(1, snackRecipes);
-          console.log('[generateMeals] selected:', selected);
           meals.snack = { main: selected, sides: [] };
         } else if (mealsCount === 2) {
           // 2顿：午餐 + 间食
@@ -1901,42 +1853,11 @@
         container.appendChild(tipCard);
       }
 
-      // 添加宝宝月龄建议提示
-      if (state.identity === 'baby') {
-        const babyAge = state.preferences.babyAgeMonths;
-        let suggestMeals = 1;
-        let suggestReason = '刚从奶类过渡到辅食，以尝为主';
-        if (babyAge >= 8 && babyAge < 12) {
-          suggestMeals = 2;
-          suggestReason = '消化功能逐渐成熟，可增加到2顿';
-        } else if (babyAge >= 12) {
-          suggestMeals = 3;
-          suggestReason = '可与家人同餐，每天3顿正餐';
-        }
-        const actualMeals = state.preferences.babyMealsPerDay || 1;
-        const tipCard = document.createElement('div');
-        tipCard.className = 'meal-card';
-        const isMatch = actualMeals === suggestMeals;
-        tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">
-            <span class="meal-type">👶 月龄建议</span>
-          </div>
-          <div class="meal-card-body">
-            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
-              ${babyAge}月龄宝宝建议每天 <strong>${suggestMeals}顿</strong>辅食（${suggestReason}）。<br>
-              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:#FF9800">可根据宝宝实际情况调整</span>'}
-            </p>
-          </div>
-        `;
-        container.appendChild(tipCard);
-      }
-
       if (state.identity === 'baby') {
         // 宝宝辅食：严格按顿数显示
         const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
         mealTypes.forEach(type => {
           const mealData = state.currentMeals[type];
-          console.log(`[renderMeals] ${type}:`, mealData);
           if (!mealData) return;
           
           const card = document.createElement('div');
@@ -2065,7 +1986,6 @@
 
     // 创建单个菜品的HTML（包含独立制作方法和备菜清单）
     function createDishHtml(dish, icon = '🍽️') {
-      if (!dish) return '';
       return `
         <div class="dish-section">
           <div class="dish-name">
@@ -2108,45 +2028,24 @@
       });
       updateDate();
 
-      console.log('[switchDay] 切换到:', day);
-      console.log('[switchDay] 当前todayMeals:', state.todayMeals ? '已存在' : '空');
-      console.log('[switchDay] 当前tomorrowMeals:', state.tomorrowMeals ? '已存在' : '空');
-      console.log('[switchDay] 切换前currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
-
       if (day === 'tomorrow') {
-        // 切换到明日：先保存今日菜谱和usedRecipeIds，再生成明日菜谱
+        // 切换到明日：先保存今日菜谱，再生成明日菜谱
         if (!state.todayMeals) {
-          console.log('[switchDay] 保存今日菜谱到todayMeals');
           state.todayMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          state.todayUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
-          console.log('[switchDay] 保存的usedRecipeIds:', state.todayUsedRecipeIds);
         }
         if (!state.tomorrowMeals) {
-          // 保存当前usedRecipeIds
-          const savedUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
-          console.log('[switchDay] 生成明日菜谱前usedRecipeIds:', savedUsedRecipeIds);
           generateMeals(true);
           state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          console.log('[switchDay] 明日菜谱早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
-          // 恢复今日菜谱和usedRecipeIds
+          // 恢复今日菜谱显示
           state.currentMeals = state.todayMeals;
-          state.usedRecipeIds = savedUsedRecipeIds;
-          console.log('[switchDay] 恢复后currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
         } else {
           state.currentMeals = state.tomorrowMeals;
         }
         renderMeals();
       } else {
-        // 切换回今日：恢复之前保存的今日菜谱和usedRecipeIds
-        console.log('[switchDay] 恢复今日菜谱');
-        console.log('[switchDay] todayMeals早餐:', state.todayMeals?.breakfast?.main?.map(m => m.name));
+        // 切换回今日：恢复之前保存的今日菜谱
         if (state.todayMeals) {
           state.currentMeals = state.todayMeals;
-          if (state.todayUsedRecipeIds) {
-            state.usedRecipeIds = [...state.todayUsedRecipeIds];
-            console.log('[switchDay] 恢复的usedRecipeIds:', state.todayUsedRecipeIds);
-          }
-          console.log('[switchDay] 恢复后currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
           renderMeals();
         }
       }

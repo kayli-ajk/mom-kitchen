@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>孕味餐食 · 每日餐食推荐</title>
+  <title>妈咪厨房 · 每日餐食推荐</title>
   <style>
     :root {
       --primary: #F5A962;
@@ -865,7 +865,7 @@
     <header class="header">
       <div class="logo">
         <div class="logo-icon">🍽️</div>
-        <span>孕味餐食</span>
+        <span>妈咪厨房</span>
       </div>
       <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
         <span id="identityIcon">👶</span>
@@ -1406,7 +1406,8 @@
       currentDay: 'today',
       currentMeals: null,
       todayMeals: null,
-      tomorrowMeals: null
+      tomorrowMeals: null,
+      todayUsedRecipeIds: null
     };
 
     // ==================== Init ====================
@@ -1741,6 +1742,8 @@
               }
             }
           }
+          // 确保有可用的菜谱
+          if (available.length === 0) break;
           const idx = Math.floor(Math.random() * available.length);
           results.push(available[idx]);
           pool = pool.filter(c => c.id !== available[idx].id);
@@ -1799,9 +1802,13 @@
         const breakfastSelected = pickRecipes(1, breakfastRecipes);
         meals.breakfast = { main: breakfastSelected, sides: [] };
 
-        // 午餐：2个主菜 + 1个汤（从lunch类型中严格筛选汤，避免同类主材重复）
+        // 午餐：2个主菜 + 1个汤（主菜必须不是汤，且避免同类主材重复）
         const lunchRecipes = filtered.filter(r => r.mealType === 'lunch');
-        const lunchMains = pickRecipes(2, lunchRecipes, true); // 启用主材去重
+        // 筛选午餐主菜池：排除汤类
+        const lunchMainPool = lunchRecipes.filter(r =>
+          !r.nutritionTags.some(t => t.includes('汤') || t.includes('煲'))
+        );
+        const lunchMains = pickRecipes(2, lunchMainPool, true); // 启用主材去重
         // 严格筛选汤：从lunch类型中筛选
         const lunchSoupPool = lunchRecipes.filter(r =>
           r.nutritionTags.some(t => t.includes('汤') || t.includes('煲')) &&
@@ -1982,6 +1989,7 @@
 
     // 创建单个菜品的HTML（包含独立制作方法和备菜清单）
     function createDishHtml(dish, icon = '🍽️') {
+      if (!dish) return '';
       return `
         <div class="dish-section">
           <div class="dish-name">
@@ -2024,24 +2032,45 @@
       });
       updateDate();
 
+      console.log('[switchDay] 切换到:', day);
+      console.log('[switchDay] 当前todayMeals:', state.todayMeals ? '已存在' : '空');
+      console.log('[switchDay] 当前tomorrowMeals:', state.tomorrowMeals ? '已存在' : '空');
+      console.log('[switchDay] 切换前currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
+
       if (day === 'tomorrow') {
-        // 切换到明日：先保存今日菜谱，再生成明日菜谱
+        // 切换到明日：先保存今日菜谱和usedRecipeIds，再生成明日菜谱
         if (!state.todayMeals) {
+          console.log('[switchDay] 保存今日菜谱到todayMeals');
           state.todayMeals = JSON.parse(JSON.stringify(state.currentMeals));
+          state.todayUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
+          console.log('[switchDay] 保存的usedRecipeIds:', state.todayUsedRecipeIds);
         }
         if (!state.tomorrowMeals) {
+          // 保存当前usedRecipeIds
+          const savedUsedRecipeIds = state.usedRecipeIds ? [...state.usedRecipeIds] : [];
+          console.log('[switchDay] 生成明日菜谱前usedRecipeIds:', savedUsedRecipeIds);
           generateMeals(true);
           state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          // 恢复今日菜谱显示
+          console.log('[switchDay] 明日菜谱早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
+          // 恢复今日菜谱和usedRecipeIds
           state.currentMeals = state.todayMeals;
+          state.usedRecipeIds = savedUsedRecipeIds;
+          console.log('[switchDay] 恢复后currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
         } else {
           state.currentMeals = state.tomorrowMeals;
         }
         renderMeals();
       } else {
-        // 切换回今日：恢复之前保存的今日菜谱
+        // 切换回今日：恢复之前保存的今日菜谱和usedRecipeIds
+        console.log('[switchDay] 恢复今日菜谱');
+        console.log('[switchDay] todayMeals早餐:', state.todayMeals?.breakfast?.main?.map(m => m.name));
         if (state.todayMeals) {
           state.currentMeals = state.todayMeals;
+          if (state.todayUsedRecipeIds) {
+            state.usedRecipeIds = [...state.todayUsedRecipeIds];
+            console.log('[switchDay] 恢复的usedRecipeIds:', state.todayUsedRecipeIds);
+          }
+          console.log('[switchDay] 恢复后currentMeals早餐:', state.currentMeals?.breakfast?.main?.map(m => m.name));
           renderMeals();
         }
       }
