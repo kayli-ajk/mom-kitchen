@@ -2976,7 +2976,12 @@
     // 初始化临时状态（进入角色与偏好页面时调用）
     function initTempState() {
       state.tempIdentity = state.identity;
-      state.tempPreferences = JSON.parse(JSON.stringify(state.preferences));
+      // 如果 state.preferences 为 null，使用对应身份的默认偏好（新用户修复）
+      if (state.preferences) {
+        state.tempPreferences = JSON.parse(JSON.stringify(state.preferences));
+      } else {
+        state.tempPreferences = JSON.parse(JSON.stringify(getDefaultPreferences(state.tempIdentity || 'pregnant')));
+      }
       state.tempUsedRecipeIds = [...(state.usedRecipeIds || [])];
       state.tempCurrentMeals = state.currentMeals ? JSON.parse(JSON.stringify(state.currentMeals)) : null;
       state.tempTodayMeals = state.todayMeals ? JSON.parse(JSON.stringify(state.todayMeals)) : null;
@@ -3021,22 +3026,25 @@
 
       container.querySelectorAll('.tag, .radio-tag').forEach(tag => {
         tag.addEventListener('click', () => {
-          // 使用临时偏好（预览模式），后备机制：tempPreferences → preferences
-          const prefs = state.tempPreferences || state.preferences;
-          if (!prefs) return;
+          // 使用临时偏好（预览模式），后备机制：tempPreferences → preferences → 默认值
+          let prefs = state.tempPreferences || state.preferences;
+          if (!prefs) {
+            prefs = JSON.parse(JSON.stringify(getDefaultPreferences(state.tempIdentity || state.identity || 'pregnant')));
+            state.tempPreferences = prefs;
+          }
           if (isArray) {
             const value = tag.dataset.value;
-            const index = prefs[stateKey].indexOf(value);
+            const index = (prefs[stateKey] || []).indexOf(value);
             if (index > -1) {
               prefs[stateKey].splice(index, 1);
             } else {
+              if (!Array.isArray(prefs[stateKey])) prefs[stateKey] = [];
               prefs[stateKey].push(value);
             }
           } else {
             prefs[stateKey] = tag.dataset.value;
           }
           updatePreferenceTags();
-          // 不自动保存，仅在点击"生成餐食推荐"时才保存
         });
       });
     }
@@ -4637,9 +4645,12 @@
 
       // Baby age input
       document.getElementById('babyAgeInput').addEventListener('change', (e) => {
-        // 使用临时偏好（预览模式），后备机制：tempPreferences → preferences
-        const prefs = state.tempPreferences || state.preferences;
-        if (!prefs) return;
+        // 使用临时偏好（预览模式），后备机制：tempPreferences → preferences → 默认值
+        let prefs = state.tempPreferences || state.preferences;
+        if (!prefs) {
+          prefs = JSON.parse(JSON.stringify(getDefaultPreferences(state.tempIdentity || state.identity || 'baby')));
+          state.tempPreferences = prefs;
+        }
         prefs.babyAgeMonths = parseInt(e.target.value) || 8;
         // 根据月龄自动更新建议的辅食顿数
         const months = prefs.babyAgeMonths;
