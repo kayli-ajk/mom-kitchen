@@ -52,14 +52,12 @@
     .header {
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(135deg, #FF8FA3, #FF527B);
       padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(255, 82, 123, 0.2);
       z-index: 100;
     }
 
@@ -69,13 +67,13 @@
       gap: 8px;
       font-weight: 600;
       font-size: 18px;
-      color: #4A3F3F;
+      color: white;
     }
 
     .logo-icon {
       width: 32px;
       height: 32px;
-      background: rgba(255,143,163,0.12);
+      background: rgba(255,255,255,0.25);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -111,7 +109,7 @@
       width: 36px;
       height: 36px;
       border: none;
-      background: rgba(255,143,163,0.1);
+      background: rgba(255,255,255,0.2);
       border-radius: 10px;
       cursor: pointer;
       display: flex;
@@ -119,11 +117,11 @@
       justify-content: center;
       font-size: 18px;
       transition: all 0.2s;
-      color: #FF527B;
+      color: white;
     }
 
     .icon-btn:hover {
-      background: rgba(255,143,163,0.2);
+      background: rgba(255,255,255,0.35);
     }
 
     /* 底部菜单栏 */
@@ -1300,16 +1298,16 @@
       padding: 6px 14px;
       font-size: 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255,143,163,0.3);
-      background: rgba(255,143,163,0.08);
-      color: #FF527B;
+      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.9);
+      color: var(--primary);
       cursor: pointer;
       margin-left: 8px;
       font-weight: 500;
     }
 
     .header-pref-btn:hover {
-      background: rgba(255,143,163,0.15);
+      background: white;
     }
 
     /* 调整后的meal-date行布局 */
@@ -1953,7 +1951,7 @@
     <header class="header">
       <div class="logo">
         <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 36px; width: auto;">
-        <span style="font-size: 16px; font-weight: 600; color: #4A3F3F; margin-left: 6px;">妈咪厨房</span>
+        <span style="font-size: 16px; font-weight: 600; color: white; margin-left: 6px;">妈咪厨房</span>
       </div>
     </header>
 
