@@ -100,6 +100,23 @@
       color: var(--primary-dark);
     }
 
+    .header-identity {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 16px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .header-identity span:first-child {
+      font-size: 15px;
+      line-height: 1;
+    }
+
     .header-actions {
       display: flex;
       gap: 8px;
@@ -1953,6 +1970,10 @@
         <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 36px; width: auto; background: white; border-radius: 10px; padding: 3px;">
         <span style="font-size: 16px; font-weight: 600; color: white; margin-left: 6px;">妈咪厨房</span>
       </div>
+      <div class="header-identity" id="headerIdentity" style="display: none;">
+        <span id="headerIdentityIcon"></span>
+        <span id="headerIdentityName"></span>
+      </div>
     </header>
 
     <!-- Main Content -->
@@ -2818,6 +2839,16 @@
       if (state.identity) {
         document.getElementById('identityIcon').textContent = IDENTITY_ICONS[state.identity];
         document.getElementById('identityName').textContent = IDENTITY_NAMES[state.identity];
+      }
+
+      // Update header identity display
+      const headerIdentity = document.getElementById('headerIdentity');
+      if (state.identity) {
+        headerIdentity.style.display = 'flex';
+        document.getElementById('headerIdentityIcon').textContent = IDENTITY_ICONS[state.identity];
+        document.getElementById('headerIdentityName').textContent = IDENTITY_NAMES[state.identity];
+      } else {
+        headerIdentity.style.display = 'none';
       }
 
       // Update identity cards
