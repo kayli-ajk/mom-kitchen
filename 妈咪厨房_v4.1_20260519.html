@@ -3748,7 +3748,7 @@
         container.appendChild(tipCard);
       }
 
-      // 添加宝宝月龄建议提示
+      // 添加宝宝月龄建议提示（仅当顿数不符合建议时显示）
       if (state.identity === 'baby') {
         const babyAge = state.preferences.babyAgeMonths;
         let suggestMeals = 1;
@@ -3761,21 +3761,22 @@
           suggestReason = '可与家人同餐，每天3顿正餐';
         }
         const actualMeals = state.preferences.babyMealsPerDay || 1;
-        const tipCard = document.createElement('div');
-        tipCard.className = 'meal-card';
-        const isMatch = actualMeals === suggestMeals;
-        tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E0F7FA, #B2EBF2);">
-            <span class="meal-type">👶 月龄建议</span>
-          </div>
-          <div class="meal-card-body">
-            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
-              ${babyAge}月龄宝宝建议每天 <strong>${suggestMeals}顿</strong>辅食（${suggestReason}）。<br>
-              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:var(--primary)">可根据宝宝实际情况调整</span>'}
-            </p>
-          </div>
-        `;
-        container.appendChild(tipCard);
+        if (actualMeals !== suggestMeals) {
+          const tipCard = document.createElement('div');
+          tipCard.className = 'meal-card';
+          tipCard.innerHTML = `
+            <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E0F7FA, #B2EBF2);">
+              <span class="meal-type">👶 月龄建议</span>
+            </div>
+            <div class="meal-card-body">
+              <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+                ${babyAge}月龄宝宝建议每天 <strong>${suggestMeals}顿</strong>辅食（${suggestReason}）。<br>
+                您当前选择的是 <strong>${actualMeals}顿</strong> <span style="color:var(--primary)">可根据宝宝实际情况调整</span>
+              </p>
+            </div>
+          `;
+          container.appendChild(tipCard);
+        }
       }
 
       if (state.identity === 'baby') {
