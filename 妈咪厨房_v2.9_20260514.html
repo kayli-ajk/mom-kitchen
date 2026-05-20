@@ -857,6 +857,257 @@
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+
+    /* ========== 采纳功能 ========== */
+    .adopted-summary {
+      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid #81C784;
+    }
+
+    .adopted-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .adopted-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2E7D32;
+    }
+
+    .adopted-count {
+      background: #4CAF50;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    .adopted-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .adopted-actions .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .adopted-actions .btn-sm:hover {
+      background: #388E3C;
+    }
+
+    .adopted-actions .btn-secondary {
+      background: #81C784;
+    }
+
+    .adopted-actions .btn-secondary:hover {
+      background: #66BB6A;
+    }
+
+    .adopted-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .adopted-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: white;
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-size: 13px;
+    }
+
+    .adopted-item-name {
+      color: #333;
+      cursor: pointer;
+    }
+
+    .adopted-item-name:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .adopted-item-remove {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .adopted-item-remove:hover {
+      color: #f44336;
+    }
+
+    /* 菜品详情弹窗 */
+    .dish-detail-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .dish-detail-modal.show {
+      display: flex;
+    }
+
+    .dish-detail-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .dish-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .dish-detail-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .dish-detail-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .dish-detail-close:hover {
+      color: #333;
+    }
+
+    .shopping-list {
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .shopping-list-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .shopping-list-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .shopping-item {
+      background: #F5F5F5;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* 采纳按钮样式 */
+    .adopt-btn {
+      float: right;
+      padding: 4px 12px;
+      font-size: 12px;
+      border-radius: 12px;
+      border: 1px solid #4CAF50;
+      background: white;
+      color: #4CAF50;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .adopt-btn:hover {
+      background: #E8F5E9;
+    }
+
+    .adopt-btn.adopted {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .adopt-btn.adopted:hover {
+      background: #388E3C;
+    }
+
+    .no-adopted {
+      color: #999;
+      font-size: 13px;
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* header中的修改偏好按钮 */
+    .header-pref-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .header-pref-btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* 调整后的meal-date行布局 */
+    .meal-date-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .meal-date-row .meal-date {
+      margin-bottom: 0;
+    }
+
+    .meal-date-row .regenerate-bar {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -867,10 +1118,13 @@
         <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 40px; width: auto;">
         <span style="font-size: 18px; font-weight: 600; color: var(--primary); margin-left: 8px;">妈咪厨房</span>
       </div>
-      <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
-        <span id="identityIcon">👶</span>
-        <span id="identityName">请选择</span>
-        <span>▼</span>
+      <div style="display: flex; align-items: center;">
+        <button class="header-pref-btn" onclick="goToStep('preference')">⚙️ 修改偏好</button>
+        <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()" style="margin-left: 8px;">
+          <span id="identityIcon">👶</span>
+          <span id="identityName">请选择</span>
+          <span>▼</span>
+        </div>
       </div>
     </header>
 
@@ -1071,20 +1325,48 @@
           <button class="meal-tab" data-day="tomorrow" onclick="switchDay('tomorrow')">明日推荐</button>
         </div>
 
-        <p class="meal-date" id="mealDate"></p>
+        <div class="meal-date-row">
+          <p class="meal-date" id="mealDate"></p>
+          <div class="regenerate-bar">
+            <button class="btn btn-secondary" onclick="regenerateMeals()" style="padding: 6px 12px; font-size: 12px;">
+              🔄 换一批
+            </button>
+          </div>
+        </div>
 
-        <div class="regenerate-bar">
-          <button class="btn btn-secondary" onclick="regenerateMeals()">
-            🔄 换一批
-          </button>
-          <button class="btn btn-primary" onclick="goToStep('preference')">
-            ⚙️ 修改偏好
-          </button>
+        <!-- 采纳汇总区域 -->
+        <div id="adoptedSummary" class="adopted-summary" style="display: none;">
+          <div class="adopted-header">
+            <span class="adopted-title">🍽️ 已采纳<span id="adoptedCount" class="adopted-count">0</span>道菜</span>
+            <div class="adopted-actions">
+              <button class="btn btn-sm" onclick="adoptAllVisible()">采纳全部</button>
+              <button class="btn btn-sm btn-secondary" onclick="clearAllAdopted()">清空</button>
+            </div>
+          </div>
+          <div id="adoptedList" class="adopted-list"></div>
+          <div class="shopping-list">
+            <div class="shopping-list-header">🛒 备菜清单</div>
+            <div id="shoppingListContent" class="shopping-list-content"></div>
+          </div>
         </div>
 
         <div id="mealList"></div>
       </section>
     </main>
+  </div>
+
+  <!-- 菜品详情弹窗 -->
+  <div class="dish-detail-modal" id="dishDetailModal">
+    <div class="dish-detail-content" id="dishDetailContent">
+      <div class="dish-detail-header">
+        <div class="dish-detail-title" id="dishDetailTitle"></div>
+        <button class="dish-detail-close" onclick="closeDishDetail()">×</button>
+      </div>
+      <div class="meal-section-title">制作方法</div>
+      <ol class="steps" id="dishDetailSteps"></ol>
+      <div class="meal-section-title">备菜清单</div>
+      <div class="ingredients" id="dishDetailIngredients"></div>
+    </div>
   </div>
 
   <!-- Toast -->
@@ -1484,7 +1766,9 @@
       currentMeals: null,
       todayMeals: null,
       tomorrowMeals: null,
-      todayUsedRecipeIds: null
+      todayUsedRecipeIds: null,
+      todayAdoptedRecipes: [],    // 今日采纳的菜品
+      tomorrowAdoptedRecipes: []  // 明日采纳的菜品
     };
 
     // ==================== Init ====================
@@ -1615,13 +1899,15 @@
     // ==================== Identity Selection ====================
     function selectIdentity(card) {
       const newIdentity = card.dataset.identity;
-      // 如果切换身份，清空推荐记录，避免不同身份的食谱 ID 混在一起
+      // 如果切换身份，清空推荐记录和采纳数据，避免不同身份的食谱 ID 混在一起
       if (state.identity && state.identity !== newIdentity) {
         state.usedRecipeIds = [];
         state.currentMeals = null;
         state.todayMeals = null;
         state.tomorrowMeals = null;
-        console.log('[selectIdentity] 切换身份，清空推荐记录');
+        state.todayAdoptedRecipes = [];
+        state.tomorrowAdoptedRecipes = [];
+        console.log('[selectIdentity] 切换身份，清空推荐记录和采纳数据');
       }
       state.identity = newIdentity;
       updateUI();
@@ -2038,9 +2324,17 @@
           meals.snack = { main: snackSelected, sides: [] };
         } else {
           // 3餐：早餐 + 午餐 + 晚餐
-          // 早餐：从snack/lunch类型中选1道（作为粥/糊类）
-          const breakfastRecipes = filtered.filter(r => r.mealType === 'snack' || r.mealType === 'lunch');
-          const breakfastSelected = pickRecipes(1, breakfastRecipes);
+          // 早餐：从snack/lunch类型中选1道主食（粥/面/糊/饼/蒸糕等）
+          const breakfastPool = filtered.filter(r => r.mealType === 'snack' || r.mealType === 'lunch');
+          // 过滤出适合早餐的主食类
+          const breakfastRecipes = breakfastPool.filter(r => {
+            const name = r.name || '';
+            const breakfastKeywords = ['粥', '面', '糊', '饼', '蒸糕', '蒸饼', '米糊', '蛋饼', '松饼', '蒸包'];
+            return breakfastKeywords.some(k => name.includes(k));
+          });
+          // 如果筛选后数量太少，放宽条件使用全部
+          const finalBreakfastPool = breakfastRecipes.length > 0 ? breakfastRecipes : breakfastPool;
+          const breakfastSelected = pickRecipes(1, finalBreakfastPool);
           meals.breakfast = { main: breakfastSelected, sides: [] };
           
           // 午餐：从lunch类型中选2道（1主食 + 1菜品）
@@ -2280,15 +2574,25 @@
           container.appendChild(snackCard);
         }
       }
+
+      // 更新采纳汇总
+      updateAdoptedSummary();
     }
 
     // 创建单个菜品的HTML（包含独立制作方法和备菜清单）
     function createDishHtml(dish, icon = '🍽️') {
       if (!dish) return '';
+      const adoptedList = getCurrentAdoptedRecipes();
+      const isAdopted = adoptedList.some(r => r.id === dish.id);
+      const adoptBtnClass = isAdopted ? 'adopt-btn adopted' : 'adopt-btn';
+      const adoptBtnText = isAdopted ? '✓ 已采纳' : '采纳';
       return `
-        <div class="dish-section">
+        <div class="dish-section" data-dish-id="${dish.id}">
           <div class="dish-name">
             ${icon} ${dish.name}
+            <button class="${adoptBtnClass}" onclick="toggleAdopt('${dish.id}')" data-dish-id="${dish.id}">
+              ${adoptBtnText}
+            </button>
           </div>
           <div class="nutrition-tags">
             ${dish.nutritionTags.map(t => `<span class="nutrition-tag">${t}</span>`).join('')}
@@ -2304,6 +2608,208 @@
         </div>
       `;
     }
+
+    // ==================== 采纳功能 ====================
+    // 获取当前tab的采纳列表
+    function getCurrentAdoptedRecipes() {
+      return state.currentDay === 'today' ? state.todayAdoptedRecipes : state.tomorrowAdoptedRecipes;
+    }
+
+    // 切换采纳状态
+    function toggleAdopt(dishId) {
+      const adoptedList = getCurrentAdoptedRecipes();
+      const idx = adoptedList.findIndex(r => r.id === dishId);
+      if (idx > -1) {
+        // 取消采纳
+        adoptedList.splice(idx, 1);
+      } else {
+        // 采纳
+        const dish = findDishById(dishId);
+        if (dish) {
+          adoptedList.push({...dish});
+        }
+      }
+      saveState();
+      updateAdoptedSummary();
+      renderMeals();
+    }
+
+    // 根据ID查找菜品
+    function findDishById(dishId) {
+      const meals = state.currentMeals;
+      if (!meals) return null;
+
+      for (const mealType of ['breakfast', 'lunch', 'dinner', 'snack']) {
+        const meal = meals[mealType];
+        if (!meal) continue;
+
+        if (meal.main) {
+          for (const dish of meal.main) {
+            if (dish && dish.id === dishId) return dish;
+          }
+        }
+        if (meal.sides) {
+          for (const dish of meal.sides) {
+            if (dish && dish.id === dishId) return dish;
+          }
+        }
+        if (meal.soup && meal.soup.id === dishId) {
+          return meal.soup;
+        }
+        if (meal.snack && meal.snack.id === dishId) {
+          return meal.snack;
+        }
+      }
+      return null;
+    }
+
+    // 采纳全部可见的菜品
+    function adoptAllVisible() {
+      if (!state.currentMeals) return;
+
+      const adoptedList = getCurrentAdoptedRecipes();
+      const allDishes = collectVisibleDishes();
+
+      allDishes.forEach(dish => {
+        if (dish && !adoptedList.some(r => r.id === dish.id)) {
+          adoptedList.push({...dish});
+        }
+      });
+
+      saveState();
+      updateAdoptedSummary();
+      renderMeals();
+      showToast('已采纳全部菜品');
+    }
+
+    // 清空所有采纳
+    function clearAllAdopted() {
+      const adoptedList = getCurrentAdoptedRecipes();
+      adoptedList.length = 0;
+      saveState();
+      updateAdoptedSummary();
+      renderMeals();
+      showToast('已清空采纳列表');
+    }
+
+    // 收集当前可见的所有菜品
+    function collectVisibleDishes() {
+      const dishes = [];
+      if (!state.currentMeals) return dishes;
+
+      for (const mealType of ['breakfast', 'lunch', 'dinner', 'snack']) {
+        const meal = state.currentMeals[mealType];
+        if (!meal) continue;
+
+        if (meal.main) meal.main.forEach(d => { if (d) dishes.push(d); });
+        if (meal.sides) meal.sides.forEach(d => { if (d) dishes.push(d); });
+        if (meal.soup) dishes.push(meal.soup);
+        if (meal.snack && meal.snack.id) dishes.push(meal.snack);
+      }
+      return dishes;
+    }
+
+    // 汇总备菜清单（同类重量相加）
+    function aggregateIngredients(dishes) {
+      const map = {};
+
+      dishes.forEach(dish => {
+        if (!dish.ingredients) return;
+        dish.ingredients.forEach(ing => {
+          // 尝试解析重量：如 "鸡胸肉 100g" -> {name: "鸡胸肉", weight: 100}
+          const match = ing.match(/^(.+?)\s*(\d+(?:\.\d+)?)\s*(g|克|ml|毫升)?$/);
+          if (match) {
+            const name = match[1].trim();
+            const weight = parseFloat(match[2]);
+            const unit = match[3] || 'g';
+            if (!map[name]) {
+              map[name] = { name, weight, unit };
+            } else {
+              map[name].weight += weight;
+            }
+          } else {
+            // 无重量的配料直接保留
+            if (!map[ing]) {
+              map[ing] = { name: ing, weight: 0, unit: '' };
+            }
+          }
+        });
+      });
+
+      // 转换为数组并排序
+      return Object.values(map).sort((a, b) => {
+        // 有重量的排前面
+        if (a.weight && !b.weight) return -1;
+        if (!a.weight && b.weight) return 1;
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    // 更新采纳汇总显示
+    function updateAdoptedSummary() {
+      const summaryEl = document.getElementById('adoptedSummary');
+      const countEl = document.getElementById('adoptedCount');
+      const listEl = document.getElementById('adoptedList');
+      const shoppingEl = document.getElementById('shoppingListContent');
+      const adoptedList = getCurrentAdoptedRecipes();
+
+      if (adoptedList.length === 0) {
+        summaryEl.style.display = 'none';
+        return;
+      }
+
+      summaryEl.style.display = 'block';
+      countEl.textContent = adoptedList.length;
+
+      // 显示采纳的菜品列表
+      listEl.innerHTML = adoptedList.map(dish => `
+        <div class="adopted-item" data-dish-id="${dish.id}">
+          <span class="adopted-item-name" onclick="showDishDetail('${dish.id}')">${dish.name}</span>
+          <button class="adopted-item-remove" onclick="toggleAdopt('${dish.id}')">×</button>
+        </div>
+      `).join('');
+
+      // 汇总备菜清单
+      const aggregated = aggregateIngredients(adoptedList);
+      shoppingEl.innerHTML = aggregated.map(item => {
+        if (item.weight > 0) {
+          return `<span class="shopping-item">${item.name} ${item.weight}${item.unit}</span>`;
+        } else {
+          return `<span class="shopping-item">${item.name}</span>`;
+        }
+      }).join('');
+    }
+
+    // 显示菜品详情弹窗
+    function showDishDetail(dishId) {
+      const adoptedList = getCurrentAdoptedRecipes();
+      const dish = adoptedList.find(r => r.id === dishId);
+      if (!dish) return;
+
+      const modal = document.getElementById('dishDetailModal');
+      const titleEl = document.getElementById('dishDetailTitle');
+      const stepsEl = document.getElementById('dishDetailSteps');
+      const ingredientsEl = document.getElementById('dishDetailIngredients');
+
+      titleEl.textContent = dish.name;
+      stepsEl.innerHTML = dish.steps.map(s => `<li>${s}</li>`).join('');
+      ingredientsEl.innerHTML = dish.ingredients.map(i => `<span class="ingredient">${i}</span>`).join('');
+
+      modal.classList.add('show');
+    }
+
+    // 关闭菜品详情弹窗
+    function closeDishDetail() {
+      document.getElementById('dishDetailModal').classList.remove('show');
+    }
+
+    // 点击弹窗背景关闭
+    document.addEventListener('click', function(e) {
+      const modal = document.getElementById('dishDetailModal');
+      if (e.target === modal) {
+        closeDishDetail();
+      }
+    });
 
     function updateDate() {
       const dateEl = document.getElementById('mealDate');
@@ -2361,7 +2867,12 @@
         } else {
           // 偏好未改变，明日菜谱已存在：直接恢复明日缓存
           state.currentMeals = state.tomorrowMeals;
+          if (state.tomorrowUsedRecipeIds) {
+            state.usedRecipeIds = [...state.tomorrowUsedRecipeIds];
+          }
         }
+        // 切换采纳列表到明日
+        updateAdoptedSummary();
         renderMeals();
       } else {
         // 切换回今日
@@ -2380,6 +2891,8 @@
             state.usedRecipeIds = [...state.todayUsedRecipeIds];
           }
         }
+        // 切换采纳列表到今日
+        updateAdoptedSummary();
         renderMeals();
       }
     }
@@ -2404,6 +2917,18 @@
     }
 
     function regenerateMeals() {
+      // 检查是否所有可见菜品都已被采纳
+      const visibleDishes = collectVisibleDishes();
+      const adoptedList = getCurrentAdoptedRecipes();
+      const allAdopted = visibleDishes.length > 0 && visibleDishes.every(d =>
+        adoptedList.some(a => a.id === d.id)
+      );
+
+      if (allAdopted) {
+        showToast('请先取消部分菜品后再换一批哦');
+        return;
+      }
+
       showToast('正在为您换一批~');
       generateMeals(false, true); // 不重置 usedRecipeIds，但重新随机选择
     }

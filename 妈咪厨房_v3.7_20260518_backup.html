@@ -6,21 +6,23 @@
   <title>妈咪厨房 · 每日餐食推荐</title>
   <style>
     :root {
-      --primary: #F5A962;
-      --primary-dark: #E8924A;
-      --primary-light: #FFF3E8;
+      --primary: #FF527B;
+      --primary-dark: #E84360;
+      --primary-light: #FFF0F3;
       --secondary: #7ECBC3;
       --secondary-light: #E8F8F6;
-      --bg: #FFF9F5;
+      --bg: #F5F5F7;
       --card: #FFFFFF;
-      --text: #4A4A4A;
-      --text-secondary: #8C8C8C;
+      --text: #1A1A1A;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
       --warning: #FF6B6B;
       --warning-light: #FFE8E8;
       --success: #7ECBC3;
-      --border: #F0E6E0;
-      --shadow: 0 2px 12px rgba(245, 169, 98, 0.1);
-      --shadow-hover: 0 4px 20px rgba(245, 169, 98, 0.2);
+      --border: #EEEEEE;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.04);
     }
 
     * {
@@ -50,12 +52,12 @@
     .header {
       position: sticky;
       top: 0;
-      background: var(--card);
+      background: linear-gradient(135deg, #FF8FA3, #FF527B);
       padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(255, 82, 123, 0.2);
       z-index: 100;
     }
 
@@ -65,13 +67,13 @@
       gap: 8px;
       font-weight: 600;
       font-size: 18px;
-      color: var(--primary);
+      color: white;
     }
 
     .logo-icon {
       width: 32px;
       height: 32px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: rgba(255,255,255,0.25);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -84,18 +86,18 @@
       align-items: center;
       gap: 6px;
       padding: 6px 12px;
-      background: var(--primary-light);
+      background: rgba(255,255,255,0.9);
       border-radius: 20px;
       font-size: 13px;
-      color: var(--primary-dark);
+      color: var(--primary);
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .identity-badge:hover {
-      background: var(--primary);
-      color: white;
+      background: white;
+      color: var(--primary-dark);
     }
 
     .header-actions {
@@ -107,7 +109,7 @@
       width: 36px;
       height: 36px;
       border: none;
-      background: var(--bg);
+      background: rgba(255,255,255,0.2);
       border-radius: 10px;
       cursor: pointer;
       display: flex;
@@ -115,10 +117,11 @@
       justify-content: center;
       font-size: 18px;
       transition: all 0.2s;
+      color: white;
     }
 
     .icon-btn:hover {
-      background: var(--primary-light);
+      background: rgba(255,255,255,0.35);
     }
 
     /* 底部菜单栏 */
@@ -161,6 +164,15 @@
 
     .nav-item.active .nav-icon {
       transform: scale(1.1);
+    }
+
+    .nav-item.active::after {
+      content: '';
+      width: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border-radius: 2px;
+      margin-top: 2px;
     }
 
     .nav-icon {
@@ -215,7 +227,7 @@
     .my-menu-icon {
       width: 40px;
       height: 40px;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -223,19 +235,19 @@
     }
 
     .my-menu-icon.identity {
-      background: linear-gradient(135deg, #FFE0B2, #FFCC80);
+      background: linear-gradient(135deg, #FF8FA3, #FF527B);
     }
 
     .my-menu-icon.preference {
-      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      background: linear-gradient(135deg, #A8C5E8, #7FA3D8);
     }
 
     .my-menu-icon.calendar {
-      background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+      background: linear-gradient(135deg, #81D4C2, #4DB6A8);
     }
 
     .my-menu-icon.ingredient {
-      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+      background: linear-gradient(135deg, #FFD166, #FFB347);
     }
 
     .my-menu-info {
@@ -273,13 +285,23 @@
     /* Welcome Screen */
     .welcome {
       text-align: center;
-      padding: 60px 20px;
+      padding: 40px 20px;
       animation: fadeIn 0.5s ease;
     }
 
     .welcome-emoji {
       font-size: 80px;
       margin-bottom: 24px;
+    }
+
+    .welcome-illustration {
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .welcome-illustration svg {
+      filter: drop-shadow(0 4px 12px rgba(255, 82, 123, 0.12));
+      border-radius: 20px;
     }
 
     .welcome h1 {
@@ -360,15 +382,23 @@
     }
 
     .identity-icon {
-      font-size: 48px;
       width: 72px;
       height: 72px;
-      background: var(--bg);
-      border-radius: 16px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(160, 140, 120, 0.12);
+    }
+
+    .identity-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
     }
 
     .identity-info h3 {
@@ -571,12 +601,12 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
-      box-shadow: 0 4px 16px rgba(245, 169, 98, 0.35);
+      box-shadow: 0 4px 16px rgba(255, 82, 123, 0.35);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 169, 98, 0.45);
+      box-shadow: 0 6px 20px rgba(255, 82, 123, 0.45);
     }
 
     .btn-primary:active {
@@ -635,8 +665,9 @@
     }
 
     .meal-tab.active {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
+      box-shadow: 0 2px 8px rgba(255, 82, 123, 0.25);
     }
 
     .meal-date {
@@ -668,19 +699,19 @@
     }
 
     .meal-card-header.breakfast {
-      background: linear-gradient(135deg, #FFECD2, #FCB69F);
+      background: linear-gradient(135deg, #FFE4EC, #FFB8C9);
     }
 
     .meal-card-header.lunch {
-      background: linear-gradient(135deg, #A8EDEA, #7ECBC3);
+      background: linear-gradient(135deg, #C5F0EC, #7ECBC3);
     }
 
     .meal-card-header.dinner {
-      background: linear-gradient(135deg, #D4FC79, #96E6A1);
+      background: linear-gradient(135deg, #E8F5D6, #A8D878);
     }
 
     .meal-card-header.snack {
-      background: linear-gradient(135deg, #FFE0F0, #FFB6C1);
+      background: linear-gradient(135deg, #FFF0D4, #FFD699);
     }
 
     .meal-type {
@@ -968,13 +999,14 @@
       width: 32px;
       height: 32px;
       border: none;
-      background: var(--bg);
+      background: var(--primary-light);
       border-radius: 50%;
       cursor: pointer;
       font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--primary);
     }
 
     .modal-body {
@@ -1063,11 +1095,11 @@
     }
 
     .adopted-actions .btn-share {
-      background: #FF9800;
+      background: linear-gradient(135deg, #FF8FA3, #FF527B);
     }
 
     .adopted-actions .btn-share:hover {
-      background: #F57C00;
+      background: linear-gradient(135deg, #FF527B, #E84360);
     }
 
     .adopted-list {
@@ -1229,18 +1261,19 @@
 
     /* header中的修改偏好按钮 */
     .header-pref-btn {
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 12px;
-      border-radius: 6px;
-      border: 1px solid var(--primary);
-      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.9);
       color: var(--primary);
       cursor: pointer;
       margin-left: 8px;
+      font-weight: 500;
     }
 
     .header-pref-btn:hover {
-      background: var(--primary-light);
+      background: white;
     }
 
     /* 调整后的meal-date行布局 */
@@ -1415,7 +1448,7 @@
     }
 
     .calendar-day.selected {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
     }
 
@@ -1716,36 +1749,36 @@
     }
 
     .share-summary {
-      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
-      border-radius: 12px;
+      background: linear-gradient(135deg, #FFF0F3 0%, #FFE4EC 100%);
+      border-radius: 16px;
       padding: 16px;
       margin-bottom: 20px;
-      border: 1px solid #FFB74D;
+      border: 1px solid #FFB8C9;
     }
 
     .share-summary-title {
       font-size: 16px;
       font-weight: 600;
-      color: #E65100;
+      color: var(--primary-dark);
       margin-bottom: 8px;
     }
 
     .share-summary-count {
       font-size: 14px;
-      color: #BF360C;
+      color: var(--primary);
       margin-bottom: 12px;
     }
 
     .share-shopping {
-      background: #FFF8E1;
-      border-radius: 8px;
+      background: var(--primary-light);
+      border-radius: 12px;
       padding: 12px;
     }
 
     .share-shopping-title {
       font-size: 14px;
       font-weight: 600;
-      color: #F57C00;
+      color: var(--primary-dark);
       margin-bottom: 8px;
     }
 
@@ -1758,10 +1791,10 @@
     .share-shopping-item {
       background: white;
       padding: 4px 10px;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 13px;
-      color: #5D4037;
-      border: 1px solid #FFE082;
+      color: var(--text);
+      border: 1px solid var(--primary);
     }
 
     .share-dish {
@@ -1884,7 +1917,7 @@
     <header class="header">
       <div class="logo">
         <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 36px; width: auto;">
-        <span style="font-size: 16px; font-weight: 600; color: var(--primary); margin-left: 6px;">妈咪厨房</span>
+        <span style="font-size: 16px; font-weight: 600; color: white; margin-left: 6px;">妈咪厨房</span>
       </div>
     </header>
 
@@ -1929,8 +1962,75 @@
 
       <!-- Welcome Page -->
       <section class="welcome step-page active" id="welcomePage">
-        <div class="welcome-emoji">🤰</div>
-        <h1>欢迎使用孕味餐食</h1>
+        <div class="welcome-illustration">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="200" height="147">
+            <defs>
+              <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFF5F7"/>
+                <stop offset="100%" style="stop-color:#FFE4EC"/>
+              </linearGradient>
+              <linearGradient id="peachGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFE4EC"/>
+                <stop offset="100%" style="stop-color:#FFB8C9"/>
+              </linearGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="300" height="220" fill="url(#bgGrad)" rx="20"/>
+            <!-- Main circular frame -->
+            <ellipse cx="150" cy="110" rx="110" ry="95" fill="url(#peachGrad)" opacity="0.6"/>
+            <!-- Decorative circles -->
+            <circle cx="40" cy="35" r="15" fill="#FFD93D" opacity="0.4"/>
+            <circle cx="270" cy="45" r="18" fill="#7ECBC3" opacity="0.3"/>
+            <circle cx="25" cy="180" r="22" fill="#C9A0DC" opacity="0.25"/>
+            <circle cx="280" cy="175" r="14" fill="#FFB6C1" opacity="0.35"/>
+            <!-- Parent figure -->
+            <g>
+              <ellipse cx="115" cy="135" rx="38" ry="42" fill="#7ECBC3"/>
+              <ellipse cx="115" cy="75" rx="28" ry="30" fill="#FFE4C4"/>
+              <ellipse cx="115" cy="50" rx="30" ry="20" fill="#5D4037"/>
+              <ellipse cx="88" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="142" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="107" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <ellipse cx="123" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <path d="M108 85 Q115 90 122 85" stroke="#E57373" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="100" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="130" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="80" cy="145" rx="12" ry="20" fill="#7ECBC3"/>
+              <ellipse cx="150" cy="145" rx="12" ry="20" fill="#7ECBC3"/>
+              <ellipse cx="65" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+              <ellipse cx="165" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+            </g>
+            <!-- Child figure -->
+            <g>
+              <ellipse cx="150" cy="148" rx="25" ry="30" fill="#FFD93D"/>
+              <ellipse cx="150" cy="112" rx="22" ry="24" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="92" rx="24" ry="15" fill="#8D6E63"/>
+              <ellipse cx="158" cy="88" rx="6" ry="8" fill="#8D6E63"/>
+              <ellipse cx="144" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <ellipse cx="156" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <path d="M146 120 Q150 124 154 120" stroke="#E57373" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="137" cy="114" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="163" cy="114" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+            </g>
+            <!-- Baby figure -->
+            <g>
+              <ellipse cx="150" cy="178" rx="18" ry="20" fill="#C9A0DC"/>
+              <ellipse cx="150" cy="163" rx="14" ry="16" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="152" rx="12" ry="8" fill="#FFCC80"/>
+              <ellipse cx="155" cy="149" rx="4" ry="5" fill="#FFCC80"/>
+              <circle cx="145" cy="160" r="2" fill="#5D4037"/>
+              <circle cx="155" cy="160" r="2" fill="#5D4037"/>
+              <path d="M146 167 Q150 170 154 167" stroke="#E57373" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Hearts -->
+            <g fill="#FFB6C1" opacity="0.7">
+              <path d="M240 55 C237 52, 233 52, 233 56 C233 60, 240 65, 240 65 C240 65, 247 60, 247 56 C247 52, 243 52, 240 55 Z"/>
+              <path d="M55 60 C53 58, 50 58, 50 61 C50 64, 55 67, 55 67 C55 67, 60 64, 60 61 C60 58, 57 58, 55 60 Z" opacity="0.6"/>
+              <path d="M260 100 C258 98, 255 98, 255 101 C255 103, 260 106, 260 106 C260 106, 265 103, 265 101 C265 98, 262 98, 260 100 Z" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+        <h1>欢迎使用妈咪厨房</h1>
         <p>为准妈妈和宝宝准备的<br>每日营养餐食推荐</p>
         <button class="btn btn-primary" onclick="goToStep('identity')" style="max-width: 280px; margin: 0 auto;">
           开始使用
@@ -1944,7 +2044,7 @@
 
         <div class="identity-grid">
           <div class="identity-card" data-identity="pregnant" onclick="selectIdentity(this)">
-            <div class="identity-icon">🤰</div>
+            <div class="identity-icon"><img src="icon_pregnant_v37.png" alt="孕妈"></div>
             <div class="identity-info">
               <h3>孕妈</h3>
               <p>正在怀孕的你，需要特别关注营养摄入</p>
@@ -1952,7 +2052,7 @@
           </div>
 
           <div class="identity-card" data-identity="postpartum" onclick="selectIdentity(this)">
-            <div class="identity-icon">👩</div>
+            <div class="identity-icon"><img src="icon_postpartum_v37.png" alt="宝妈"></div>
             <div class="identity-info">
               <h3>宝妈</h3>
               <p>正在坐月子或哺乳期，需要滋补调理</p>
@@ -1960,7 +2060,7 @@
           </div>
 
           <div class="identity-card" data-identity="baby" onclick="selectIdentity(this)">
-            <div class="identity-icon">👶</div>
+            <div class="identity-icon"><img src="icon_baby_v37.jpg" alt="宝宝"></div>
             <div class="identity-info">
               <h3>宝宝家长</h3>
               <p>为宝宝准备安全健康的辅食</p>
@@ -3553,7 +3653,7 @@
         const tipCard = document.createElement('div');
         tipCard.className = 'meal-card';
         tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #FFE0B2, #FFCC80);">
+          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #FFF0D4, #FFD699);">
             <span class="meal-type">💡 营养师建议</span>
           </div>
           <div class="meal-card-body">
@@ -3583,13 +3683,13 @@
         tipCard.className = 'meal-card';
         const isMatch = actualMeals === suggestMeals;
         tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">
+          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E0F7FA, #B2EBF2);">
             <span class="meal-type">👶 月龄建议</span>
           </div>
           <div class="meal-card-body">
             <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
               ${babyAge}月龄宝宝建议每天 <strong>${suggestMeals}顿</strong>辅食（${suggestReason}）。<br>
-              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:#FF9800">可根据宝宝实际情况调整</span>'}
+              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:var(--primary)">可根据宝宝实际情况调整</span>'}
             </p>
           </div>
         `;

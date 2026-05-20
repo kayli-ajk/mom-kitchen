@@ -5,22 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>妈咪厨房 · 每日餐食推荐</title>
   <style>
+    /* ====================================================
+       妈咪厨房 v4.0 — 温馨清新治愈风 设计系统
+       灵感：宝宝树APP · 孕妈宝妈友好
+       关键词：柔和暖色 · 大圆角 · 轻阴影 · 留白呼吸感
+    ==================================================== */
+
     :root {
-      --primary: #F5A962;
-      --primary-dark: #E8924A;
-      --primary-light: #FFF3E8;
-      --secondary: #7ECBC3;
-      --secondary-light: #E8F8F6;
-      --bg: #FFF9F5;
+      /* ── 主色：温柔暖杏粉 ── */
+      --primary: #F2A7B0;
+      --primary-dark: #E08A94;
+      --primary-deeper: #D07080;
+      --primary-light: #FEF5F6;
+      --primary-glow: rgba(242, 167, 176, 0.25);
+
+      /* ── 辅色：清新薄荷绿 ── */
+      --secondary: #A8D5C2;
+      --secondary-dark: #7EBFA8;
+      --secondary-light: #F2FBF7;
+
+      /* ── 点缀色 ── */
+      --accent-warm: #F5C6A0;      /* 暖杏 */
+      --accent-lavender: #C5B8D8;  /* 柔薰衣草 */
+      --accent-sunshine: #F5D98A;  /* 阳光黄 */
+      --accent-sky: #B5D4E8;      /* 天空蓝 */
+
+      /* ── 背景 ── */
+      --bg: #FAF7F5;              /* 暖奶白 */
+      --bg-warm: #FFF8F3;         /* 暖杏白 */
       --card: #FFFFFF;
-      --text: #4A4A4A;
-      --text-secondary: #8C8C8C;
-      --warning: #FF6B6B;
-      --warning-light: #FFE8E8;
-      --success: #7ECBC3;
-      --border: #F0E6E0;
-      --shadow: 0 2px 12px rgba(245, 169, 98, 0.1);
-      --shadow-hover: 0 4px 20px rgba(245, 169, 98, 0.2);
+
+      /* ── 文字 ── */
+      --text: #4A3F3F;            /* 温暖深棕（比纯黑柔和） */
+      --text-secondary: #8C8080;  /* 柔灰棕 */
+      --text-tertiary: #B5ADAD;   /* 淡灰棕 */
+      --text-white: #FFFFFF;
+
+      /* ── 功能色 ── */
+      --success: #A8D5C2;
+      --success-dark: #6BBF9A;
+      --success-light: #F0FAF5;
+      --warning: #F5A0A0;
+      --warning-light: #FFF0F0;
+      --error: #E88;
+
+      /* ── 边框 ── */
+      --border: #F0EBE8;          /* 暖灰边框 */
+      --border-light: #F8F4F2;
+
+      /* ── 阴影（温暖棕调，非冷灰） ── */
+      --shadow-sm: 0 1px 6px rgba(160, 140, 120, 0.06);
+      --shadow: 0 2px 16px rgba(160, 140, 120, 0.08);
+      --shadow-md: 0 4px 20px rgba(160, 140, 120, 0.10);
+      --shadow-lg: 0 8px 32px rgba(160, 140, 120, 0.12);
+      --shadow-glow: 0 4px 24px rgba(242, 167, 176, 0.20);
+
+      /* ── 圆角 ── */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+      --radius-pill: 999px;
+
+      /* ── 过渡 ── */
+      --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: 0.15s var(--ease-soft);
+      --transition: 0.25s var(--ease-soft);
+      --transition-slow: 0.4s var(--ease-soft);
     }
 
     * {
@@ -33,9 +85,10 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .container {
@@ -46,16 +99,16 @@
       position: relative;
     }
 
-    /* Header */
+    /* ── Header ── 温柔暖粉渐变头部 */
     .header {
       position: sticky;
       top: 0;
-      background: var(--card);
-      padding: 12px 20px;
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0, #E8B4B8);
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 12px rgba(242, 167, 176, 0.15);
       z-index: 100;
     }
 
@@ -64,14 +117,15 @@
       align-items: center;
       gap: 8px;
       font-weight: 600;
-      font-size: 18px;
-      color: var(--primary);
+      font-size: 17px;
+      color: white;
+      letter-spacing: 0.5px;
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.3);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -83,19 +137,21 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
-      background: var(--primary-light);
-      border-radius: 20px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.92);
+      border-radius: var(--radius-pill);
       font-size: 13px;
       color: var(--primary-dark);
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all var(--transition);
+      backdrop-filter: blur(4px);
     }
 
     .identity-badge:hover {
-      background: var(--primary);
-      color: white;
+      background: white;
+      color: var(--primary-deeper);
+      box-shadow: var(--shadow-sm);
     }
 
     .header-actions {
@@ -107,21 +163,23 @@
       width: 36px;
       height: 36px;
       border: none;
-      background: var(--bg);
+      background: rgba(255,255,255,0.25);
       border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-      transition: all 0.2s;
+      transition: all var(--transition);
+      color: white;
     }
 
     .icon-btn:hover {
-      background: var(--primary-light);
+      background: rgba(255,255,255,0.40);
+      transform: scale(1.05);
     }
 
-    /* 底部菜单栏 */
+    /* ── 底部菜单栏 ── 圆润温和 */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -130,42 +188,52 @@
       width: 100%;
       max-width: 428px;
       background: var(--card);
-      border-top: 1px solid var(--border);
+      border-top: none;
       display: flex;
       justify-content: space-around;
-      padding: 8px 0;
-      padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      padding: 6px 0;
+      padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
       z-index: 1000;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 -1px 16px rgba(160, 140, 120, 0.08);
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      padding: 6px 20px;
+      gap: 3px;
+      padding: 8px 24px;
       cursor: pointer;
-      color: var(--text-secondary);
-      transition: all 0.2s;
-      border-radius: 12px;
+      color: var(--text-tertiary);
+      transition: all var(--transition);
+      border-radius: var(--radius-lg);
+      position: relative;
     }
 
     .nav-item:active {
-      background: var(--bg);
+      background: var(--primary-light);
     }
 
     .nav-item.active {
-      color: var(--primary);
+      color: var(--primary-dark);
     }
 
     .nav-item.active .nav-icon {
-      transform: scale(1.1);
+      transform: scale(1.15);
+    }
+
+    .nav-item.active::after {
+      content: '';
+      width: 18px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border-radius: var(--radius-pill);
+      margin-top: 2px;
     }
 
     .nav-icon {
       font-size: 22px;
-      transition: transform 0.2s;
+      transition: transform var(--transition);
     }
 
     .nav-label {
@@ -173,12 +241,12 @@
       font-weight: 500;
     }
 
-    /* 主区域样式调整 */
+    /* ── 主区域 ── */
     .main {
-      padding: 16px 16px 90px;
+      padding: 18px 16px 90px;
     }
 
-    /* 我的页面样式 */
+    /* ── 我的页面 ── */
     .my-page {
       display: none;
     }
@@ -189,7 +257,7 @@
 
     .my-menu-list {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius-xl);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
@@ -197,11 +265,11 @@
     .my-menu-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border-light);
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all var(--transition);
     }
 
     .my-menu-item:last-child {
@@ -209,33 +277,37 @@
     }
 
     .my-menu-item:hover {
-      background: var(--bg);
+      background: var(--primary-light);
+    }
+
+    .my-menu-item:active {
+      transform: scale(0.99);
     }
 
     .my-menu-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 22px;
     }
 
     .my-menu-icon.identity {
-      background: linear-gradient(135deg, #FFE0B2, #FFCC80);
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0);
     }
 
     .my-menu-icon.preference {
-      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      background: linear-gradient(135deg, #C5D8E8, #A8C5D8);
     }
 
     .my-menu-icon.calendar {
-      background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+      background: linear-gradient(135deg, #B8E0D0, #A8D5C2);
     }
 
     .my-menu-icon.ingredient {
-      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+      background: linear-gradient(135deg, #F5D98A, #F5C6A0);
     }
 
     .my-menu-info {
@@ -244,18 +316,18 @@
 
     .my-menu-title {
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
     }
 
     .my-menu-desc {
       font-size: 12px;
       color: var(--text-secondary);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .my-menu-arrow {
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
       font-size: 14px;
     }
 
@@ -263,18 +335,19 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       background: var(--primary-light);
-      border-radius: 12px;
+      border-radius: var(--radius-pill);
       font-size: 13px;
       color: var(--primary-dark);
+      font-weight: 500;
     }
 
-    /* Welcome Screen */
+    /* ── Welcome Screen ── 柔和治愈 */
     .welcome {
       text-align: center;
-      padding: 60px 20px;
-      animation: fadeIn 0.5s ease;
+      padding: 48px 20px;
+      animation: fadeIn 0.6s var(--ease-soft);
     }
 
     .welcome-emoji {
@@ -282,23 +355,35 @@
       margin-bottom: 24px;
     }
 
+    .welcome-illustration {
+      margin: 0 auto 24px;
+      display: block;
+    }
+
+    .welcome-illustration svg {
+      filter: drop-shadow(0 4px 16px rgba(242, 167, 176, 0.15));
+      border-radius: var(--radius-xl);
+    }
+
     .welcome h1 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
 
     .welcome p {
       font-size: 15px;
       color: var(--text-secondary);
-      margin-bottom: 40px;
+      margin-bottom: 44px;
+      line-height: 1.8;
     }
 
-    /* Step Pages */
+    /* ── Step Pages ── */
     .step-page {
       display: none;
-      animation: fadeIn 0.4s ease;
+      animation: fadeIn 0.4s var(--ease-soft);
     }
 
     .step-page.active {
@@ -306,15 +391,16 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .step-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       text-align: center;
       margin-bottom: 8px;
+      color: var(--text);
     }
 
     .step-subtitle {
@@ -324,28 +410,29 @@
       margin-bottom: 32px;
     }
 
-    /* Identity Cards */
+    /* ── Identity Cards ── 温暖卡片 */
     .identity-grid {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .identity-card {
       background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 22px 20px;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s var(--ease-soft);
       display: flex;
       align-items: center;
       gap: 16px;
+      box-shadow: var(--shadow-sm);
     }
 
     .identity-card:hover {
       border-color: var(--primary);
-      box-shadow: var(--shadow-hover);
+      box-shadow: var(--shadow-md);
       transform: translateY(-2px);
     }
 
@@ -353,6 +440,7 @@
       border-color: var(--primary);
       background: linear-gradient(135deg, var(--primary-light), #FFF);
       transform: scale(1.02);
+      box-shadow: var(--shadow-glow);
     }
 
     .identity-card:active {
@@ -360,29 +448,39 @@
     }
 
     .identity-icon {
-      font-size: 48px;
       width: 72px;
       height: 72px;
-      background: var(--bg);
-      border-radius: 16px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(160, 140, 120, 0.12);
+    }
+
+    .identity-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
     }
 
     .identity-info h3 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       margin-bottom: 4px;
+      color: var(--text);
     }
 
     .identity-info p {
       font-size: 13px;
       color: var(--text-secondary);
+      line-height: 1.5;
     }
 
-    /* Preference Section */
+    /* ── Preference Section ── */
     .pref-section {
       margin-bottom: 28px;
     }
@@ -394,14 +492,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--text);
     }
 
     .pref-label .required {
       color: var(--warning);
       font-size: 12px;
+      font-weight: 500;
     }
 
-    /* Tags */
+    /* ── Tags ── 药丸标签 */
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -410,13 +510,13 @@
 
     .tag {
       padding: 8px 16px;
-      border: 2px solid var(--primary);
-      border-radius: 20px;
-      font-size: 14px;
-      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      color: var(--primary-dark);
       background: transparent;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all var(--transition);
       user-select: none;
     }
 
@@ -427,6 +527,7 @@
     .tag.selected {
       background: var(--primary);
       color: white;
+      border-color: var(--primary);
     }
 
     .tag.warning {
@@ -439,7 +540,7 @@
       color: white;
     }
 
-    /* Radio Tags */
+    /* ── Radio Tags ── */
     .radio-tags {
       display: flex;
       gap: 10px;
@@ -447,17 +548,20 @@
 
     .radio-tag {
       flex: 1;
-      padding: 12px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
+      padding: 12px 8px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all var(--transition);
+      color: var(--text-secondary);
+      background: var(--card);
     }
 
     .radio-tag:hover {
       border-color: var(--primary);
+      color: var(--primary-dark);
     }
 
     .radio-tag.selected {
@@ -466,7 +570,7 @@
       color: white;
     }
 
-    /* Number Input */
+    /* ── Number Input ── */
     .number-input-wrapper {
       display: flex;
       align-items: center;
@@ -476,16 +580,19 @@
     .number-input {
       width: 100px;
       padding: 12px 16px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
       font-size: 16px;
       text-align: center;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all var(--transition);
+      background: var(--card);
+      color: var(--text);
     }
 
     .number-input:focus {
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .number-suffix {
@@ -493,7 +600,7 @@
       color: var(--text-secondary);
     }
 
-    /* Date Input */
+    /* ── Date Input ── */
     .date-input-wrapper {
       display: flex;
       flex-direction: column;
@@ -502,25 +609,28 @@
 
     .date-input {
       padding: 12px 16px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
       font-size: 16px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all var(--transition);
       width: 100%;
       max-width: 200px;
+      background: var(--card);
+      color: var(--text);
     }
 
     .date-input:focus {
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .date-hint {
       font-size: 12px;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
     }
 
-    /* Custom Input */
+    /* ── Custom Input ── */
     .custom-input-wrapper {
       display: flex;
       gap: 8px;
@@ -530,14 +640,18 @@
     .custom-input {
       flex: 1;
       padding: 10px 14px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
       outline: none;
+      transition: all var(--transition);
+      background: var(--card);
+      color: var(--text);
     }
 
     .custom-input:focus {
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .custom-add-btn {
@@ -545,59 +659,64 @@
       background: var(--secondary);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
+      font-size: 13px;
+      transition: all var(--transition);
     }
 
     .custom-add-btn:hover {
-      background: #6ab8b0;
+      background: var(--secondary-dark);
+      transform: translateY(-1px);
     }
 
-    /* Button */
+    /* ── Button ── 药丸按钮 */
     .btn {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       border: none;
-      border-radius: 24px;
-      font-size: 16px;
+      border-radius: var(--radius-2xl);
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.3s var(--ease-soft);
       margin-top: 16px;
+      letter-spacing: 0.5px;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0, #E8B4B8);
       color: white;
-      box-shadow: 0 4px 16px rgba(245, 169, 98, 0.35);
+      box-shadow: 0 4px 20px var(--primary-glow);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 169, 98, 0.45);
+      box-shadow: 0 6px 28px rgba(242, 167, 176, 0.35);
     }
 
     .btn-primary:active {
       transform: translateY(0);
+      box-shadow: 0 2px 12px var(--primary-glow);
     }
 
     .btn-primary:disabled {
-      background: #ddd;
+      background: #E8E0DE;
       box-shadow: none;
       cursor: not-allowed;
       transform: none;
+      color: var(--text-tertiary);
     }
 
     .btn-secondary {
-      background: white;
-      color: var(--primary);
-      border: 2px solid var(--primary);
+      background: var(--card);
+      color: var(--primary-dark);
+      border: 1.5px solid var(--primary);
     }
 
     .btn-secondary:hover {
       background: var(--primary-light);
+      transform: translateY(-1px);
     }
 
     .btn-text {
@@ -608,105 +727,109 @@
     }
 
     .btn-text:hover {
-      color: var(--primary);
+      color: var(--primary-dark);
     }
 
-    /* Meal Recommendations */
+    /* ── Meal Recommendations ── 餐食推荐 */
     .meal-tabs {
       display: flex;
       background: var(--card);
-      border-radius: 12px;
+      border-radius: var(--radius-xl);
       padding: 4px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
     }
 
     .meal-tab {
       flex: 1;
-      padding: 12px;
+      padding: 11px;
       border: none;
       background: transparent;
-      border-radius: 10px;
+      border-radius: var(--radius-lg);
       font-size: 14px;
       font-weight: 500;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s var(--ease-soft);
     }
 
     .meal-tab.active {
-      background: var(--primary);
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0);
       color: white;
+      box-shadow: 0 2px 12px var(--primary-glow);
     }
 
     .meal-date {
       text-align: center;
       font-size: 13px;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
       margin-bottom: 20px;
     }
 
-    /* Meal Cards */
+    /* ── Meal Cards ── 温暖卡片 */
     .meal-card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius-xl);
       margin-bottom: 16px;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s var(--ease-soft);
     }
 
     .meal-card:hover {
-      box-shadow: var(--shadow-hover);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
     }
 
     .meal-card-header {
-      padding: 12px 16px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .meal-card-header.breakfast {
-      background: linear-gradient(135deg, #FFECD2, #FCB69F);
+      background: linear-gradient(135deg, #FEF0F3, #F8D4DC);
     }
 
     .meal-card-header.lunch {
-      background: linear-gradient(135deg, #A8EDEA, #7ECBC3);
+      background: linear-gradient(135deg, #EEF8F3, #C8E8D8);
     }
 
     .meal-card-header.dinner {
-      background: linear-gradient(135deg, #D4FC79, #96E6A1);
+      background: linear-gradient(135deg, #F0F5E8, #D8E8C0);
     }
 
     .meal-card-header.snack {
-      background: linear-gradient(135deg, #FFE0F0, #FFB6C1);
+      background: linear-gradient(135deg, #FFF8EC, #F5E4C0);
     }
 
     .meal-type {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 6px;
+      color: var(--text);
     }
 
     .meal-time {
       font-size: 12px;
-      color: rgba(0,0,0,0.5);
+      color: rgba(74, 63, 63, 0.45);
     }
 
     .meal-card-body {
-      padding: 16px;
+      padding: 18px;
     }
 
     .dish-name {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--text);
     }
 
     .dish-item, .soup-item {
@@ -714,10 +837,10 @@
     }
 
     .soup-item .dish-name {
-      color: #7ECBC3;
+      color: var(--secondary-dark);
     }
 
-    /* 独立菜品区域 */
+    /* ── 独立菜品区域 ── */
     .dish-section {
       padding-bottom: 20px;
       margin-bottom: 20px;
@@ -744,10 +867,10 @@
     }
 
     .nutrition-tag {
-      padding: 4px 10px;
+      padding: 3px 10px;
       background: var(--secondary-light);
-      color: var(--secondary);
-      border-radius: 12px;
+      color: var(--secondary-dark);
+      border-radius: var(--radius-pill);
       font-size: 11px;
       font-weight: 500;
     }
@@ -766,20 +889,21 @@
       content: '';
       width: 3px;
       height: 12px;
-      background: var(--primary);
+      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
       border-radius: 2px;
     }
 
     .steps {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text);
       margin-bottom: 16px;
       padding-left: 4px;
+      line-height: 1.8;
     }
 
     .steps li {
-      margin-bottom: 6px;
-      line-height: 1.5;
+      margin-bottom: 5px;
+      line-height: 1.7;
     }
 
     .ingredients {
@@ -789,13 +913,14 @@
     }
 
     .ingredient {
-      padding: 6px 12px;
+      padding: 5px 12px;
       background: var(--bg);
-      border-radius: 8px;
-      font-size: 13px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      color: var(--text-secondary);
     }
 
-    /* Action Bar */
+    /* ── Action Bar ── */
     .action-bar {
       position: fixed;
       bottom: 0;
@@ -806,7 +931,7 @@
       background: var(--card);
       padding: 16px 20px;
       padding-bottom: max(16px, env(safe-area-inset-bottom));
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 -2px 16px rgba(160, 140, 120, 0.06);
       display: none;
       gap: 12px;
     }
@@ -820,7 +945,7 @@
       margin: 0;
     }
 
-    /* Regenerate Button */
+    /* ── Regenerate Button ── */
     .regenerate-bar {
       display: flex;
       gap: 12px;
@@ -832,13 +957,13 @@
       margin: 0;
     }
 
-    /* Preferences Edit */
+    /* ── Preferences Edit ── */
     .pref-summary {
       background: var(--card);
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       padding: 16px;
       margin-bottom: 24px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-sm);
     }
 
     .pref-summary-row {
@@ -846,7 +971,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
     }
 
     .pref-summary-row:last-child {
@@ -863,9 +988,10 @@
       font-weight: 500;
       max-width: 200px;
       text-align: right;
+      color: var(--text);
     }
 
-    /* Empty State */
+    /* ── Empty State ── */
     .empty-state {
       text-align: center;
       padding: 60px 20px;
@@ -879,6 +1005,7 @@
     .empty-state h3 {
       font-size: 18px;
       margin-bottom: 8px;
+      color: var(--text);
     }
 
     .empty-state p {
@@ -886,7 +1013,7 @@
       color: var(--text-secondary);
     }
 
-    /* Loading */
+    /* ── Loading ── 柔和加载 */
     .loading {
       display: flex;
       flex-direction: column;
@@ -896,12 +1023,12 @@
     }
 
     .loading-spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
       border-top-color: var(--primary);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin {
@@ -914,16 +1041,17 @@
       color: var(--text-secondary);
     }
 
-    /* Modal */
+    /* ── Modal ── 柔和弹窗 */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(74, 63, 63, 0.35);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .modal-overlay.show {
@@ -932,69 +1060,78 @@
 
     .modal {
       background: var(--card);
-      border-radius: 20px;
+      border-radius: var(--radius-2xl);
       width: 100%;
       max-width: 360px;
       max-height: 80vh;
       overflow-y: auto;
-      animation: modalIn 0.3s ease;
+      animation: modalIn 0.35s var(--ease-soft);
     }
 
     @keyframes modalIn {
       from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.92) translateY(8px);
       }
       to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateY(0);
       }
     }
 
     .modal-header {
       padding: 20px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-light);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .modal-header h3 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
+      color: var(--text);
     }
 
     .modal-close {
       width: 32px;
       height: 32px;
       border: none;
-      background: var(--bg);
+      background: var(--primary-light);
       border-radius: 50%;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--primary-dark);
+      transition: all var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--primary);
+      color: white;
     }
 
     .modal-body {
       padding: 20px;
     }
 
-    /* Toast */
+    /* ── Toast ── */
     .toast {
       position: fixed;
       bottom: 100px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: rgba(0,0,0,0.8);
+      background: rgba(74, 63, 63, 0.85);
       color: white;
       padding: 12px 24px;
-      border-radius: 24px;
+      border-radius: var(--radius-pill);
       font-size: 14px;
       z-index: 1100;
       opacity: 0;
-      transition: all 0.3s;
+      transition: all 0.3s var(--ease-soft);
+      backdrop-filter: blur(8px);
     }
 
     .toast.show {
@@ -1002,13 +1139,13 @@
       opacity: 1;
     }
 
-    /* ========== 采纳功能 ========== */
+    /* ── 采纳功能 ── 柔和绿色系 */
     .adopted-summary {
-      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-      border-radius: 12px;
+      background: linear-gradient(135deg, #F0FAF5 0%, #D8F0E4 100%);
+      border-radius: var(--radius-lg);
       padding: 16px;
       margin-bottom: 16px;
-      border: 1px solid #81C784;
+      border: 1px solid #B8E0CC;
     }
 
     .adopted-header {
@@ -1023,14 +1160,14 @@
     .adopted-title {
       font-size: 15px;
       font-weight: 600;
-      color: #2E7D32;
+      color: #4A8C6F;
     }
 
     .adopted-count {
-      background: #4CAF50;
+      background: var(--success);
       color: white;
-      padding: 2px 8px;
-      border-radius: 10px;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
       font-size: 12px;
       margin-left: 6px;
     }
@@ -1041,33 +1178,38 @@
     }
 
     .adopted-actions .btn-sm {
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 12px;
-      border-radius: 6px;
-      background: #4CAF50;
+      border-radius: var(--radius-pill);
+      background: var(--success);
       color: white;
       border: none;
       cursor: pointer;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .adopted-actions .btn-sm:hover {
-      background: #388E3C;
+      background: var(--success-dark);
+      transform: translateY(-1px);
     }
 
     .adopted-actions .btn-secondary {
-      background: #81C784;
+      background: #B8E0CC;
+      color: #4A8C6F;
     }
 
     .adopted-actions .btn-secondary:hover {
-      background: #66BB6A;
+      background: #A8D5C2;
     }
 
     .adopted-actions .btn-share {
-      background: #FF9800;
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0);
+      color: white;
     }
 
     .adopted-actions .btn-share:hover {
-      background: #F57C00;
+      background: linear-gradient(135deg, #F2A7B0, #E08A94);
     }
 
     .adopted-list {
@@ -1082,25 +1224,25 @@
       align-items: center;
       gap: 4px;
       background: white;
-      padding: 4px 8px;
-      border-radius: 16px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
       font-size: 13px;
     }
 
     .adopted-item-name {
-      color: #333;
+      color: var(--text);
       cursor: pointer;
     }
 
     .adopted-item-name:hover {
-      color: var(--primary);
+      color: var(--primary-dark);
       text-decoration: underline;
     }
 
     .adopted-item-remove {
       background: none;
       border: none;
-      color: #999;
+      color: var(--text-tertiary);
       cursor: pointer;
       font-size: 16px;
       line-height: 1;
@@ -1108,10 +1250,10 @@
     }
 
     .adopted-item-remove:hover {
-      color: #f44336;
+      color: var(--warning);
     }
 
-    /* 菜品详情弹窗 */
+    /* ── 菜品详情弹窗 ── */
     .dish-detail-modal {
       display: none;
       position: fixed;
@@ -1119,11 +1261,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(74, 63, 63, 0.35);
       z-index: 3000;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .dish-detail-modal.show {
@@ -1131,13 +1274,14 @@
     }
 
     .dish-detail-content {
-      background: white;
-      border-radius: 16px;
+      background: var(--card);
+      border-radius: var(--radius-xl);
       max-width: 500px;
       width: 100%;
       max-height: 80vh;
       overflow-y: auto;
       padding: 24px;
+      animation: modalIn 0.35s var(--ease-soft);
     }
 
     .dish-detail-header {
@@ -1157,26 +1301,26 @@
       background: none;
       border: none;
       font-size: 24px;
-      color: #999;
+      color: var(--text-tertiary);
       cursor: pointer;
       padding: 0;
       line-height: 1;
     }
 
     .dish-detail-close:hover {
-      color: #333;
+      color: var(--text);
     }
 
     .shopping-list {
-      background: white;
-      border-radius: 8px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
       padding: 12px;
     }
 
     .shopping-list-header {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: #555;
+      color: var(--text-secondary);
       margin-bottom: 8px;
     }
 
@@ -1187,63 +1331,68 @@
     }
 
     .shopping-item {
-      background: #F5F5F5;
-      padding: 4px 10px;
-      border-radius: 12px;
+      background: var(--card);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
       font-size: 12px;
-      color: #666;
+      color: var(--text-secondary);
     }
 
-    /* 采纳按钮样式 */
+    /* ── 采纳按钮 ── */
     .adopt-btn {
       float: right;
-      padding: 4px 12px;
+      padding: 4px 14px;
       font-size: 12px;
-      border-radius: 12px;
-      border: 1px solid #4CAF50;
-      background: white;
-      color: #4CAF50;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--success);
+      background: var(--card);
+      color: var(--success-dark);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .adopt-btn:hover {
-      background: #E8F5E9;
+      background: var(--success-light);
     }
 
     .adopt-btn.adopted {
-      background: #4CAF50;
+      background: var(--success);
       color: white;
     }
 
     .adopt-btn.adopted:hover {
-      background: #388E3C;
+      background: var(--success-dark);
     }
 
     .no-adopted {
-      color: #999;
+      color: var(--text-tertiary);
       font-size: 13px;
       text-align: center;
       padding: 8px;
     }
 
-    /* header中的修改偏好按钮 */
+    /* ── header中的修改偏好按钮 ── */
     .header-pref-btn {
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 12px;
-      border-radius: 6px;
-      border: 1px solid var(--primary);
-      background: white;
-      color: var(--primary);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.92);
+      color: var(--primary-dark);
       cursor: pointer;
       margin-left: 8px;
+      font-weight: 500;
+      transition: all var(--transition);
+      backdrop-filter: blur(4px);
     }
 
     .header-pref-btn:hover {
-      background: var(--primary-light);
+      background: white;
+      box-shadow: var(--shadow-sm);
     }
 
-    /* 调整后的meal-date行布局 */
+    /* ── 调整后的meal-date行布局 ── */
     .meal-date-row {
       display: flex;
       align-items: center;
@@ -1261,16 +1410,18 @@
       margin-bottom: 0;
     }
 
-    /* ========== 日历功能 ========== */
+    /* ── 日历功能 ── 温柔日历 */
     .calendar-btn {
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 12px;
-      border-radius: 6px;
-      border: 1px solid var(--secondary);
-      background: white;
-      color: var(--secondary);
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--secondary);
+      background: var(--card);
+      color: var(--secondary-dark);
       cursor: pointer;
       margin-left: 8px;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .calendar-btn:hover {
@@ -1284,11 +1435,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(74, 63, 63, 0.35);
       z-index: 2000;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .calendar-modal.show {
@@ -1296,13 +1448,14 @@
     }
 
     .calendar-content {
-      background: white;
-      border-radius: 16px;
+      background: var(--card);
+      border-radius: var(--radius-xl);
       max-width: 500px;
       width: 100%;
       max-height: 85vh;
       overflow-y: auto;
       padding: 20px;
+      animation: modalIn 0.35s var(--ease-soft);
     }
 
     .calendar-header {
@@ -1326,15 +1479,19 @@
 
     .calendar-nav-btn {
       background: none;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
       padding: 6px 12px;
       cursor: pointer;
       font-size: 14px;
+      color: var(--text-secondary);
+      transition: all var(--transition);
     }
 
     .calendar-nav-btn:hover {
-      background: #f5f5f5;
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
     }
 
     .calendar-month-year {
@@ -1342,20 +1499,21 @@
       font-weight: 500;
       min-width: 120px;
       text-align: center;
+      color: var(--text);
     }
 
     .calendar-close {
       background: none;
       border: none;
       font-size: 24px;
-      color: #999;
+      color: var(--text-tertiary);
       cursor: pointer;
       padding: 0;
       line-height: 1;
     }
 
     .calendar-close:hover {
-      color: #333;
+      color: var(--text);
     }
 
     .calendar-weekdays {
@@ -1367,7 +1525,7 @@
 
     .calendar-weekday {
       font-size: 12px;
-      color: #999;
+      color: var(--text-tertiary);
       padding: 8px 0;
     }
 
@@ -1383,31 +1541,31 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-size: 14px;
       position: relative;
-      transition: all 0.2s;
+      transition: all var(--transition);
     }
 
     .calendar-day:hover {
-      background: #f5f5f5;
+      background: var(--primary-light);
     }
 
     .calendar-day.other-month {
-      color: #ddd;
+      color: var(--border);
     }
 
     .calendar-day.today {
       background: var(--primary-light);
-      color: var(--primary);
+      color: var(--primary-dark);
       font-weight: 600;
     }
 
     .calendar-day.has-record::after {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: var(--primary);
       border-radius: 50%;
       position: absolute;
@@ -1415,8 +1573,12 @@
     }
 
     .calendar-day.selected {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
+    }
+
+    .calendar-day.selected.has-record::after {
+      background: white;
     }
 
     .calendar-day.empty {
@@ -1430,7 +1592,7 @@
     /* 日历日期详情 */
     .calendar-day-detail {
       margin-top: 16px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--border-light);
       padding-top: 16px;
     }
 
@@ -1451,7 +1613,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 0;
-      border-bottom: 1px solid #f5f5f5;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .calendar-dish-item:last-child {
@@ -1465,17 +1627,17 @@
 
     .calendar-dish-time {
       font-size: 12px;
-      color: #999;
+      color: var(--text-tertiary);
     }
 
     .calendar-no-record {
-      color: #999;
+      color: var(--text-tertiary);
       font-size: 14px;
       text-align: center;
       padding: 20px 0;
     }
 
-    /* ========== 食材库功能 ========== */
+    /* ── 食材库功能 ── 温柔食材库 */
     .ingredient-modal {
       display: none;
       position: fixed;
@@ -1483,11 +1645,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(74, 63, 63, 0.35);
       z-index: 3000;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .ingredient-modal.show {
@@ -1495,13 +1658,14 @@
     }
 
     .ingredient-content {
-      background: white;
-      border-radius: 16px;
+      background: var(--card);
+      border-radius: var(--radius-xl);
       max-width: 500px;
       width: 100%;
       max-height: 80vh;
       overflow-y: auto;
-      padding: 20px;
+      padding: 24px;
+      animation: modalIn 0.35s var(--ease-soft);
     }
 
     .ingredient-header {
@@ -1512,7 +1676,7 @@
     }
 
     .ingredient-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text);
     }
@@ -1521,21 +1685,21 @@
       background: none;
       border: none;
       font-size: 24px;
-      color: #999;
+      color: var(--text-tertiary);
       cursor: pointer;
       padding: 0;
       line-height: 1;
     }
 
     .ingredient-close:hover {
-      color: #333;
+      color: var(--text);
     }
 
     .ingredient-desc {
       font-size: 13px;
-      color: #888;
+      color: var(--text-secondary);
       margin-bottom: 16px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .ingredient-input-row {
@@ -1547,29 +1711,35 @@
     .ingredient-input {
       flex: 1;
       padding: 10px 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
       font-size: 14px;
       outline: none;
+      transition: all var(--transition);
+      background: var(--card);
+      color: var(--text);
     }
 
     .ingredient-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(245, 169, 98, 0.1);
+      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .ingredient-add-btn {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
       cursor: pointer;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .ingredient-add-btn:hover {
       background: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
     .ingredient-tags {
@@ -1578,8 +1748,8 @@
       gap: 8px;
       min-height: 60px;
       padding: 12px;
-      background: #FAFAFA;
-      border-radius: 8px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
       margin-bottom: 16px;
     }
 
@@ -1590,15 +1760,15 @@
       background: var(--primary-light);
       color: var(--primary-dark);
       padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
       border: 1px solid var(--primary);
     }
 
     .ingredient-tag-remove {
       background: none;
       border: none;
-      color: var(--primary);
+      color: var(--primary-dark);
       cursor: pointer;
       font-size: 16px;
       line-height: 1;
@@ -1613,7 +1783,7 @@
     .ingredient-empty {
       width: 100%;
       text-align: center;
-      color: #999;
+      color: var(--text-tertiary);
       font-size: 14px;
       padding: 16px 0;
     }
@@ -1621,22 +1791,24 @@
     .ingredient-footer {
       text-align: center;
       padding-top: 12px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--border-light);
     }
 
     .ingredient-clear-btn {
       background: none;
-      border: 1px solid #ddd;
-      color: #666;
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
       padding: 8px 20px;
-      border-radius: 8px;
+      border-radius: var(--radius-pill);
       font-size: 13px;
       cursor: pointer;
+      transition: all var(--transition);
     }
 
     .ingredient-clear-btn:hover {
-      background: #f5f5f5;
-      border-color: #ccc;
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
     }
 
     /* 菜谱匹配标签 */
@@ -1644,15 +1816,15 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: #E8F5E9;
-      color: #4CAF50;
+      background: var(--success-light);
+      color: var(--success-dark);
       padding: 2px 8px;
-      border-radius: 10px;
+      border-radius: var(--radius-pill);
       font-size: 11px;
       margin-left: 8px;
     }
 
-    /* ========== 分享功能 ========== */
+    /* ── 分享功能 ── */
     .share-modal {
       display: none;
       position: fixed;
@@ -1660,11 +1832,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(74, 63, 63, 0.35);
       z-index: 3000;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .share-modal.show {
@@ -1672,13 +1845,14 @@
     }
 
     .share-content {
-      background: white;
-      border-radius: 16px;
+      background: var(--card);
+      border-radius: var(--radius-xl);
       max-width: 600px;
       width: 100%;
       max-height: 85vh;
       overflow-y: auto;
-      padding: 20px;
+      padding: 24px;
+      animation: modalIn 0.35s var(--ease-soft);
     }
 
     .share-header {
@@ -1687,11 +1861,11 @@
       align-items: center;
       margin-bottom: 16px;
       padding-bottom: 12px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .share-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text);
     }
@@ -1700,14 +1874,14 @@
       background: none;
       border: none;
       font-size: 24px;
-      color: #999;
+      color: var(--text-tertiary);
       cursor: pointer;
       padding: 0;
       line-height: 1;
     }
 
     .share-close:hover {
-      color: #333;
+      color: var(--text);
     }
 
     .share-body {
@@ -1716,36 +1890,36 @@
     }
 
     .share-summary {
-      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
-      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary-light) 0%, #FCE8EC 100%);
+      border-radius: var(--radius-xl);
       padding: 16px;
       margin-bottom: 20px;
-      border: 1px solid #FFB74D;
+      border: 1px solid #F0D0D8;
     }
 
     .share-summary-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      color: #E65100;
+      color: var(--primary-deeper);
       margin-bottom: 8px;
     }
 
     .share-summary-count {
       font-size: 14px;
-      color: #BF360C;
+      color: var(--primary-dark);
       margin-bottom: 12px;
     }
 
     .share-shopping {
-      background: #FFF8E1;
-      border-radius: 8px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
       padding: 12px;
     }
 
     .share-shopping-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: #F57C00;
+      color: var(--primary-dark);
       margin-bottom: 8px;
     }
 
@@ -1756,20 +1930,20 @@
     }
 
     .share-shopping-item {
-      background: white;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 13px;
-      color: #5D4037;
-      border: 1px solid #FFE082;
+      background: var(--card);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      color: var(--text);
+      border: 1px solid var(--primary);
     }
 
     .share-dish {
       margin-bottom: 20px;
       padding: 16px;
-      background: #FAFAFA;
-      border-radius: 12px;
-      border: 1px solid #E0E0E0;
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
     }
 
     .share-dish-header {
@@ -1780,17 +1954,17 @@
     }
 
     .share-dish-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text);
     }
 
     .share-dish-type {
-      font-size: 12px;
+      font-size: 11px;
       color: white;
       background: var(--secondary);
       padding: 2px 8px;
-      border-radius: 10px;
+      border-radius: var(--radius-pill);
     }
 
     .share-dish-section {
@@ -1800,13 +1974,13 @@
     .share-dish-section-title {
       font-size: 13px;
       font-weight: 600;
-      color: #666;
+      color: var(--text-secondary);
       margin-bottom: 6px;
     }
 
     .share-dish-steps {
       padding-left: 20px;
-      color: #555;
+      color: var(--text-secondary);
     }
 
     .share-dish-steps li {
@@ -1820,36 +1994,39 @@
     }
 
     .share-dish-ingredient {
-      background: white;
+      background: var(--card);
       padding: 3px 10px;
-      border-radius: 4px;
+      border-radius: var(--radius-pill);
       font-size: 12px;
-      color: #666;
-      border: 1px solid #E0E0E0;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
 
     .share-footer {
       margin-top: 16px;
       padding-top: 16px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--border-light);
       text-align: center;
     }
 
     .share-copy-btn {
-      background: var(--primary);
+      background: linear-gradient(135deg, #F8C4CC, #F2A7B0);
       color: white;
       border: none;
-      padding: 10px 24px;
-      border-radius: 8px;
+      padding: 10px 28px;
+      border-radius: var(--radius-pill);
       font-size: 14px;
       cursor: pointer;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .share-copy-btn:hover {
-      background: var(--primary-dark);
+      background: linear-gradient(135deg, #F2A7B0, #E08A94);
+      transform: translateY(-1px);
     }
 
-    /* 步骤页面标题栏 */
+    /* ── 步骤页面标题栏 ── */
     .step-header {
       display: flex;
       justify-content: space-between;
@@ -1864,17 +2041,43 @@
     .switch-role-btn {
       background: var(--primary-light);
       color: var(--primary-dark);
-      border: 1px solid var(--primary);
-      padding: 6px 12px;
-      border-radius: 16px;
+      border: 1.5px solid var(--primary);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
       font-size: 13px;
       cursor: pointer;
       white-space: nowrap;
+      transition: all var(--transition);
+      font-weight: 500;
     }
 
     .switch-role-btn:hover {
       background: var(--primary);
       color: white;
+    }
+
+    /* ── 全局微交互 ── */
+    .identity-card,
+    .meal-card,
+    .my-menu-item,
+    .tag,
+    .radio-tag,
+    .btn,
+    .calendar-day {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 选中态弹性反馈 */
+    @keyframes softBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+
+    /* 柔和呼吸动画 - 加载状态 */
+    @keyframes breathe {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
   </style>
 </head>
@@ -1884,7 +2087,7 @@
     <header class="header">
       <div class="logo">
         <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 36px; width: auto;">
-        <span style="font-size: 16px; font-weight: 600; color: var(--primary); margin-left: 6px;">妈咪厨房</span>
+        <span style="font-size: 16px; font-weight: 600; color: white; margin-left: 6px;">妈咪厨房</span>
       </div>
     </header>
 
@@ -1929,8 +2132,75 @@
 
       <!-- Welcome Page -->
       <section class="welcome step-page active" id="welcomePage">
-        <div class="welcome-emoji">🤰</div>
-        <h1>欢迎使用孕味餐食</h1>
+        <div class="welcome-illustration">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="200" height="147">
+            <defs>
+              <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FEF5F6"/>
+                <stop offset="100%" style="stop-color:#F8D4DC"/>
+              </linearGradient>
+              <linearGradient id="peachGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#F8D4DC"/>
+                <stop offset="100%" style="stop-color:#F2A7B0"/>
+              </linearGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="300" height="220" fill="url(#bgGrad)" rx="20"/>
+            <!-- Main circular frame -->
+            <ellipse cx="150" cy="110" rx="110" ry="95" fill="url(#peachGrad)" opacity="0.5"/>
+            <!-- Decorative circles -->
+            <circle cx="40" cy="35" r="15" fill="#F5D98A" opacity="0.4"/>
+            <circle cx="270" cy="45" r="18" fill="#A8D5C2" opacity="0.3"/>
+            <circle cx="25" cy="180" r="22" fill="#C5B8D8" opacity="0.25"/>
+            <circle cx="280" cy="175" r="14" fill="#F2A7B0" opacity="0.35"/>
+            <!-- Parent figure -->
+            <g>
+              <ellipse cx="115" cy="135" rx="38" ry="42" fill="#A8D5C2"/>
+              <ellipse cx="115" cy="75" rx="28" ry="30" fill="#FFE4C4"/>
+              <ellipse cx="115" cy="50" rx="30" ry="20" fill="#5D4037"/>
+              <ellipse cx="88" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="142" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="107" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <ellipse cx="123" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <path d="M108 85 Q115 90 122 85" stroke="#E08A94" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="100" cy="78" rx="4" ry="3" fill="#F2A7B0" opacity="0.5"/>
+              <ellipse cx="130" cy="78" rx="4" ry="3" fill="#F2A7B0" opacity="0.5"/>
+              <ellipse cx="80" cy="145" rx="12" ry="20" fill="#A8D5C2"/>
+              <ellipse cx="150" cy="145" rx="12" ry="20" fill="#A8D5C2"/>
+              <ellipse cx="65" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+              <ellipse cx="165" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+            </g>
+            <!-- Child figure -->
+            <g>
+              <ellipse cx="150" cy="148" rx="25" ry="30" fill="#F5D98A"/>
+              <ellipse cx="150" cy="112" rx="22" ry="24" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="92" rx="24" ry="15" fill="#8D6E63"/>
+              <ellipse cx="158" cy="88" rx="6" ry="8" fill="#8D6E63"/>
+              <ellipse cx="144" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <ellipse cx="156" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <path d="M146 120 Q150 124 154 120" stroke="#E08A94" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="137" cy="114" rx="4" ry="2.5" fill="#F2A7B0" opacity="0.5"/>
+              <ellipse cx="163" cy="114" rx="4" ry="2.5" fill="#F2A7B0" opacity="0.5"/>
+            </g>
+            <!-- Baby figure -->
+            <g>
+              <ellipse cx="150" cy="178" rx="18" ry="20" fill="#C5B8D8"/>
+              <ellipse cx="150" cy="163" rx="14" ry="16" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="152" rx="12" ry="8" fill="#F5C6A0"/>
+              <ellipse cx="155" cy="149" rx="4" ry="5" fill="#F5C6A0"/>
+              <circle cx="145" cy="160" r="2" fill="#5D4037"/>
+              <circle cx="155" cy="160" r="2" fill="#5D4037"/>
+              <path d="M146 167 Q150 170 154 167" stroke="#E08A94" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Hearts -->
+            <g fill="#F2A7B0" opacity="0.7">
+              <path d="M240 55 C237 52, 233 52, 233 56 C233 60, 240 65, 240 65 C240 65, 247 60, 247 56 C247 52, 243 52, 240 55 Z"/>
+              <path d="M55 60 C53 58, 50 58, 50 61 C50 64, 55 67, 55 67 C55 67, 60 64, 60 61 C60 58, 57 58, 55 60 Z" opacity="0.6"/>
+              <path d="M260 100 C258 98, 255 98, 255 101 C255 103, 260 106, 260 106 C260 106, 265 103, 265 101 C265 98, 262 98, 260 100 Z" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+        <h1>欢迎使用妈咪厨房</h1>
         <p>为准妈妈和宝宝准备的<br>每日营养餐食推荐</p>
         <button class="btn btn-primary" onclick="goToStep('identity')" style="max-width: 280px; margin: 0 auto;">
           开始使用
@@ -1944,7 +2214,7 @@
 
         <div class="identity-grid">
           <div class="identity-card" data-identity="pregnant" onclick="selectIdentity(this)">
-            <div class="identity-icon">🤰</div>
+            <div class="identity-icon"><img src="icon_pregnant.jpg" alt="孕妈"></div>
             <div class="identity-info">
               <h3>孕妈</h3>
               <p>正在怀孕的你，需要特别关注营养摄入</p>
@@ -1952,7 +2222,7 @@
           </div>
 
           <div class="identity-card" data-identity="postpartum" onclick="selectIdentity(this)">
-            <div class="identity-icon">👩</div>
+            <div class="identity-icon"><img src="icon_postpartum.jpg" alt="宝妈"></div>
             <div class="identity-info">
               <h3>宝妈</h3>
               <p>正在坐月子或哺乳期，需要滋补调理</p>
@@ -1960,7 +2230,7 @@
           </div>
 
           <div class="identity-card" data-identity="baby" onclick="selectIdentity(this)">
-            <div class="identity-icon">👶</div>
+            <div class="identity-icon"><img src="icon_baby.jpg" alt="宝宝"></div>
             <div class="identity-info">
               <h3>宝宝家长</h3>
               <p>为宝宝准备安全健康的辅食</p>
@@ -3553,7 +3823,7 @@
         const tipCard = document.createElement('div');
         tipCard.className = 'meal-card';
         tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #FFE0B2, #FFCC80);">
+          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #FFF8EC, #F5E4C0);">
             <span class="meal-type">💡 营养师建议</span>
           </div>
           <div class="meal-card-body">
@@ -3583,13 +3853,13 @@
         tipCard.className = 'meal-card';
         const isMatch = actualMeals === suggestMeals;
         tipCard.innerHTML = `
-          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">
+          <div class="meal-card-header snack" style="background: linear-gradient(135deg, #EEF8F3, #C8E8D8);">
             <span class="meal-type">👶 月龄建议</span>
           </div>
           <div class="meal-card-body">
             <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
               ${babyAge}月龄宝宝建议每天 <strong>${suggestMeals}顿</strong>辅食（${suggestReason}）。<br>
-              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:#FF9800">可根据宝宝实际情况调整</span>'}
+              您当前选择的是 <strong>${actualMeals}顿</strong> ${isMatch ? '✓ 符合建议' : '<span style="color:var(--primary)">可根据宝宝实际情况调整</span>'}
             </p>
           </div>
         `;
@@ -3742,7 +4012,7 @@
       // 计算食材匹配度
       const matchCount = calculateIngredientMatch(dish);
       const matchBadgeHtml = state.myIngredients.length > 0 ? `
-        <span class="meal-match-badge" style="${matchCount > 0 ? '' : 'background:#f5f5f5;color:#999;'}">
+        <span class="meal-match-badge" style="${matchCount > 0 ? '' : 'background:#FAF7F5;color:#B5ADAD;'}">
           ${matchCount > 0 ? '🏠 ' + matchCount + '个食材匹配' : '暂无匹配'}
         </span>
       ` : '';

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF9F5"/>
+      <stop offset="100%" style="stop-color:#FFE8D6"/>
+    </linearGradient>
+    <linearGradient id="peachGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFECD2"/>
+      <stop offset="100%" style="stop-color:#FCB69F"/>
+    </linearGradient>
+    <linearGradient id="parentShirt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7ECBC3"/>
+      <stop offset="100%" style="stop-color:#5FB3A8"/>
+    </linearGradient>
+    <linearGradient id="childShirt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD93D"/>
+      <stop offset="100%" style="stop-color:#F4C430"/>
+    </linearGradient>
+    <linearGradient id="babyOutfit" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9A0DC"/>
+      <stop offset="100%" style="stop-color:#B085CC"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="50" cy="40" r="20" fill="#FFD93D" opacity="0.4"/>
+  <circle cx="370" cy="60" r="25" fill="#7ECBC3" opacity="0.3"/>
+  <circle cx="30" cy="250" r="30" fill="#C9A0DC" opacity="0.25"/>
+  <circle cx="380" cy="240" r="18" fill="#FFB6C1" opacity="0.35"/>
+  <circle cx="200" cy="20" r="12" fill="#FFD93D" opacity="0.5"/>
+  
+  <!-- Main circular frame -->
+  <ellipse cx="200" cy="150" rx="145" ry="130" fill="url(#peachGrad)" opacity="0.7"/>
+  
+  <!-- Parent figure (center-left) -->
+  <g id="parent">
+    <!-- Body -->
+    <ellipse cx="165" cy="180" rx="50" ry="55" fill="url(#parentShirt)"/>
+    <!-- Neck -->
+    <rect x="155" y="120" width="20" height="20" fill="#FFE4C4"/>
+    <!-- Head -->
+    <ellipse cx="165" cy="100" rx="35" ry="38" fill="#FFE4C4"/>
+    <!-- Hair -->
+    <ellipse cx="165" cy="70" rx="38" ry="25" fill="#5D4037"/>
+    <ellipse cx="130" cy="90" rx="12" ry="20" fill="#5D4037"/>
+    <ellipse cx="200" cy="90" rx="12" ry="20" fill="#5D4037"/>
+    <!-- Face -->
+    <ellipse cx="155" cy="95" rx="4" ry="5" fill="#5D4037"/> <!-- left eye -->
+    <ellipse cx="178" cy="95" rx="4" ry="5" fill="#5D4037"/> <!-- right eye -->
+    <path d="M158 112 Q165 118 172 112" stroke="#E57373" stroke-width="2.5" fill="none" stroke-linecap="round"/> <!-- smile -->
+    <!-- Cheeks -->
+    <ellipse cx="145" cy="105" rx="6" ry="4" fill="#FFB6C1" opacity="0.5"/>
+    <ellipse cx="185" cy="105" rx="6" ry="4" fill="#FFB6C1" opacity="0.5"/>
+    
+    <!-- Arms embracing -->
+    <ellipse cx="115" cy="190" rx="15" ry="25" fill="url(#parentShirt)"/>
+    <ellipse cx="215" cy="190" rx="15" ry="25" fill="url(#parentShirt)"/>
+    <!-- Hands -->
+    <ellipse cx="95" cy="220" rx="12" ry="14" fill="#FFE4C4"/>
+    <ellipse cx="235" cy="220" rx="12" ry="14" fill="#FFE4C4"/>
+  </g>
+  
+  <!-- Child figure (center) -->
+  <g id="child">
+    <!-- Body -->
+    <ellipse cx="200" cy="195" rx="32" ry="38" fill="url(#childShirt)"/>
+    <!-- Neck -->
+    <rect x="193" y="158" width="14" height="12" fill="#FFE4C4"/>
+    <!-- Head -->
+    <ellipse cx="200" cy="145" rx="28" ry="30" fill="#FFE4C4"/>
+    <!-- Hair -->
+    <ellipse cx="200" cy="122" rx="30" ry="18" fill="#8D6E63"/>
+    <!-- Hair tuft -->
+    <ellipse cx="210" cy="118" rx="8" ry="10" fill="#8D6E63"/>
+    <!-- Face -->
+    <ellipse cx="192" cy="142" rx="3.5" ry="4" fill="#5D4037"/> <!-- left eye -->
+    <ellipse cx="208" cy="142" rx="3.5" ry="4" fill="#5D4037"/> <!-- right eye -->
+    <path d="M194 155 Q200 161 206 155" stroke="#E57373" stroke-width="2" fill="none" stroke-linecap="round"/> <!-- smile -->
+    <!-- Cheeks -->
+    <ellipse cx="183" cy="148" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+    <ellipse cx="217" cy="148" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+  </g>
+  
+  <!-- Baby figure (front) -->
+  <g id="baby">
+    <!-- Body -->
+    <ellipse cx="200" cy="235" rx="22" ry="25" fill="url(#babyOutfit)"/>
+    <!-- Head -->
+    <ellipse cx="200" cy="215" rx="18" ry="20" fill="#FFE4C4"/>
+    <!-- Hair -->
+    <ellipse cx="200" cy="200" rx="16" ry="10" fill="#FFCC80"/>
+    <!-- Hair tuft -->
+    <ellipse cx="207" cy="197" rx="5" ry="7" fill="#FFCC80"/>
+    <!-- Face -->
+    <circle cx="194" cy="212" r="2.5" fill="#5D4037"/> <!-- left eye -->
+    <circle cx="206" cy="212" r="2.5" fill="#5D4037"/> <!-- right eye -->
+    <path d="M196 220 Q200 224 204 220" stroke="#E57373" stroke-width="1.5" fill="none" stroke-linecap="round"/> <!-- smile -->
+    <!-- Cheeks -->
+    <ellipse cx="188" cy="217" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+    <ellipse cx="212" cy="217" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+  </g>
+  
+  <!-- Hearts decoration -->
+  <g fill="#FFB6C1">
+    <path d="M320 70 C315 65, 308 65, 308 72 C308 78, 320 85, 320 85 C320 85, 332 78, 332 72 C332 65, 325 65, 320 70 Z" opacity="0.7"/>
+    <path d="M75 80 C71 76, 66 76, 66 81 C66 85, 75 90, 75 90 C75 90, 84 85, 84 81 C84 76, 79 76, 75 80 Z" opacity="0.6"/>
+    <path d="M350 130 C347 127, 343 127, 343 131 C343 134, 350 138, 350 138 C350 138, 357 134, 357 131 C357 127, 353 127, 350 130 Z" opacity="0.5"/>
+  </g>
+  
+  <!-- Small stars -->
+  <g fill="#FFD93D" opacity="0.6">
+    <polygon points="55,180 58,190 68,190 60,197 63,207 55,200 47,207 50,197 42,190 52,190" transform="scale(0.4) translate(80, 400)"/>
+    <polygon points="340,200 343,210 353,210 345,217 348,227 340,220 332,227 335,217 327,210 337,210" transform="scale(0.35)"/>
+  </g>
+</svg>

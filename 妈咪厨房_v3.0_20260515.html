@@ -121,9 +121,153 @@
       background: var(--primary-light);
     }
 
-    /* Main Content */
+    /* 底部菜单栏 */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 428px;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 20px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      border-radius: 12px;
+    }
+
+    .nav-item:active {
+      background: var(--bg);
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item.active .nav-icon {
+      transform: scale(1.1);
+    }
+
+    .nav-icon {
+      font-size: 22px;
+      transition: transform 0.2s;
+    }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    /* 主区域样式调整 */
     .main {
-      padding: 24px 20px 100px;
+      padding: 16px 16px 90px;
+    }
+
+    /* 我的页面样式 */
+    .my-page {
+      display: none;
+    }
+
+    .my-page.active {
+      display: block;
+    }
+
+    .my-menu-list {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .my-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .my-menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .my-menu-item:hover {
+      background: var(--bg);
+    }
+
+    .my-menu-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .my-menu-icon.identity {
+      background: linear-gradient(135deg, #FFE0B2, #FFCC80);
+    }
+
+    .my-menu-icon.preference {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    }
+
+    .my-menu-icon.calendar {
+      background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    }
+
+    .my-menu-icon.ingredient {
+      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    }
+
+    .my-menu-info {
+      flex: 1;
+    }
+
+    .my-menu-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .my-menu-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .my-menu-arrow {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .my-identity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--primary-dark);
     }
 
     /* Welcome Screen */
@@ -918,6 +1062,14 @@
       background: #66BB6A;
     }
 
+    .adopted-actions .btn-share {
+      background: #FF9800;
+    }
+
+    .adopted-actions .btn-share:hover {
+      background: #F57C00;
+    }
+
     .adopted-list {
       display: flex;
       flex-wrap: wrap;
@@ -1322,6 +1474,380 @@
       text-align: center;
       padding: 20px 0;
     }
+
+    /* ========== 食材库功能 ========== */
+    .ingredient-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .ingredient-modal.show {
+      display: flex;
+    }
+
+    .ingredient-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .ingredient-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ingredient-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .ingredient-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .ingredient-close:hover {
+      color: #333;
+    }
+
+    .ingredient-desc {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .ingredient-input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .ingredient-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .ingredient-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(245, 169, 98, 0.1);
+    }
+
+    .ingredient-add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .ingredient-add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .ingredient-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 60px;
+      padding: 12px;
+      background: #FAFAFA;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .ingredient-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      border: 1px solid var(--primary);
+    }
+
+    .ingredient-tag-remove {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      margin-left: 2px;
+    }
+
+    .ingredient-tag-remove:hover {
+      color: var(--warning);
+    }
+
+    .ingredient-empty {
+      width: 100%;
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+      padding: 16px 0;
+    }
+
+    .ingredient-footer {
+      text-align: center;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .ingredient-clear-btn {
+      background: none;
+      border: 1px solid #ddd;
+      color: #666;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .ingredient-clear-btn:hover {
+      background: #f5f5f5;
+      border-color: #ccc;
+    }
+
+    /* 菜谱匹配标签 */
+    .meal-match-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #E8F5E9;
+      color: #4CAF50;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      margin-left: 8px;
+    }
+
+    /* ========== 分享功能 ========== */
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .share-modal.show {
+      display: flex;
+    }
+
+    .share-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .share-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .share-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .share-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .share-close:hover {
+      color: #333;
+    }
+
+    .share-body {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .share-summary {
+      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #FFB74D;
+    }
+
+    .share-summary-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #E65100;
+      margin-bottom: 8px;
+    }
+
+    .share-summary-count {
+      font-size: 14px;
+      color: #BF360C;
+      margin-bottom: 12px;
+    }
+
+    .share-shopping {
+      background: #FFF8E1;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .share-shopping-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #F57C00;
+      margin-bottom: 8px;
+    }
+
+    .share-shopping-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .share-shopping-item {
+      background: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #5D4037;
+      border: 1px solid #FFE082;
+    }
+
+    .share-dish {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      border: 1px solid #E0E0E0;
+    }
+
+    .share-dish-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .share-dish-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .share-dish-type {
+      font-size: 12px;
+      color: white;
+      background: var(--secondary);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .share-dish-section {
+      margin-bottom: 12px;
+    }
+
+    .share-dish-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .share-dish-steps {
+      padding-left: 20px;
+      color: #555;
+    }
+
+    .share-dish-steps li {
+      margin-bottom: 4px;
+    }
+
+    .share-dish-ingredients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .share-dish-ingredient {
+      background: white;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+      border: 1px solid #E0E0E0;
+    }
+
+    .share-footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+
+    .share-copy-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .share-copy-btn:hover {
+      background: var(--primary-dark);
+    }
   </style>
 </head>
 <body>
@@ -1329,22 +1855,63 @@
     <!-- Header -->
     <header class="header">
       <div class="logo">
-        <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 40px; width: auto;">
-        <span style="font-size: 18px; font-weight: 600; color: var(--primary); margin-left: 8px;">妈咪厨房</span>
+        <img src="logo_mmk_v4.png" alt="妈咪厨房" style="height: 36px; width: auto;">
+        <span style="font-size: 16px; font-weight: 600; color: var(--primary); margin-left: 6px;">妈咪厨房</span>
       </div>
-      <div style="display: flex; align-items: center;">
-        <button class="header-pref-btn" onclick="goToStep('preference')">⚙️ 修改偏好</button>
-        <button class="calendar-btn" onclick="openCalendar()">📅 日历</button>
-        <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()" style="margin-left: 8px;">
-          <span id="identityIcon">👶</span>
-          <span id="identityName">请选择</span>
-          <span>▼</span>
-        </div>
+      <div class="identity-badge" id="identityBadge" onclick="showIdentityModal()">
+        <span id="identityIcon">👶</span>
+        <span id="identityName">请选择</span>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="main">
+      <!-- 推荐页面 -->
+      <div id="recommendPage"></div>
+
+      <!-- 我的页面 -->
+      <div id="myPage" class="my-page">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">我的</h2>
+        
+        <div class="my-menu-list">
+          <div class="my-menu-item" onclick="showIdentityModal()">
+            <div class="my-menu-icon identity">👤</div>
+            <div class="my-menu-info">
+              <div class="my-menu-title">当前角色</div>
+              <div class="my-menu-desc"><span id="myIdentityName">请选择身份</span></div>
+            </div>
+            <span class="my-menu-arrow">›</span>
+          </div>
+          
+          <div class="my-menu-item" onclick="goToStep('preference')">
+            <div class="my-menu-icon preference">⚙️</div>
+            <div class="my-menu-info">
+              <div class="my-menu-title">口味偏好</div>
+              <div class="my-menu-desc">设置饮食偏好和忌口</div>
+            </div>
+            <span class="my-menu-arrow">›</span>
+          </div>
+          
+          <div class="my-menu-item" onclick="openCalendar()">
+            <div class="my-menu-icon calendar">📅</div>
+            <div class="my-menu-info">
+              <div class="my-menu-title">采纳日历</div>
+              <div class="my-menu-desc">查看已采纳的菜谱安排</div>
+            </div>
+            <span class="my-menu-arrow">›</span>
+          </div>
+          
+          <div class="my-menu-item" onclick="openIngredientLibrary()">
+            <div class="my-menu-icon ingredient">🫕</div>
+            <div class="my-menu-info">
+              <div class="my-menu-title">我家有</div>
+              <div class="my-menu-desc" id="myIngredientsCount">设置已有食材</div>
+            </div>
+            <span class="my-menu-arrow">›</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Welcome Page -->
       <section class="welcome step-page active" id="welcomePage">
         <div class="welcome-emoji">🤰</div>
@@ -1554,6 +2121,7 @@
           <div class="adopted-header">
             <span class="adopted-title">🍽️ 已采纳<span id="adoptedCount" class="adopted-count">0</span>道菜</span>
             <div class="adopted-actions">
+              <button class="btn btn-sm btn-share" onclick="openShare()">📤 分享</button>
               <button class="btn btn-sm" onclick="adoptAllVisible()">采纳全部</button>
               <button class="btn btn-sm btn-secondary" onclick="clearAllAdopted()">清空</button>
             </div>
@@ -1567,7 +2135,20 @@
 
         <div id="mealList"></div>
       </section>
+      </div><!-- end recommendPage -->
     </main>
+
+    <!-- 底部菜单栏 -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" data-page="recommend" onclick="switchMainNav('recommend')">
+        <span class="nav-icon">🍽️</span>
+        <span class="nav-label">推荐</span>
+      </div>
+      <div class="nav-item" data-page="my" onclick="switchMainNav('my')">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">我的</span>
+      </div>
+    </nav>
   </div>
 
   <!-- 菜品详情弹窗 -->
@@ -1581,6 +2162,27 @@
       <ol class="steps" id="dishDetailSteps"></ol>
       <div class="meal-section-title">备菜清单</div>
       <div class="ingredients" id="dishDetailIngredients"></div>
+    </div>
+  </div>
+
+  <!-- 食材库弹窗 -->
+  <div class="ingredient-modal" id="ingredientModal">
+    <div class="ingredient-content">
+      <div class="ingredient-header">
+        <div class="ingredient-title">🫕 我家有的食材</div>
+        <button class="ingredient-close" onclick="closeIngredientLibrary()">×</button>
+      </div>
+      <div class="ingredient-desc">输入家里已有的食材，系统会优先推荐能用这些食材做的菜</div>
+      <div class="ingredient-input-row">
+        <input type="text" class="ingredient-input" id="ingredientInput" placeholder="输入食材名称，按回车添加，如：鸡蛋、番茄" onkeypress="handleIngredientKeypress(event)">
+        <button class="ingredient-add-btn" onclick="addIngredient()">添加</button>
+      </div>
+      <div class="ingredient-tags" id="ingredientTags">
+        <!-- 已有食材标签由JS生成 -->
+      </div>
+      <div class="ingredient-footer">
+        <button class="ingredient-clear-btn" onclick="clearAllIngredients()">清空全部</button>
+      </div>
     </div>
   </div>
 
@@ -1608,6 +2210,22 @@
       <div class="calendar-day-detail" id="calendarDayDetail" style="display: none;">
         <div class="calendar-day-detail-title" id="calendarDayTitle"></div>
         <div class="calendar-day-dishes" id="calendarDayDishes"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分享弹窗 -->
+  <div class="share-modal" id="shareModal">
+    <div class="share-content">
+      <div class="share-header">
+        <div class="share-title">📤 分享菜谱</div>
+        <button class="share-close" onclick="closeShare()">×</button>
+      </div>
+      <div class="share-body" id="shareBody">
+        <!-- 分享内容由JS动态生成 -->
+      </div>
+      <div class="share-footer">
+        <button class="share-copy-btn" onclick="copyShareContent()">📋 复制文本</button>
       </div>
     </div>
   </div>
@@ -2012,13 +2630,15 @@
       todayUsedRecipeIds: null,
       todayAdoptedRecipes: [],    // 今日采纳的菜品
       tomorrowAdoptedRecipes: [],  // 明日采纳的菜品
-      adoptedRecords: {}           // 日历采纳记录 { '2026-05-15': [{id, name, mealType, ingredients, steps...}] }
+      adoptedRecords: {},          // 日历采纳记录 { '2026-05-15': [{id, name, mealType, ingredients, steps...}] }
+      myIngredients: []           // 用户已有的食材 ['鸡蛋', '番茄', '西兰花']
     };
 
     // ==================== Init ====================
     function init() {
       loadState();
       updateUI();
+      updateMealMatchBadges();
     }
 
     function loadState() {
@@ -2027,13 +2647,15 @@
         const parsed = JSON.parse(saved);
         state.identity = parsed.identity;
         state.preferences = { ...state.preferences, ...parsed.preferences };
+        state.myIngredients = parsed.myIngredients || [];
       }
     }
 
     function saveState() {
       localStorage.setItem('pregnant_meal_state', JSON.stringify({
         identity: state.identity,
-        preferences: state.preferences
+        preferences: state.preferences,
+        myIngredients: state.myIngredients
       }));
     }
 
@@ -2119,6 +2741,57 @@
       });
     }
 
+    // ==================== 底部菜单导航 ====================
+    function switchMainNav(page) {
+      // 更新菜单高亮状态
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+      });
+
+      // 隐藏所有主页面
+      document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+      document.getElementById('myPage').classList.remove('active');
+
+      if (page === 'recommend') {
+        // 显示推荐页面（mealPage等step-page）
+        // 根据当前step决定显示哪个页面
+        const currentStep = state.currentStep || 'welcome';
+        if (currentStep === 'meal' || currentStep === 'preference') {
+          // 如果是推荐相关页面，确保显示mealPage
+          const mealPage = document.getElementById('mealPage');
+          if (mealPage) {
+            mealPage.classList.add('active');
+          }
+        } else {
+          // 显示当前步骤页面
+          const targetPage = document.getElementById(currentStep + 'Page');
+          if (targetPage) {
+            targetPage.classList.add('active');
+          }
+        }
+      } else if (page === 'my') {
+        // 显示我的页面
+        document.getElementById('myPage').classList.add('active');
+        // 更新我的页面内容
+        updateMyPage();
+      }
+
+      // 滚动到顶部
+      window.scrollTo(0, 0);
+    }
+
+    // 更新我的页面内容
+    function updateMyPage() {
+      // 更新身份显示
+      const identityIcon = IDENTITY_ICONS[state.identity] || '👶';
+      const identityName = IDENTITY_NAMES[state.identity] || '请选择身份';
+      document.getElementById('myIdentityName').innerHTML = `<span class="my-identity-badge">${identityIcon} ${identityName}</span>`;
+
+      // 更新食材数量
+      const ingCount = state.myIngredients.length;
+      document.getElementById('myIngredientsCount').textContent = ingCount > 0 ? `已设置 ${ingCount} 种食材` : '设置已有食材';
+    }
+
     // ==================== Navigation ====================
     function goToStep(step) {
       // Hide all steps
@@ -2134,6 +2807,16 @@
       // Handle step-specific logic
       if (step === 'meal') {
         generateMeals();
+      }
+
+      // 如果跳转到推荐相关页面，自动切换到底部"推荐"tab
+      if (step === 'meal' || step === 'identity' || step === 'preference' || step === 'welcome') {
+        // 切换到底部推荐tab（但不隐藏偏好设置页等）
+        const recommendNav = document.querySelector('.nav-item[data-page="recommend"]');
+        if (recommendNav && !recommendNav.classList.contains('active')) {
+          recommendNav.classList.add('active');
+          document.querySelector('.nav-item[data-page="my"]').classList.remove('active');
+        }
       }
 
       // Scroll to top
@@ -2485,7 +3168,23 @@
           // 中期食谱只添加1次（相当于1/5概率）
           weightedPool.push(item);
         });
-        
+
+        // 如果用户有食材偏好，增加匹配食材的食谱权重
+        if (state.myIngredients.length > 0) {
+          const ingredientMatchedPool = [];
+          weightedPool.forEach(item => {
+            const matchCount = calculateIngredientMatch(item);
+            // 每个匹配食材增加2次权重
+            for (let i = 0; i < matchCount * 2; i++) {
+              ingredientMatchedPool.push(item);
+            }
+          });
+          // 合并到加权池
+          if (ingredientMatchedPool.length > 0) {
+            weightedPool.push(...ingredientMatchedPool);
+          }
+        }
+
         // 随机选择
         const idx = Math.floor(Math.random() * weightedPool.length);
         return weightedPool[idx];
@@ -2830,10 +3529,20 @@
       const isAdopted = adoptedList.some(r => r.id === dish.id);
       const adoptBtnClass = isAdopted ? 'adopt-btn adopted' : 'adopt-btn';
       const adoptBtnText = isAdopted ? '✓ 已采纳' : '采纳';
+
+      // 计算食材匹配度
+      const matchCount = calculateIngredientMatch(dish);
+      const matchBadgeHtml = state.myIngredients.length > 0 ? `
+        <span class="meal-match-badge" style="${matchCount > 0 ? '' : 'background:#f5f5f5;color:#999;'}">
+          ${matchCount > 0 ? '🏠 ' + matchCount + '个食材匹配' : '暂无匹配'}
+        </span>
+      ` : '';
+
       return `
         <div class="dish-section" data-dish-id="${dish.id}">
           <div class="dish-name">
             ${icon} ${dish.name}
+            ${matchBadgeHtml}
             <button class="${adoptBtnClass}" onclick="toggleAdopt('${dish.id}')" data-dish-id="${dish.id}">
               ${adoptBtnText}
             </button>
@@ -3066,6 +3775,14 @@
       if (e.target === calendarModal) {
         closeCalendar();
       }
+      const shareModal = document.getElementById('shareModal');
+      if (e.target === shareModal) {
+        closeShare();
+      }
+      const ingredientModal = document.getElementById('ingredientModal');
+      if (e.target === ingredientModal) {
+        closeIngredientLibrary();
+      }
     });
 
     // ==================== 日历功能 ====================
@@ -3272,6 +3989,219 @@
       modal.classList.add('show');
     }
 
+    // ==================== 食材库功能 ====================
+    // 打开食材库弹窗
+    function openIngredientLibrary() {
+      renderIngredientTags();
+      document.getElementById('ingredientModal').classList.add('show');
+      document.getElementById('ingredientInput').focus();
+    }
+
+    // 关闭食材库弹窗
+    function closeIngredientLibrary() {
+      document.getElementById('ingredientModal').classList.remove('show');
+    }
+
+    // 渲染食材标签
+    function renderIngredientTags() {
+      const tagsEl = document.getElementById('ingredientTags');
+      if (state.myIngredients.length === 0) {
+        tagsEl.innerHTML = '<div class="ingredient-empty">还没有添加食材，试试输入：鸡蛋、番茄、西兰花</div>';
+        return;
+      }
+
+      tagsEl.innerHTML = state.myIngredients.map((ing, idx) => `
+        <span class="ingredient-tag">
+          ${ing}
+          <button class="ingredient-tag-remove" onclick="removeIngredient(${idx})">×</button>
+        </span>
+      `).join('');
+    }
+
+    // 添加食材
+    function addIngredient() {
+      const input = document.getElementById('ingredientInput');
+      const value = input.value.trim();
+      if (!value) return;
+
+      // 支持逗号分隔多个食材
+      const ingredients = value.split(/[,，]/).map(s => s.trim()).filter(s => s);
+
+      ingredients.forEach(ing => {
+        if (ing && !state.myIngredients.includes(ing)) {
+          state.myIngredients.push(ing);
+        }
+      });
+
+      input.value = '';
+      saveState();
+      renderIngredientTags();
+      updateMealMatchBadges();
+
+      if (ingredients.length > 0) {
+        showToast(`已添加 ${ingredients.length} 个食材`);
+      }
+    }
+
+    // 回车添加食材
+    function handleIngredientKeypress(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addIngredient();
+      }
+    }
+
+    // 删除食材
+    function removeIngredient(index) {
+      state.myIngredients.splice(index, 1);
+      saveState();
+      renderIngredientTags();
+      updateMealMatchBadges();
+    }
+
+    // 清空所有食材
+    function clearAllIngredients() {
+      if (state.myIngredients.length === 0) return;
+      state.myIngredients = [];
+      saveState();
+      renderIngredientTags();
+      updateMealMatchBadges();
+      showToast('已清空食材库');
+    }
+
+    // 更新菜谱卡片的匹配标签
+    function updateMealMatchBadges() {
+      // 如果没有食材，隐藏所有匹配标签
+      document.querySelectorAll('.meal-match-badge').forEach(badge => {
+        badge.style.display = state.myIngredients.length === 0 ? 'none' : 'inline-flex';
+      });
+    }
+
+    // 计算食材匹配度
+    function calculateIngredientMatch(dish) {
+      if (!dish.ingredients || dish.ingredients.length === 0 || state.myIngredients.length === 0) {
+        return 0;
+      }
+
+      let matchCount = 0;
+      const dishIngredients = dish.ingredients.map(i => i.replace(/\s*\d+.*$/, '').trim().toLowerCase());
+
+      state.myIngredients.forEach(myIng => {
+        const myIngLower = myIng.toLowerCase();
+        dishIngredients.forEach(dishIng => {
+          if (dishIng.includes(myIngLower) || myIngLower.includes(dishIng)) {
+            matchCount++;
+          }
+        });
+      });
+
+      return matchCount;
+    }
+
+    // ==================== 分享功能 ====================
+    // 打开分享弹窗
+    function openShare() {
+      const adoptedList = getCurrentAdoptedRecipes();
+      if (adoptedList.length === 0) {
+        showToast('请先采纳至少一道菜');
+        return;
+      }
+
+      const shareBody = document.getElementById('shareBody');
+      const mealTypeNames = { breakfast: '早餐', lunch: '午餐', dinner: '晚餐', snack: '加餐' };
+
+      // 计算汇总备菜清单
+      const aggregated = aggregateIngredients(adoptedList);
+
+      // 生成HTML内容
+      let html = `
+        <div class="share-summary">
+          <div class="share-summary-title">🍽️ 妈咪厨房 · 餐食计划</div>
+          <div class="share-summary-count">共 ${adoptedList.length} 道菜谱</div>
+          <div class="share-shopping">
+            <div class="share-shopping-title">🛒 备菜清单</div>
+            <div class="share-shopping-items">
+              ${aggregated.map(item => `
+                <span class="share-shopping-item">${item.name}${item.weight > 0 ? ` ${item.weight}${item.unit}` : ''}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 添加每个菜谱详情
+      adoptedList.forEach(dish => {
+        const mealType = dish.mealType || 'lunch';
+        const mealTypeName = mealTypeNames[mealType] || '正餐';
+
+        html += `
+          <div class="share-dish">
+            <div class="share-dish-header">
+              <span class="share-dish-name">${dish.name}</span>
+              <span class="share-dish-type">${mealTypeName}</span>
+            </div>
+            <div class="share-dish-section">
+              <div class="share-dish-section-title">📝 制作方法</div>
+              <ol class="share-dish-steps">
+                ${(dish.steps || []).map((step, i) => `<li>${step}</li>`).join('')}
+              </ol>
+            </div>
+            <div class="share-dish-section">
+              <div class="share-dish-section-title">🥗 备菜清单</div>
+              <div class="share-dish-ingredients">
+                ${(dish.ingredients || []).map(ing => `<span class="share-dish-ingredient">${ing}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      shareBody.innerHTML = html;
+      document.getElementById('shareModal').classList.add('show');
+    }
+
+    // 关闭分享弹窗
+    function closeShare() {
+      document.getElementById('shareModal').classList.remove('show');
+    }
+
+    // 复制分享内容
+    function copyShareContent() {
+      const adoptedList = getCurrentAdoptedRecipes();
+      if (adoptedList.length === 0) return;
+
+      const mealTypeNames = { breakfast: '早餐', lunch: '午餐', dinner: '晚餐', snack: '加餐' };
+      const aggregated = aggregateIngredients(adoptedList);
+
+      // 生成纯文本内容
+      let text = '🍽️ 妈咪厨房 · 餐食计划\n';
+      text += `共 ${adoptedList.length} 道菜谱\n\n`;
+      text += '🛒 备菜清单：\n';
+      text += aggregated.map(item => `  · ${item.name}${item.weight > 0 ? ` ${item.weight}${item.unit}` : ''}`).join('\n');
+      text += '\n\n';
+
+      adoptedList.forEach(dish => {
+        const mealType = dish.mealType || 'lunch';
+        const mealTypeName = mealTypeNames[mealType] || '正餐';
+
+        text += `📖 ${dish.name}（${mealTypeName}）\n`;
+        text += '制作方法：\n';
+        (dish.steps || []).forEach((step, i) => {
+          text += `  ${i + 1}. ${step}\n`;
+        });
+        text += '备菜清单：\n';
+        text += `  ${(dish.ingredients || []).join('、')}\n`;
+        text += '\n';
+      });
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('已复制到剪贴板');
+        closeShare();
+      }).catch(() => {
+        showToast('复制失败，请手动选择复制');
+      });
+    }
+
     function updateDate() {
       const dateEl = document.getElementById('mealDate');
       const today = new Date();
@@ -3313,8 +4243,10 @@
           state.todayUsedRecipeIds = savedUsedRecipeIds;
           generateMeals(false, false); // 明日用新偏好生成
           state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          state.currentMeals = state.todayMeals;
-          state.usedRecipeIds = savedUsedRecipeIds;
+          state.tomorrowUsedRecipeIds = [...state.usedRecipeIds];
+          // 切换到明日tab：显示明日菜谱
+          state.currentMeals = state.tomorrowMeals;
+          state.usedRecipeIds = [...state.tomorrowUsedRecipeIds];
           lastPreferencesVersion = currentVersion;
         } else if (!state.tomorrowMeals) {
           // 偏好未改变，明日菜谱为空：保存当前作为今日，生成明日
@@ -3323,13 +4255,18 @@
           state.todayUsedRecipeIds = savedUsedRecipeIds;
           generateMeals(false, false); // 明日用新偏好生成
           state.tomorrowMeals = JSON.parse(JSON.stringify(state.currentMeals));
-          state.currentMeals = state.todayMeals;
-          state.usedRecipeIds = savedUsedRecipeIds;
+          state.tomorrowUsedRecipeIds = [...state.usedRecipeIds];
+          // 切换到明日tab：显示明日菜谱
+          state.currentMeals = state.tomorrowMeals;
+          state.usedRecipeIds = [...state.tomorrowUsedRecipeIds];
         } else {
           // 偏好未改变，明日菜谱已存在：直接恢复明日缓存
           state.currentMeals = state.tomorrowMeals;
+          // 恢复明日使用的菜谱ID列表（用于避免重复）
           if (state.tomorrowUsedRecipeIds) {
             state.usedRecipeIds = [...state.tomorrowUsedRecipeIds];
+          } else {
+            state.usedRecipeIds = [];
           }
         }
         // 切换采纳列表到明日
@@ -3348,8 +4285,11 @@
         } else if (state.todayMeals) {
           // 偏好未改变，直接恢复今日缓存
           state.currentMeals = state.todayMeals;
+          // 恢复今日使用的菜谱ID列表（用于避免重复）
           if (state.todayUsedRecipeIds) {
             state.usedRecipeIds = [...state.todayUsedRecipeIds];
+          } else {
+            state.usedRecipeIds = [];
           }
         }
         // 切换采纳列表到今日

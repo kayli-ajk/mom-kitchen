@@ -273,13 +273,23 @@
     /* Welcome Screen */
     .welcome {
       text-align: center;
-      padding: 60px 20px;
+      padding: 40px 20px;
       animation: fadeIn 0.5s ease;
     }
 
     .welcome-emoji {
       font-size: 80px;
       margin-bottom: 24px;
+    }
+
+    .welcome-illustration {
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .welcome-illustration svg {
+      filter: drop-shadow(0 4px 12px rgba(245, 169, 98, 0.15));
+      border-radius: 20px;
     }
 
     .welcome h1 {
@@ -1929,8 +1939,75 @@
 
       <!-- Welcome Page -->
       <section class="welcome step-page active" id="welcomePage">
-        <div class="welcome-emoji">🤰</div>
-        <h1>欢迎使用孕味餐食</h1>
+        <div class="welcome-illustration">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="200" height="147">
+            <defs>
+              <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFF9F5"/>
+                <stop offset="100%" style="stop-color:#FFE8D6"/>
+              </linearGradient>
+              <linearGradient id="peachGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFECD2"/>
+                <stop offset="100%" style="stop-color:#FCB69F"/>
+              </linearGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="300" height="220" fill="url(#bgGrad)" rx="20"/>
+            <!-- Main circular frame -->
+            <ellipse cx="150" cy="110" rx="110" ry="95" fill="url(#peachGrad)" opacity="0.6"/>
+            <!-- Decorative circles -->
+            <circle cx="40" cy="35" r="15" fill="#FFD93D" opacity="0.4"/>
+            <circle cx="270" cy="45" r="18" fill="#7ECBC3" opacity="0.3"/>
+            <circle cx="25" cy="180" r="22" fill="#C9A0DC" opacity="0.25"/>
+            <circle cx="280" cy="175" r="14" fill="#FFB6C1" opacity="0.35"/>
+            <!-- Parent figure -->
+            <g>
+              <ellipse cx="115" cy="135" rx="38" ry="42" fill="#7ECBC3"/>
+              <ellipse cx="115" cy="75" rx="28" ry="30" fill="#FFE4C4"/>
+              <ellipse cx="115" cy="50" rx="30" ry="20" fill="#5D4037"/>
+              <ellipse cx="88" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="142" cy="65" rx="10" ry="15" fill="#5D4037"/>
+              <ellipse cx="107" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <ellipse cx="123" cy="72" rx="3" ry="3.5" fill="#5D4037"/>
+              <path d="M108 85 Q115 90 122 85" stroke="#E57373" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="100" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="130" cy="78" rx="4" ry="3" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="80" cy="145" rx="12" ry="20" fill="#7ECBC3"/>
+              <ellipse cx="150" cy="145" rx="12" ry="20" fill="#7ECBC3"/>
+              <ellipse cx="65" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+              <ellipse cx="165" cy="170" rx="10" ry="12" fill="#FFE4C4"/>
+            </g>
+            <!-- Child figure -->
+            <g>
+              <ellipse cx="150" cy="148" rx="25" ry="30" fill="#FFD93D"/>
+              <ellipse cx="150" cy="112" rx="22" ry="24" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="92" rx="24" ry="15" fill="#8D6E63"/>
+              <ellipse cx="158" cy="88" rx="6" ry="8" fill="#8D6E63"/>
+              <ellipse cx="144" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <ellipse cx="156" cy="110" rx="2.5" ry="3" fill="#5D4037"/>
+              <path d="M146 120 Q150 124 154 120" stroke="#E57373" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="137" cy="114" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+              <ellipse cx="163" cy="114" rx="4" ry="2.5" fill="#FFB6C1" opacity="0.5"/>
+            </g>
+            <!-- Baby figure -->
+            <g>
+              <ellipse cx="150" cy="178" rx="18" ry="20" fill="#C9A0DC"/>
+              <ellipse cx="150" cy="163" rx="14" ry="16" fill="#FFE4C4"/>
+              <ellipse cx="150" cy="152" rx="12" ry="8" fill="#FFCC80"/>
+              <ellipse cx="155" cy="149" rx="4" ry="5" fill="#FFCC80"/>
+              <circle cx="145" cy="160" r="2" fill="#5D4037"/>
+              <circle cx="155" cy="160" r="2" fill="#5D4037"/>
+              <path d="M146 167 Q150 170 154 167" stroke="#E57373" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Hearts -->
+            <g fill="#FFB6C1" opacity="0.7">
+              <path d="M240 55 C237 52, 233 52, 233 56 C233 60, 240 65, 240 65 C240 65, 247 60, 247 56 C247 52, 243 52, 240 55 Z"/>
+              <path d="M55 60 C53 58, 50 58, 50 61 C50 64, 55 67, 55 67 C55 67, 60 64, 60 61 C60 58, 57 58, 55 60 Z" opacity="0.6"/>
+              <path d="M260 100 C258 98, 255 98, 255 101 C255 103, 260 106, 260 106 C260 106, 265 103, 265 101 C265 98, 262 98, 260 100 Z" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+        <h1>欢迎使用妈咪厨房</h1>
         <p>为准妈妈和宝宝准备的<br>每日营养餐食推荐</p>
         <button class="btn btn-primary" onclick="goToStep('identity')" style="max-width: 280px; margin: 0 auto;">
           开始使用

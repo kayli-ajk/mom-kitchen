@@ -2041,9 +2041,17 @@
           meals.snack = { main: snackSelected, sides: [] };
         } else {
           // 3餐：早餐 + 午餐 + 晚餐
-          // 早餐：从snack/lunch类型中选1道（作为粥/糊类）
-          const breakfastRecipes = filtered.filter(r => r.mealType === 'snack' || r.mealType === 'lunch');
-          const breakfastSelected = pickRecipes(1, breakfastRecipes);
+          // 早餐：从snack/lunch类型中选1道（只选粥/面/糊/饼类主食）
+          const breakfastPool = filtered.filter(r => r.mealType === 'snack' || r.mealType === 'lunch');
+          // 过滤出适合早餐的主食类：粥、面、糊、饼、蒸糕等
+          const breakfastRecipes = breakfastPool.filter(r => {
+            const name = r.name || '';
+            const breakfastKeywords = ['粥', '面', '糊', '饼', '蒸糕', '蒸饼', '米糊', '蛋饼', '松饼', '蒸包'];
+            return breakfastKeywords.some(k => name.includes(k));
+          });
+          // 如果筛选后数量太少，放宽条件
+          const finalBreakfastPool = breakfastRecipes.length > 0 ? breakfastRecipes : breakfastPool;
+          const breakfastSelected = pickRecipes(1, finalBreakfastPool);
           meals.breakfast = { main: breakfastSelected, sides: [] };
           
           // 午餐：从lunch类型中选2道（1主食 + 1菜品）
