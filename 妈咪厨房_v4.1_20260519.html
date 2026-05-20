@@ -877,6 +877,15 @@
       font-size: 13px;
     }
 
+    .ingredient.ingredient-owned {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .ingredient.ingredient-owned::before {
+      content: '✓ ';
+    }
+
     /* Action Bar */
     .action-bar {
       position: fixed;
@@ -1275,6 +1284,15 @@
       border-radius: 12px;
       font-size: 12px;
       color: #666;
+    }
+
+    .shopping-item-owned {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .shopping-item-owned::before {
+      content: '✓ ';
     }
 
     /* 采纳按钮样式 */
@@ -2292,16 +2310,15 @@
         <!-- 采纳汇总区域 -->
         <div id="adoptedSummary" class="adopted-summary" style="display: none;">
           <div class="adopted-header">
-            <span class="adopted-title">🍽️ 已采纳<span id="adoptedCount" class="adopted-count">0</span>道菜</span>
+            <span class="adopted-title">已采纳<span id="adoptedCount" class="adopted-count">0</span>道菜</span>
             <div class="adopted-actions">
-              <button class="btn btn-sm btn-share" onclick="openShare()">📤 分享</button>
-              <button class="btn btn-sm" onclick="adoptAllVisible()">采纳全部</button>
+              <button class="btn btn-sm btn-share" onclick="openShare()">分享</button>
               <button class="btn btn-sm btn-secondary" onclick="clearAllAdopted()">清空</button>
             </div>
           </div>
           <div id="adoptedList" class="adopted-list"></div>
           <div class="shopping-list">
-            <div class="shopping-list-header">🛒 备菜清单</div>
+            <div class="shopping-list-header">备菜清单</div>
             <div id="shoppingListContent" class="shopping-list-content"></div>
           </div>
         </div>
@@ -2391,14 +2408,14 @@
   <div class="share-modal" id="shareModal">
     <div class="share-content">
       <div class="share-header">
-        <div class="share-title">📤 分享菜谱</div>
+        <div class="share-title">分享菜谱</div>
         <button class="share-close" onclick="closeShare()">×</button>
       </div>
       <div class="share-body" id="shareBody">
         <!-- 分享内容由JS动态生成 -->
       </div>
       <div class="share-footer">
-        <button class="share-copy-btn" onclick="copyShareContent()">📋 复制文本</button>
+        <button class="share-copy-btn" onclick="copyShareContent()">复制文本</button>
       </div>
     </div>
   </div>
@@ -3777,14 +3794,14 @@
           // 主菜
           if (mealData.main && mealData.main.length > 0) {
             mealData.main.forEach((dish, idx) => {
-              dishesHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+              dishesHtml += createDishHtml(dish);
             });
           }
           
           // 配菜
           if (mealData.sides && mealData.sides.length > 0) {
             mealData.sides.forEach(dish => {
-              dishesHtml += createDishHtml(dish, '🥦');
+              dishesHtml += createDishHtml(dish);
             });
           }
 
@@ -3810,12 +3827,12 @@
         if (state.currentMeals.breakfast) {
           if (state.currentMeals.breakfast.main) {
             state.currentMeals.breakfast.main.forEach((dish, idx) => {
-              breakfastHtml += createDishHtml(dish, idx === 0 ? '🍚' : '🍽️');
+              breakfastHtml += createDishHtml(dish);
             });
           }
           if (state.currentMeals.breakfast.sides) {
             state.currentMeals.breakfast.sides.forEach(dish => {
-              breakfastHtml += createDishHtml(dish, '🥢');
+              breakfastHtml += createDishHtml(dish);
             });
           }
         }
@@ -3837,11 +3854,11 @@
         if (state.currentMeals.lunch) {
           if (state.currentMeals.lunch.main) {
             state.currentMeals.lunch.main.forEach((dish, idx) => {
-              lunchHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+              lunchHtml += createDishHtml(dish);
             });
           }
           if (state.currentMeals.lunch.soup) {
-            lunchHtml += createDishHtml(state.currentMeals.lunch.soup, '🍲');
+            lunchHtml += createDishHtml(state.currentMeals.lunch.soup);
           }
         }
         lunchCard.innerHTML = `
@@ -3861,7 +3878,7 @@
         let dinnerHtml = '';
         if (state.currentMeals.dinner && state.currentMeals.dinner.main) {
           state.currentMeals.dinner.main.forEach((dish, idx) => {
-            dinnerHtml += createDishHtml(dish, idx === 0 ? '🍽️' : '🥗');
+            dinnerHtml += createDishHtml(dish);
           });
         }
         dinnerCard.innerHTML = `
@@ -3885,7 +3902,7 @@
               <span class="meal-time">${MEAL_TYPE_TIMES.snack}</span>
             </div>
             <div class="meal-card-body">
-              ${createDishHtml(state.currentMeals.snack, '🍪')}
+              ${createDishHtml(state.currentMeals.snack)}
             </div>
           `;
           container.appendChild(snackCard);
@@ -3897,7 +3914,7 @@
     }
 
     // 创建单个菜品的HTML（包含独立制作方法和备菜清单）
-    function createDishHtml(dish, icon = '🍽️') {
+    function createDishHtml(dish) {
       if (!dish) return '';
       const adoptedList = getCurrentAdoptedRecipes();
       const isAdopted = adoptedList.some(r => r.id === dish.id);
@@ -3908,14 +3925,22 @@
       const matchCount = calculateIngredientMatch(dish);
       const matchBadgeHtml = state.myIngredients.length > 0 ? `
         <span class="meal-match-badge" style="${matchCount > 0 ? '' : 'background:#f5f5f5;color:#999;'}">
-          ${matchCount > 0 ? '🏠 ' + matchCount + '个食材匹配' : '暂无匹配'}
+          ${matchCount > 0 ? matchCount + '个食材匹配' : '暂无匹配'}
         </span>
       ` : '';
+
+      // 区分已有食材和需购买食材
+      const myIngs = state.myIngredients || [];
+      const ingredientHtml = dish.ingredients.map(i => {
+        const ingName = i.replace(/\s*[\d.]+\s*(g|ml|克|片|颗|个|只|根|勺|少许|适量|瓣|段|把|条|杯|汤匙|茶匙|根|粒).*$/i, '').trim();
+        const isOwned = myIngs.some(my => ingName.includes(my) || my.includes(ingName));
+        return `<span class="ingredient${isOwned ? ' ingredient-owned' : ''}">${i}</span>`;
+      }).join('');
 
       return `
         <div class="dish-section" data-dish-id="${dish.id}">
           <div class="dish-name">
-            ${icon} ${dish.name}
+            ${dish.name}
             ${matchBadgeHtml}
             <button class="${adoptBtnClass}" onclick="toggleAdopt('${dish.id}')" data-dish-id="${dish.id}">
               ${adoptBtnText}
@@ -3930,7 +3955,7 @@
           </ol>
           <div class="meal-section-title">备菜清单</div>
           <div class="ingredients">
-            ${dish.ingredients.map(i => `<span class="ingredient">${i}</span>`).join('')}
+            ${ingredientHtml}
           </div>
         </div>
       `;
@@ -4105,13 +4130,16 @@
         </div>
       `).join('');
 
-      // 汇总备菜清单
+      // 汇总备菜清单（区分已有食材）
+      const myIngs = state.myIngredients || [];
       const aggregated = aggregateIngredients(adoptedList);
       shoppingEl.innerHTML = aggregated.map(item => {
+        const isOwned = myIngs.some(my => item.name.includes(my) || my.includes(item.name));
+        const cls = isOwned ? 'shopping-item shopping-item-owned' : 'shopping-item';
         if (item.weight > 0) {
-          return `<span class="shopping-item">${item.name} ${item.weight}${item.unit}</span>`;
+          return `<span class="${cls}">${item.name} ${item.weight}${item.unit}</span>`;
         } else {
-          return `<span class="shopping-item">${item.name}</span>`;
+          return `<span class="${cls}">${item.name}</span>`;
         }
       }).join('');
     }
@@ -4129,7 +4157,12 @@
 
       titleEl.textContent = dish.name;
       stepsEl.innerHTML = dish.steps.map(s => `<li>${s}</li>`).join('');
-      ingredientsEl.innerHTML = dish.ingredients.map(i => `<span class="ingredient">${i}</span>`).join('');
+      const myIngs = state.myIngredients || [];
+      ingredientsEl.innerHTML = dish.ingredients.map(i => {
+        const ingName = i.replace(/\s*[\d.]+\s*(g|ml|克|片|颗|个|只|根|勺|少许|适量|瓣|段|把|条|杯|汤匙|茶匙|根|粒).*$/i, '').trim();
+        const isOwned = myIngs.some(my => ingName.includes(my) || my.includes(ingName));
+        return `<span class="ingredient${isOwned ? ' ingredient-owned' : ''}">${i}</span>`;
+      }).join('');
 
       modal.classList.add('show');
     }
@@ -4490,10 +4523,10 @@
       // 生成HTML内容
       let html = `
         <div class="share-summary">
-          <div class="share-summary-title">🍽️ 妈咪厨房 · 餐食计划</div>
+          <div class="share-summary-title">妈咪厨房 · 餐食计划</div>
           <div class="share-summary-count">共 ${adoptedList.length} 道菜谱</div>
           <div class="share-shopping">
-            <div class="share-shopping-title">🛒 备菜清单</div>
+            <div class="share-shopping-title">备菜清单</div>
             <div class="share-shopping-items">
               ${aggregated.map(item => `
                 <span class="share-shopping-item">${item.name}${item.weight > 0 ? ` ${item.weight}${item.unit}` : ''}</span>
@@ -4515,13 +4548,13 @@
               <span class="share-dish-type">${mealTypeName}</span>
             </div>
             <div class="share-dish-section">
-              <div class="share-dish-section-title">📝 制作方法</div>
+              <div class="share-dish-section-title">制作方法</div>
               <ol class="share-dish-steps">
                 ${(dish.steps || []).map((step, i) => `<li>${step}</li>`).join('')}
               </ol>
             </div>
             <div class="share-dish-section">
-              <div class="share-dish-section-title">🥗 备菜清单</div>
+              <div class="share-dish-section-title">备菜清单</div>
               <div class="share-dish-ingredients">
                 ${(dish.ingredients || []).map(ing => `<span class="share-dish-ingredient">${ing}</span>`).join('')}
               </div>
@@ -4548,9 +4581,9 @@
       const aggregated = aggregateIngredients(adoptedList);
 
       // 生成纯文本内容
-      let text = '🍽️ 妈咪厨房 · 餐食计划\n';
+      let text = '妈咪厨房 · 餐食计划\n';
       text += `共 ${adoptedList.length} 道菜谱\n\n`;
-      text += '🛒 备菜清单：\n';
+      text += '备菜清单：\n';
       text += aggregated.map(item => `  · ${item.name}${item.weight > 0 ? ` ${item.weight}${item.unit}` : ''}`).join('\n');
       text += '\n\n';
 
@@ -4558,7 +4591,7 @@
         const mealType = dish.mealType || 'lunch';
         const mealTypeName = mealTypeNames[mealType] || '正餐';
 
-        text += `📖 ${dish.name}（${mealTypeName}）\n`;
+        text += `${dish.name}（${mealTypeName}）\n`;
         text += '制作方法：\n';
         (dish.steps || []).forEach((step, i) => {
           text += `  ${i + 1}. ${step}\n`;
