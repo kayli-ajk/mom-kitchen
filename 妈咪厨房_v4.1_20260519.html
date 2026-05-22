@@ -3545,7 +3545,8 @@
               prefs[stateKey].push(value);
             }
           } else {
-            prefs[stateKey] = tag.dataset.value;
+            const val = tag.dataset.value;
+            prefs[stateKey] = (val !== '' && !isNaN(Number(val))) ? Number(val) : val;
           }
           updatePreferenceTags();
         });
@@ -4067,7 +4068,7 @@
           suggestMeals = 3;
           suggestReason = '可与家人同餐，每天3顿正餐';
         }
-        const actualMeals = state.preferences.babyMealsPerDay || 1;
+        const actualMeals = parseInt(state.preferences.babyMealsPerDay) || 1;
         if (actualMeals !== suggestMeals) {
           const tipCard = document.createElement('div');
           tipCard.className = 'meal-card';
