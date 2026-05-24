@@ -2235,6 +2235,104 @@
       background: var(--primary-dark);
     }
 
+    .about-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .about-modal.show {
+      display: flex;
+    }
+
+    .about-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .about-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 20px 0;
+      margin-bottom: 4px;
+    }
+
+    .about-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .about-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .about-body {
+      padding: 12px 20px 8px;
+    }
+
+    .about-section {
+      margin-bottom: 16px;
+    }
+
+    .about-section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .about-section p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin: 0 0 8px 0;
+    }
+
+    .about-footer {
+      padding: 0 20px 20px;
+    }
+
+    .about-ok-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: var(--primary);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* 关于菜单图标 */
+    .my-menu-icon.about {
+      background: #F0F0FF;
+    }
+
+    .my-menu-icon.about svg {
+      stroke: #5B5FC7;
+    }
+
     /* 步骤页面标题栏 */
     .step-header {
       display: flex;
@@ -2377,6 +2475,20 @@
             <div class="my-menu-info">
               <div class="my-menu-title">日历记录</div>
               <div class="my-menu-desc">采纳菜品自动记录到日历，支持翻月回顾，查看每日饮食安排</div>
+            </div>
+          </div>
+
+          <div class="my-menu-item" onclick="openAbout()">
+            <div class="my-menu-icon about">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </div>
+            <div class="my-menu-info">
+              <div class="my-menu-title">关于</div>
+              <div class="my-menu-desc">版本信息、隐私说明与使用须知</div>
             </div>
           </div>
         </div>
@@ -2750,6 +2862,36 @@
       </div>
       <div class="share-footer">
         <button class="share-copy-btn" onclick="copyShareContent()">复制文本</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关于弹窗 -->
+  <div class="about-modal" id="aboutModal">
+    <div class="about-content">
+      <div class="about-header">
+        <div class="about-title">关于妈咪厨房</div>
+        <button class="about-close" onclick="closeAbout()">×</button>
+      </div>
+      <div class="about-body">
+        <div class="about-section">
+          <div class="about-section-title">📋 关于</div>
+          <p>妈咪厨房 v1.0 —— 孕期、产后及辅食阶段科学营养餐食推荐工具。</p>
+          <p>根据您的身份（孕妈妈 / 产后妈妈 / 宝宝辅食）及饮食偏好，每日自动生成个性化餐食方案，一换即新。</p>
+        </div>
+        <div class="about-section">
+          <div class="about-section-title">🔒 隐私说明</div>
+          <p>所有数据（身份、偏好、食材清单、采纳记录等）仅存储在您的设备本地，不上传至任何服务器。</p>
+          <p>清除浏览器缓存或数据后，相关信息将被删除，无法恢复。</p>
+        </div>
+        <div class="about-section">
+          <div class="about-section-title">📄 使用须知</div>
+          <p>本工具提供的餐食建议及营养信息仅供参考，不构成医疗建议。</p>
+          <p>如有特殊健康状况、过敏史或饮食限制，请咨询专业医生或营养师。孕期饮食请遵医嘱。</p>
+        </div>
+      </div>
+      <div class="about-footer">
+        <button class="about-ok-btn" onclick="closeAbout()">我知道了</button>
       </div>
     </div>
   </div>
@@ -5037,6 +5179,14 @@
     // 关闭分享弹窗
     function closeShare() {
       document.getElementById('shareModal').classList.remove('show');
+    }
+
+    function openAbout() {
+      document.getElementById('aboutModal').classList.add('show');
+    }
+
+    function closeAbout() {
+      document.getElementById('aboutModal').classList.remove('show');
     }
 
     // 复制分享内容
